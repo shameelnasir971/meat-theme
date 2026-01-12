@@ -7,16 +7,6 @@
       "content": "Layout Settings"
     },
     {
-      "type": "range",
-      "id": "header_top_space",
-      "min": 0,
-      "max": 80,
-      "step": 1,
-      "unit": "px",
-      "label": "Header Top Space (Margin)",
-      "default": 20
-    },
-    {
       "type": "link_list",
       "id": "main_menu",
       "label": "Select Menu",
@@ -56,7 +46,7 @@
       "type": "color",
       "id": "scrolled_bg",
       "label": "Scrolled Background Color",
-      "default": "#d32f2f"
+      "default": "#d32f2f" 
     }
   ],
   "presets": [
@@ -70,51 +60,48 @@
 <!-- External Resources -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<header class="header-main-pro" id="headerSticky">
-  <div class="header-inner-wrap">
-    
-    <!-- 1. LEFT: NAVIGATION -->
-    <nav class="nav-left-pro">
-      <ul class="menu-list">
-        {% for link in section.settings.main_menu.links %}
-          <li class="menu-item">
-            <a href="{{ link.url }}" class="link-pro">
-              {{ link.title }}
-              {% if link.links != blank %}
-                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
-              {% endif %}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-      <!-- Mobile Toggle Icon (Visible on small screens) -->
-      <div class="mobile-menu-trigger" id="openMobileMenu">
-        <i class="fa-solid fa-bars-staggered"></i>
+<div class="header-wrapper-pro">
+  <header class="header-main-pro" id="headerSticky">
+    <div class="header-inner-wrap">
+      
+      <!-- LEFT: NAVIGATION -->
+      <nav class="nav-left-pro">
+        <div class="mobile-menu-trigger" id="openMobileMenu">
+          <i class="fa-solid fa-bars-staggered"></i>
+        </div>
+        <ul class="menu-list">
+          {% for link in section.settings.main_menu.links %}
+            <li class="menu-item">
+              <a href="{{ link.url }}" class="link-pro">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <!-- CENTER: LOGO -->
+      <div class="logo-center-pro">
+        <a href="{{ routes.root_url }}" class="logo-link-pro">
+          <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Logo" class="meat-logo-icon" style="width: {{ section.settings.logo_size }}px;">
+          <h1 class="meat-logo-text">{{ section.settings.logo_text }}</h1>
+        </a>
       </div>
-    </nav>
 
-    <!-- 2. CENTER: LOGO (Icon above Text) -->
-    <div class="logo-center-pro">
-      <a href="{{ routes.root_url }}" class="logo-link-pro">
-        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Meat Shop Icon" class="meat-logo-icon" style="width: {{ section.settings.logo_size }}px;">
-        <h1 class="meat-logo-text">{{ section.settings.logo_text }}</h1>
-      </a>
+      <!-- RIGHT: ICONS -->
+      <div class="icons-right-pro">
+        <a href="{{ routes.search_url }}" class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}" class="icon-btn hide-mob"><i class="fa-regular fa-user"></i></a>
+        {% endif %}
+        <a href="{{ routes.cart_url }}" class="icon-btn cart-wrap">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count-badge">{{ cart.item_count }}</span>
+        </a>
+      </div>
     </div>
-
-    <!-- 3. RIGHT: ICONS -->
-    <div class="icons-right-pro">
-      <a href="{{ routes.search_url }}" class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
-      {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="icon-btn hide-mob"><i class="fa-regular fa-user"></i></a>
-      {% endif %}
-      <a href="{{ routes.cart_url }}" class="icon-btn cart-wrap">
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="cart-count-badge">{{ cart.item_count }}</span>
-      </a>
-    </div>
-
-  </div>
-</header>
+  </header>
+</div>
 
 <!-- MOBILE DRAWER -->
 <div class="mobile-overlay-pro" id="mobileOverlay"></div>
@@ -133,28 +120,39 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600&display=swap');
 
-  .header-main-pro {
-    position: fixed;
-    top: {{ section.settings.header_top_space }}px; /* Custom Top Margin */
-    left: 0;
+  /* Wrapper to prevent jumping when becoming fixed */
+  .header-wrapper-pro {
     width: 100%;
-    z-index: 999;
-    padding: 15px 0;
-    background: transparent;
-    transition: all 0.4s ease;
+    position: absolute; /* Default state: overlay on top bar/hero */
+    top: auto;
+    z-index: 1000;
+  }
+
+  .header-main-pro {
+    width: 100%;
+    padding: 20px 0;
+    background: transparent !important; /* Force transparent at top */
+    transition: background 0.4s ease, padding 0.3s ease, transform 0.3s ease;
     font-family: 'Inter', sans-serif;
   }
 
-  /* Scrolled Sticky Effect */
+  /* SCROLLED STATE: BACKGROUND RED */
   .header-main-pro.is-scrolled {
+    position: fixed;
     top: 0;
-    background-color: {{ section.settings.scrolled_bg }};
+    left: 0;
+    background-color: {{ section.settings.scrolled_bg }} !important; /* Set to Red in settings */
     padding: 10px 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  /* Admin bar handling */
+  .shopify-admin-bar .header-main-pro.is-scrolled {
+    top: 40px;
   }
 
   .header-inner-wrap {
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 40px;
     display: grid;
@@ -162,78 +160,73 @@
     align-items: center;
   }
 
-  /* Left Nav */
+  /* Navigation */
   .menu-list { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
-  .link-pro {
-    color: {{ section.settings.text_color }};
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .dropdown-arrow { font-size: 10px; opacity: 0.8; }
-  .link-pro:hover { opacity: 0.7; }
-
-  /* Center Logo */
-  .logo-link-pro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    gap: 5px;
-  }
-  .meat-logo-text {
-    font-family: 'Oswald', sans-serif;
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0;
-    letter-spacing: 1px;
+  .link-pro { 
+    color: {{ section.settings.text_color }}; 
+    text-decoration: none; 
+    font-size: 15px; 
+    font-weight: 600; 
     text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
-  /* Right Icons */
+  /* Logo */
+  .logo-link-pro { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-decoration: none;
+    margin-top: -5px;
+  }
+  .meat-logo-icon { margin-bottom: 5px; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3)); }
+  .meat-logo-text { 
+    font-family: 'Oswald', sans-serif; 
+    color: {{ section.settings.text_color }}; 
+    font-size: 26px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    margin: 0; 
+    line-height: 1; 
+  }
+
+  /* Icons */
   .icons-right-pro { display: flex; gap: 20px; justify-content: flex-end; align-items: center; }
-  .icon-btn { color: {{ section.settings.text_color }}; text-decoration: none; font-size: 18px; transition: 0.3s; }
+  .icon-btn { color: {{ section.settings.text_color }}; text-decoration: none; font-size: 20px; }
   .cart-wrap { position: relative; }
-  .cart-count-badge {
-    position: absolute; top: -8px; right: -10px;
-    background: #d32f2f; color: #fff;
-    font-size: 10px; width: 16px; height: 16px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
+  .cart-count-badge { 
+    position: absolute; 
+    top: -8px; 
+    right: -10px; 
+    background: #000; 
+    color: #fff; 
+    font-size: 10px; 
+    width: 18px; 
+    height: 18px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: 700; 
   }
 
   .mobile-menu-trigger { display: none; color: #fff; font-size: 22px; cursor: pointer; }
 
-  /* Mobile Sidebar */
-  .mobile-drawer-pro {
-    position: fixed; top: 0; left: -310px; width: 300px; height: 100vh;
-    background: #fff; z-index: 10001; transition: 0.4s; padding: 30px;
-  }
-  .mobile-drawer-pro.active { left: 0; }
-  .mobile-overlay-pro {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); z-index: 10000; display: none;
-  }
-  .drawer-header { display: flex; justify-content: space-between; font-family: 'Oswald', sans-serif; margin-bottom: 30px; }
-  .drawer-links { list-style: none; padding: 0; }
-  .drawer-links li { border-bottom: 1px solid #eee; }
-  .drawer-links a { display: block; padding: 15px 0; color: #111; text-decoration: none; font-weight: 600; }
-
-  /* Responsive Adjustments */
   @media (max-width: 991px) {
     .menu-list { display: none; }
     .mobile-menu-trigger { display: block; }
     .header-inner-wrap { grid-template-columns: auto 1fr auto; padding: 0 20px; }
     .meat-logo-text { font-size: 20px; }
   }
-  @media (max-width: 480px) {
-    .hide-mob { display: none; }
-  }
+
+  /* Mobile Drawer */
+  .mobile-drawer-pro { position: fixed; top: 0; left: -310px; width: 300px; height: 100vh; background: #111; z-index: 10001; transition: 0.4s; padding: 30px; }
+  .mobile-drawer-pro.active { left: 0; }
+  .mobile-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; display: none; }
+  .drawer-header { display: flex; justify-content: space-between; color: #fff; font-weight: bold; margin-bottom: 20px; }
+  .drawer-links { list-style: none; padding: 0; }
+  .drawer-links li { margin-bottom: 15px; }
+  .drawer-links a { color: #fff; text-decoration: none; font-size: 18px; text-transform: uppercase; }
 </style>
 
 <script>
@@ -243,10 +236,10 @@
     const closeBtn = document.getElementById('closeMobileMenu');
     const drawer = document.getElementById('mobileDrawer');
     const overlay = document.getElementById('mobileOverlay');
-    const topMargin = {{ section.settings.header_top_space }};
 
     window.addEventListener('scroll', () => {
-      if (window.scrollY > (topMargin + 10)) {
+      // Jab 50px se zyada scroll ho to red background aye
+      if (window.scrollY > 50) {
         header.classList.add('is-scrolled');
       } else {
         header.classList.remove('is-scrolled');
