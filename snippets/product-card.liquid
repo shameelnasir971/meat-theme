@@ -1,0 +1,66 @@
+<div class="product-card card">
+  <div class="product-image">
+    <img 
+      src="{{ product_image }}" 
+      alt="{{ product_title }}" 
+      loading="lazy"
+      class="card-img"
+    >
+    {% if product_badge %}
+      <span class="product-badge badge badge-primary">
+        {{ product_badge }}
+      </span>
+    {% endif %}
+  </div>
+  
+  <div class="product-info">
+    <h3 class="product-title">{{ product_title }}</h3>
+    
+    {% if product_description %}
+      <p class="product-description">{{ product_description }}</p>
+    {% endif %}
+    
+    <div class="product-price">{{ product_price }}</div>
+    
+    <button class="btn btn-primary add-to-cart" 
+            data-product-id="{{ product_id }}"
+            data-product-name="{{ product_title }}">
+      <i class="fas fa-shopping-cart"></i> Add to Cart
+    </button>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    height: 100%;
+  }
+  
+  .product-info {
+    padding: 1.5rem;
+  }
+  
+  .product-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: 0.75rem;
+  }
+  
+  .product-description {
+    font-size: var(--font-size-base);
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .product-price {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .product-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+</style>

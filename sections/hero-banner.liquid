@@ -1,0 +1,279 @@
+{%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+
+  .hero-section-{{ section.id }} {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 140px 0 80px;
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | img_url: "2000x" }}');
+    {% else %}
+      background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+    {% endif %}
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  /* Main background darkened overlay */
+  .hero-section-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 1;
+  }
+
+  .hero-container-{{ section.id }} {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* Left Content */
+  .hero-main-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(40px, 6vw, 85px);
+    line-height: 1.1;
+    margin-bottom: 25px;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+
+  .hero-subtext {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 550px;
+    opacity: 0.95;
+  }
+
+  .hero-action-btns {
+    display: flex;
+    gap: 20px;
+  }
+
+  .btn-primary-hero, .btn-secondary-hero {
+    padding: 18px 45px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.3s;
+    font-size: 16px;
+    display: inline-block;
+  }
+
+  .btn-primary-hero { background-color: #d32f2f; color: #fff; }
+  .btn-secondary-hero { background-color: #fff; color: #d32f2f; }
+  .btn-primary-hero:hover { background-color: #b71c1c; transform: translateY(-3px); }
+
+  /* RIGHT SIDE - DARK TRANSPARENT BOX (No Blur) */
+  .hero-glass-card {
+    background: rgba(0, 0, 0, 0.45); /* Black transparent background */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* Subtle white border */
+    padding: 45px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    /* backdrop-filter removed as requested for no blur */
+  }
+
+  .glass-tagline {
+    font-size: 15px;
+    color: #fff;
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 400;
+  }
+
+  .glass-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 38px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .glass-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  .glass-newsletter-form {
+    display: flex;
+    gap: 12px;
+  }
+
+  .glass-input {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #fff; /* Solid white border like screenshot */
+    padding: 14px 18px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+  }
+
+  .glass-input::placeholder { color: rgba(255,255,255,0.8); }
+
+  .glass-submit-btn {
+    background: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .glass-submit-btn:hover { background: #b71c1c; }
+
+  /* Responsive Design */
+  @media (max-width: 991px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 50px; }
+    .hero-subtext { margin: 0 auto 40px; }
+    .hero-action-btns { justify-content: center; }
+    .hero-glass-card { max-width: 600px; margin: 0 auto; padding: 40px 30px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-action-btns { flex-direction: column; }
+    .glass-newsletter-form { flex-direction: column; }
+    .btn-primary-hero, .btn-secondary-hero { width: 100%; }
+  }
+{%- endstyle -%}
+
+<section class="hero-section-{{ section.id }}">
+  <div class="hero-container-{{ section.id }}">
+    <div class="hero-grid">
+      
+      <!-- Content Left -->
+      <div class="hero-left-wrap">
+        <h1 class="hero-main-title">{{ section.settings.main_title }}</h1>
+        <p class="hero-subtext">{{ section.settings.sub_text }}</p>
+        <div class="hero-action-btns">
+          {% if section.settings.btn1_text != blank %}
+            <a href="{{ section.settings.btn1_link }}" class="btn-primary-hero">{{ section.settings.btn1_text }}</a>
+          {% endif %}
+          {% if section.settings.btn2_text != blank %}
+            <a href="{{ section.settings.btn2_link }}" class="btn-secondary-hero">{{ section.settings.btn2_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Right Side Dark Transparent Box -->
+      <div class="hero-right-wrap">
+        <div class="hero-glass-card">
+          <span class="glass-tagline">{{ section.settings.glass_tagline }}</span>
+          <h2 class="glass-title">{{ section.settings.glass_title }}</h2>
+          <p class="glass-desc">{{ section.settings.glass_desc }}</p>
+          
+          <form class="glass-newsletter-form">
+            <input type="email" class="glass-input" placeholder="Email Address" required>
+            <button type="submit" class="glass-submit-btn">Submit</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Left Content"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main Title",
+      "default": "Fresh Halal Meat, Cut to Perfection"
+    },
+    {
+      "type": "textarea",
+      "id": "sub_text",
+      "label": "Sub Text",
+      "default": "Sourced from trusted farms, expertly cut, and delivered fresh to your doorstep."
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text",
+      "default": "Today's Deals"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Right Side Box Settings"
+    },
+    {
+      "type": "text",
+      "id": "glass_tagline",
+      "label": "Tagline",
+      "default": "Farm To Table Excellence"
+    },
+    {
+      "type": "text",
+      "id": "glass_title",
+      "label": "Title",
+      "default": "Discover The Difference Quality Makes"
+    },
+    {
+      "type": "textarea",
+      "id": "glass_desc",
+      "label": "Description",
+      "default": "Premium quality beef, mutton, and chicken sourced from trusted farms. Freshly cut by expert butchers."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero Banner"
+    }
+  ]
+}
+{% endschema %}

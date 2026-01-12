@@ -1,0 +1,231 @@
+{%- style -%}
+  .section-{{ section.id }} {
+    --bg-color: {{ section.settings.bg_color }};
+    --text-color: {{ section.settings.text_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --accent-red: {{ section.settings.accent_color }};
+    
+    background-color: var(--bg-color);
+    padding: 60px 0 20px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+  }
+
+  .footer-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Grid System - Always 5 columns on desktop */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+    gap: 30px;
+    padding-bottom: 40px;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    text-decoration: none;
+  }
+  .footer-logo img { height: 45px; width: auto; }
+
+  .logo-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--heading-color);
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .footer-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    opacity: 0.8;
+  }
+
+  .social-wrapper { display: flex; gap: 10px; }
+  .social-box {
+    width: 35px;
+    height: 35px;
+    background: #fff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-red);
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .social-box:hover { background: var(--accent-red); color: #fff; transform: translateY(-3px); }
+
+  .footer-h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    color: var(--heading-color);
+    margin: 0 0 20px;
+    text-transform: capitalize;
+  }
+
+  .footer-ul { list-style: none; padding: 0; margin: 0; }
+  .footer-ul li { margin-bottom: 12px; }
+  .footer-ul a, .contact-item {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 15px;
+    transition: 0.3s;
+    opacity: 0.8;
+  }
+  .footer-ul a:hover { color: var(--accent-red); opacity: 1; padding-left: 5px; }
+
+  .contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 14px; }
+  .contact-item i { font-size: 16px; color: var(--heading-color); min-width: 20px; }
+
+  /* Bottom Bar */
+  .footer-bottom {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .copyright { font-size: 15px; font-weight: 500; margin: 0 auto; color: var(--text-color); }
+  
+  .payment-icons-wrap { display: flex; gap: 12px; align-items: center; }
+  .payment-icons-wrap img { height: 22px; width: auto; opacity: 0.9; }
+
+  @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 768px) { 
+    .footer-grid { grid-template-columns: 1fr; text-align: center; }
+    .footer-logo, .social-wrapper, .contact-item { justify-content: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+{%- endstyle -%}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<footer class="section-{{ section.id }}">
+  <div class="footer-container">
+    <div class="footer-grid">
+      
+      <!-- 1. Brand Column (Always Visible) -->
+      <div class="footer-column">
+        <div class="footer-logo">
+          {%- if section.settings.logo != blank -%}
+            <img src="{{ section.settings.logo | img_url: '120x' }}" alt="Logo">
+          {%- else -%}
+            <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Meat Icon">
+          {%- endif -%}
+          <h2 class="logo-text">{{ section.settings.logo_text }}</h2>
+        </div>
+        <p class="footer-desc">{{ section.settings.description }}</p>
+        <div class="social-wrapper">
+          <a href="#" class="social-box"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-box"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-box"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-box"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-box"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- 2, 3, 4, 5. Blocks OR Demo Content -->
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'menu' -%}
+              <div class="footer-column" {{ block.shopify_attributes }}>
+                <h4 class="footer-h4">{{ block.settings.title }}</h4>
+                <ul class="footer-ul">
+                  {%- for link in block.settings.menu.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- when 'contact' -%}
+              <div class="footer-column" {{ block.shopify_attributes }}>
+                <h4 class="footer-h4">{{ block.settings.title }}</h4>
+                <div class="contact-item"><i class="far fa-envelope"></i> {{ block.settings.email }}</div>
+                <div class="contact-item"><i class="fab fa-whatsapp"></i> {{ block.settings.phone }}</div>
+                <div class="contact-item"><i class="fas fa-map-marker-alt"></i> {{ block.settings.address }}</div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      {%- else -%}
+        <!-- AUTOMATIC DEMO CONTENT (Jab blocks khali honge) -->
+        <div class="footer-column"><h4 class="footer-h4">Quick Link</h4><ul class="footer-ul"><li><a href="#">Home</a></li><li><a href="#">About US</a></li><li><a href="#">Shop</a></li></ul></div>
+        <div class="footer-column"><h4 class="footer-h4">Customer Care</h4><ul class="footer-ul"><li><a href="#">Help & Support</a></li><li><a href="#">Delivery Info</a></li><li><a href="#">FAQs</a></li></ul></div>
+        <div class="footer-column"><h4 class="footer-h4">Policies</h4><ul class="footer-ul"><li><a href="#">Privacy Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Terms</a></li></ul></div>
+        <div class="footer-column"><h4 class="footer-h4">Contact</h4><div class="contact-item"><i class="far fa-envelope"></i> meetshop@gmail.com</div><div class="contact-item"><i class="fab fa-whatsapp"></i> +92 300000000</div><div class="contact-item"><i class="fas fa-map-marker-alt"></i> Dubai and Abu Dhabi</div></div>
+      {%- endif -%}
+
+    </div>
+
+    <!-- Bottom Footer Bar -->
+    <div class="footer-bottom">
+      <p class="copyright">{{ section.settings.copyright }}</p>
+      <div class="payment-icons-wrap">
+        <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard">
+        <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay">
+        <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay">
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer Pro",
+  "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#fdf0f0" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#555555" },
+    { "type": "color", "id": "heading_color", "label": "Headings", "default": "#1a1a1a" },
+    { "type": "color", "id": "accent_color", "label": "Accent (Red)", "default": "#d32f2f" },
+    { "type": "image_picker", "id": "logo", "label": "Brand Logo" },
+    { "type": "text", "id": "logo_text", "label": "Logo Text", "default": "MEAT SHOP" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Cras tincidunt lobortis feugiat vivamus at morbi leo urna molestie atole elementum eu facilisis faucibus interdum posuere." },
+    { "type": "text", "id": "copyright", "label": "Copyright Text", "default": "Copyright | 2026 Meet Shop" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Navigation Menu",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Quick Link" },
+        { "type": "link_list", "id": "menu", "label": "Select Menu" }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact Info",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Contact" },
+        { "type": "text", "id": "email", "label": "Email", "default": "meetshop@gmail.com" },
+        { "type": "text", "id": "phone", "label": "Phone", "default": "+92 300000000" },
+        { "type": "text", "id": "address", "label": "Address", "default": "Dubai and Abu Dhabi" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer Pro",
+      "blocks": [
+        { "type": "menu", "settings": { "title": "Quick Link" } },
+        { "type": "menu", "settings": { "title": "Customer Care" } },
+        { "type": "menu", "settings": { "title": "Policies" } },
+        { "type": "contact" }
+      ]
+    }
+  ]
+}
+{% endschema %}

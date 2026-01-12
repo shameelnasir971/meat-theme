@@ -1,0 +1,418 @@
+{%- style -%}
+  /* Main Section */
+  .best-sellers-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+  }
+
+  .bs-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .bs-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .bs-header h2 {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0;
+    text-transform: capitalize;
+  }
+
+  /* Slider Wrapper */
+  .bs-slider-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .bs-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: {{ section.settings.gap }}px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 10px 0;
+    width: 100%;
+  }
+
+  .bs-track::-webkit-scrollbar { display: none; }
+
+  /* Card UI - EXACT MATCH */
+  .bs-card {
+    flex: 0 0 calc(25% - ({{ section.settings.gap }}px * 0.75));
+    min-width: 270px;
+    transition: all 0.3s ease;
+  }
+
+  .bs-image-wrapper {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f4f4f4;
+    aspect-ratio: 1 / 1; /* Square like screenshot */
+  }
+
+  .bs-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s ease;
+  }
+
+  /* Badge Top Left */
+  .bs-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #d32f2f; /* Red from screenshot */
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 3px;
+    z-index: 5;
+  }
+
+  /* Icons Top Right - White Circles */
+  .bs-action-icons {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 5;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: 0.3s ease;
+  }
+
+  .bs-icon-btn {
+    width: 36px;
+    height: 36px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d32f2f;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-size: 16px;
+  }
+
+  /* Add To Cart Overlay - EXACT POSITION */
+  .bs-cart-btn-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    background: #d32f2f;
+    color: #fff;
+    text-align: center;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    transform: translateY(100px);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+  }
+
+  /* Hover Effects */
+  .bs-card:hover .bs-image-wrapper img { transform: scale(1.1); }
+  .bs-card:hover .bs-action-icons { opacity: 1; transform: translateX(0); }
+  .bs-card:hover .bs-cart-btn-overlay { transform: translateY(0); }
+
+  /* Info Part - Centered */
+  .bs-info {
+    padding: 15px 0;
+    text-align: center;
+  }
+
+  .bs-info h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 8px 0;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .bs-stars {
+    color: #FFB400; /* Star Color */
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .bs-price-tag {
+    color: #d32f2f;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  /* Navigation Arrows - Dark Red Circles */
+  .bs-arrow {
+    position: absolute;
+    top: 40%;
+    width: 44px;
+    height: 44px;
+    background: #9d0a0a; /* Darker red like screenshot */
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: 0.3s;
+  }
+  
+  .bs-arrow:hover { background: #d32f2f; transform: scale(1.1); }
+  .bs-arrow-prev { left: -22px; }
+  .bs-arrow-next { right: -22px; }
+
+  /* Dots */
+  .bs-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0 30px;
+  }
+  .bs-dot {
+    width: 8px;
+    height: 8px;
+    background: #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .bs-dot.active { background: #d32f2f; width: 10px; height: 10px; }
+
+  /* View All Button */
+  .bs-footer {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .bs-view-btn {
+    background: #d32f2f;
+    color: #fff;
+    padding: 14px 55px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  .bs-view-btn:hover { background: #b32626; box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3); }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .bs-card { flex: 0 0 calc(50% - 15px); }
+    .bs-arrow { display: none; }
+  }
+  @media (max-width: 480px) {
+    .bs-card { flex: 0 0 100%; }
+  }
+{%- endstyle -%}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<section class="best-sellers-{{ section.id }}">
+  <div class="bs-container">
+    
+    <div class="bs-header">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="bs-slider-box">
+      <!-- Arrows -->
+      <button class="bs-arrow bs-arrow-prev" onclick="bsScroll{{ section.id | replace: '-', '_' }}(-1)"><i class="fas fa-chevron-left"></i></button>
+      
+      <div class="bs-track" id="bsTrack-{{ section.id }}">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="bs-card" {{ block.shopify_attributes }}>
+              <div class="bs-image-wrapper">
+                {% if block.settings.badge != blank %}<span class="bs-badge">{{ block.settings.badge }}</span>{% endif %}
+                
+                <div class="bs-action-icons">
+                  <a href="#" class="bs-icon-btn"><i class="far fa-eye"></i></a>
+                  <a href="#" class="bs-icon-btn"><i class="far fa-heart"></i></a>
+                </div>
+
+                <img src="{{ block.settings.image | img_url: '800x800' }}" alt="{{ block.settings.title }}" loading="lazy">
+
+                <a href="{{ block.settings.link }}" class="bs-cart-btn-overlay">{{ section.settings.btn_text }}</a>
+              </div>
+              
+              <div class="bs-info">
+                <h3>{{ block.settings.title }}</h3>
+                <div class="bs-stars">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <div class="bs-price-tag">{{ block.settings.price }}</div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Fallback Content with online images {%- endcomment -%}
+          {% assign items = "Fresh Chicken|$29.00|https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=800,Fresh Beef|$35.00|https://images.unsplash.com/photo-1544025162-d76694265947?w=800,Veal Backloin|$29.00|https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=800,Minced & Marinated|$29.00|https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=800" | split: "," %}
+          {% for item in items %}
+            {% assign details = item | split: "|" %}
+            <div class="bs-card">
+              <div class="bs-image-wrapper">
+                <span class="bs-badge">20% Off</span>
+                <div class="bs-action-icons">
+                  <a href="#" class="bs-icon-btn"><i class="far fa-eye"></i></a>
+                  <a href="#" class="bs-icon-btn"><i class="far fa-heart"></i></a>
+                </div>
+                <img src="{{ details[2] }}" alt="Meat">
+                <a href="#" class="bs-cart-btn-overlay">Add To Cart</a>
+              </div>
+              <div class="bs-info">
+                <h3>{{ details[0] }}</h3>
+                <div class="bs-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <div class="bs-price-tag">{{ details[1] }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        {%- endif -%}
+      </div>
+
+      <button class="bs-arrow bs-arrow-next" onclick="bsScroll{{ section.id | replace: '-', '_' }}(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Dots UI -->
+    <div class="bs-dots">
+      <span class="bs-dot active"></span>
+      <span class="bs-dot"></span>
+      <span class="bs-dot"></span>
+      <span class="bs-dot"></span>
+    </div>
+
+    <!-- Footer Button -->
+    <div class="bs-footer">
+      <a href="{{ section.settings.view_all_link }}" class="bs-view-btn">{{ section.settings.view_all_text }}</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function bsScroll{{ section.id | replace: '-', '_' }}(dir) {
+    const track = document.getElementById('bsTrack-{{ section.id }}');
+    const firstCard = track.querySelector('.bs-card');
+    if(firstCard) {
+      const cardWidth = firstCard.offsetWidth + {{ section.settings.gap }};
+      track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Best Sellers Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size",
+      "min": 20, "max": 60, "step": 1, "unit": "px", "default": 42
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container Width",
+      "min": 1000, "max": 1600, "step": 50, "default": 1250
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Card Gap",
+      "min": 10, "max": 40, "step": 5, "default": 25
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Cart Button Text",
+      "default": "Add To Cart"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Footer Button Text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Footer Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0, "max": 100, "step": 5, "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0, "max": 100, "step": 5, "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fresh Meat" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$29.00" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "20% Off" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers Slider"
+    }
+  ]
+}
+{% endschema %}

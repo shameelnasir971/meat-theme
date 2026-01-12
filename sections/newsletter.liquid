@@ -1,0 +1,215 @@
+{%- style -%}
+  .section-{{ section.id }} {
+    padding: 60px 0;
+    background-color: {{ section.settings.section_bg }};
+  }
+
+  .news-container-{{ section.id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .newsletter-box-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    {% if section.settings.bg_image != blank %}
+      background: linear-gradient(rgba(0, 0, 0, {{ section.settings.overlay_opacity }}), rgba(0, 0, 0, {{ section.settings.overlay_opacity }})), 
+                  url('{{ section.settings.bg_image | img_url: '1600x' }}');
+    {% else %}
+      background: linear-gradient(rgba(0, 0, 0, {{ section.settings.overlay_opacity }}), rgba(0, 0, 0, {{ section.settings.overlay_opacity }})), 
+                  url('https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=1600&auto=format&fit=crop');
+    {% endif %}
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  }
+
+  .news-content-{{ section.id }} {
+    width: 100%;
+    max-width: 650px;
+    padding: 40px 20px;
+    z-index: 2;
+    color: {{ section.settings.text_color }};
+  }
+
+  .news-title-{{ section.id }} {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: inherit;
+    line-height: 1.1;
+  }
+
+  .news-desc-{{ section.id }} {
+    font-size: 16px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    color: inherit;
+    line-height: 1.5;
+  }
+
+  /* Form Styling */
+  .news-form-{{ section.id }} {
+    display: flex;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .news-input-{{ section.id }} {
+    flex: 1;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    padding: 12px 20px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .news-btn-{{ section.id }} {
+    background-color: {{ section.settings.accent_color }};
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+  }
+
+  .news-btn-{{ section.id }}:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .news-form-{{ section.id }} {
+      flex-direction: column;
+    }
+    .newsletter-box-{{ section.id }} {
+      min-height: auto;
+      border-radius: 20px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}">
+  <div class="news-container-{{ section.id }}">
+    <div class="newsletter-box-{{ section.id }}">
+      <div class="news-content-{{ section.id }}">
+        
+        <h2 class="news-title-{{ section.id }}">{{ section.settings.heading }}</h2>
+        <div class="news-desc-{{ section.id }}">
+          {{ section.settings.subheading }}
+        </div>
+
+        {% form 'customer', class: 'news-form-container' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="news-form-{{ section.id }}">
+            <input 
+              type="email" 
+              name="contact[email]" 
+              class="news-input-{{ section.id }}" 
+              placeholder="{{ section.settings.input_placeholder }}" 
+              required
+            >
+            <button type="submit" class="news-btn-{{ section.id }}">
+              {{ section.settings.button_text }}
+            </button>
+          </div>
+          
+          {%- if form.posted_successfully? -%}
+            <p style="color: #fff; margin-top: 15px;">{{ 'general.newsletter_form.confirmation' | t | default: "Thanks for subscribing!" }}</p>
+          {%- endif -%}
+        {% endform %}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Sub-heading",
+      "default": "<p>Every cut of meat is carefully selected, hygienically processed.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 0.9,
+      "step": 0.1,
+      "label": "Overlay Darkness",
+      "default": 0.6
+    },
+    {
+      "type": "header",
+      "content": "Colors & Text"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Outer Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Button Color",
+      "default": "#d32f2f"
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Input Placeholder",
+      "default": "Enter Email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Newsletter"
+    }
+  ]
+}
+{% endschema %}

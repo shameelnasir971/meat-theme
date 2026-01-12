@@ -1,0 +1,314 @@
+{%- style -%}
+.menu-board-{{ section.id }} {
+  padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  background-color: {{ section.settings.bg_color }};
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+}
+
+.mb-container {
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.mb-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.mb-header h2 {
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+}
+
+/* Tabs Styling */
+.mb-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 45px;
+  flex-wrap: wrap;
+}
+
+.mb-tab-btn {
+  padding: 12px 28px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mb-tab-btn.active {
+  background-color: {{ section.settings.primary_color }};
+  border-color: {{ section.settings.primary_color }};
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+/* Grid Layout */
+.mb-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+/* Card Styling */
+.mb-card {
+  background-color: {{ section.settings.card_bg }};
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  padding: 18px;
+  gap: 20px;
+  transition: 0.4s ease;
+  border: 1px solid rgba(255,255,255,0.03);
+  align-items: center;
+}
+
+.mb-card:hover {
+  transform: translateY(-8px);
+  border-color: {{ section.settings.primary_color }};
+  background-color: #222;
+}
+
+.mb-img-box {
+  flex: 0 0 42%;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #000;
+}
+
+.mb-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.6s ease-in-out;
+}
+
+.mb-card:hover .mb-img-box img {
+  transform: scale(1.1);
+}
+
+.mb-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mb-content h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.mb-desc {
+  font-size: 14px;
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mb-price {
+  font-size: 19px;
+  font-weight: 800;
+  color: {{ section.settings.primary_color }};
+  margin-bottom: 18px;
+}
+
+.mb-add-btn {
+  background-color: {{ section.settings.primary_color }};
+  color: #ffffff !important;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12px;
+  display: inline-block;
+  width: fit-content;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive Fixes */
+@media (max-width: 991px) {
+  .mb-grid { grid-template-columns: 1fr; }
+  .mb-card { max-width: 600px; margin: 0 auto; width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .mb-header h2 { font-size: 30px; }
+  .mb-card { flex-direction: column; padding: 15px; }
+  .mb-img-box { flex: 0 0 100%; width: 100%; aspect-ratio: 16 / 10; }
+  .mb-tab-btn { flex: 1 1 45%; padding: 10px 10px; font-size: 12px; }
+}
+{%- endstyle -%}
+
+<section class="menu-board-{{ section.id }}">
+  <div class="mb-container">
+    <div class="mb-header">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+    <!-- Filter Tabs (Now Customizable) -->
+    <div class="mb-tabs">
+      <button class="mb-tab-btn active" onclick="filterMenu('all', this, '{{ section.id }}')">
+        {{ section.settings.label_all | default: "Full Menu" }}
+      </button>
+      <button class="mb-tab-btn" onclick="filterMenu('beef', this, '{{ section.id }}')">
+        {{ section.settings.label_beef | default: "Beef" }}
+      </button>
+      <button class="mb-tab-btn" onclick="filterMenu('steak', this, '{{ section.id }}')">
+        {{ section.settings.label_steak | default: "Steak" }}
+      </button>
+      <button class="mb-tab-btn" onclick="filterMenu('duck', this, '{{ section.id }}')">
+        {{ section.settings.label_duck | default: "Duck" }}
+      </button>
+      <button class="mb-tab-btn" onclick="filterMenu('goat', this, '{{ section.id }}')">
+        {{ section.settings.label_goat | default: "Goat/Lamb" }}
+      </button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="mb-grid" id="mb-grid-{{ section.id }}">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="mb-card" data-category="{{ block.settings.category | downcase }}" {{ block.shopify_attributes }}>
+            <div class="mb-img-box">
+              {%- if block.settings.image -%}
+                <img src="{{ block.settings.image | img_url: '600x600', crop: 'center' }}" alt="{{ block.settings.title }}" loading="lazy">
+              {%- else -%}
+                <img src="https://images.unsplash.com/photo-1551028150-64b9f398f678?q=80&w=800&auto=format&fit=crop" alt="Meat Item">
+              {%- endif -%}
+            </div>
+            <div class="mb-content">
+              <h3>{{ block.settings.title }}</h3>
+              <p class="mb-desc">{{ block.settings.desc }}</p>
+              <div class="mb-price">{{ block.settings.price }}</div>
+              <a href="{{ block.settings.link | default: '#' }}" class="mb-add-btn">Add To Cart</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Premium Meat Placeholder Cards {%- endcomment -%}
+        {% assign titles = "Premium Wagyu Ribs,Juicy Ribeye Steak,Roasted Peking Duck,Fresh Highland Lamb" | split: "," %}
+        {% assign cats = "beef,steak,duck,goat" | split: "," %}
+        {% assign prices = "$45.00,$38.99,$55.00,$42.00" | split: "," %}
+        {% assign descriptions = "A-grade marbling beef, cut fresh by our master butchers.,Hand-selected thick steak, grilled to juicy perfection.,Crispy golden skin duck, authentic Peking style roast.,Tender grass-fed lamb chops, sourced from organic highlands." | split: "," %}
+        
+        {%- comment -%} Specially Selected High-End Images {%- endcomment -%}
+        {% assign img_beef = "https://images.unsplash.com/photo-1551028150-64b9f398f678?q=80&w=800" %}
+        {% assign img_steak = "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=800" %}
+        {% assign img_duck = "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=800" %}
+        {% assign img_lamb = "https://images.unsplash.com/photo-1603360946369-dc9bb6258143?q=80&w=800" %}
+        {% assign online_imgs = img_beef | append: "," | append: img_steak | append: "," | append: img_duck | append: "," | append: img_lamb | split: "," %}
+        
+        {% for i in (0..3) %}
+          <div class="mb-card" data-category="{{ cats[i] }}">
+            <div class="mb-img-box">
+              <img src="{{ online_imgs[i] }}" alt="{{ titles[i] }}" loading="lazy">
+            </div>
+            <div class="mb-content">
+              <h3>{{ titles[i] }}</h3>
+              <p class="mb-desc">{{ descriptions[i] }}</p>
+              <div class="mb-price">{{ prices[i] }}</div>
+              <button class="mb-add-btn">Add To Cart</button>
+            </div>
+          </div>
+        {% endfor %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  function filterMenu(category, btn, sectionId) {
+    const section = document.querySelector('.menu-board-' + sectionId);
+    if(!section) return;
+    section.querySelectorAll('.mb-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = section.querySelectorAll('.mb-card');
+    cards.forEach(card => {
+      if (category === 'all' || card.getAttribute('data-category') === category) {
+        card.style.display = 'flex';
+        card.style.opacity = '0';
+        setTimeout(() => { card.style.opacity = '1'; }, 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Menu Board",
+  "settings": [
+    { "type": "header", "content": "🔘 Tab Labels" },
+    { "type": "text", "id": "label_all", "label": "Label: Full Menu", "default": "Full Menu" },
+    { "type": "text", "id": "label_beef", "label": "Label: Beef", "default": "Beef" },
+    { "type": "text", "id": "label_steak", "label": "Label: Steak", "default": "Steak" },
+    { "type": "text", "id": "label_duck", "label": "Label: Duck", "default": "Duck" },
+    { "type": "text", "id": "label_goat", "label": "Label: Goat/Lamb", "default": "Goat/Lamb" },
+
+    { "type": "header", "content": "🎨 Design Settings" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Premium Butcher Menu" },
+    { "type": "range", "id": "title_size", "label": "Title Size", "min": 20, "max": 60, "step": 1, "unit": "px", "default": 45 },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#0f0f0f" },
+    { "type": "color", "id": "card_bg", "label": "Card Background", "default": "#181818" },
+    { "type": "color", "id": "primary_color", "label": "Accent Color", "default": "#d32f2f" },
+    { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 50, "default": 1250 },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "default": 80, "min": 0, "max": 100, "step": 5 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "default": 80, "min": 0, "max": 100, "step": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Menu Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Beef Chops" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Fresh halal meat, perfect for BBQ." },
+        { "type": "text", "id": "price", "label": "Price", "default": "$24.00" },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Filter Category",
+          "options": [
+            { "value": "beef", "label": "Beef" },
+            { "value": "steak", "label": "Steak" },
+            { "value": "duck", "label": "Duck" },
+            { "value": "goat", "label": "Goat" }
+          ],
+          "default": "beef",
+          "info": "Match this with the buttons above."
+        },
+        { "type": "url", "id": "link", "label": "Product Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu Board"
+    }
+  ]
+}
+{% endschema %}

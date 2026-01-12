@@ -1,0 +1,485 @@
+[
+  {
+    "name": "Theme Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "🟣 Global Colors"
+      },
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Color",
+        "default": "#B22222"
+      },
+      {
+        "type": "color",
+        "id": "secondary_color",
+        "label": "Secondary Color",
+        "default": "#8B4513"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Accent Color",
+        "default": "#D4AF37"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#FFF9F5"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#2D2D2D"
+      },
+      {
+        "type": "color",
+        "id": "text_light_color",
+        "label": "Light Text Color",
+        "default": "#666666"
+      },
+      {
+        "type": "header",
+        "content": "🔤 Typography Settings"
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading Font",
+        "default": "playfair_display_n7"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Body Font",
+        "default": "inter_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "subheading_font",
+        "label": "Subheading Font",
+        "default": "montserrat_n6"
+      },
+      {
+        "type": "range",
+        "id": "heading_size",
+        "label": "Heading Font Size",
+        "min": 24,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "default": 48
+      },
+      {
+        "type": "range",
+        "id": "subheading_size",
+        "label": "Subheading Font Size",
+        "min": 16,
+        "max": 36,
+        "step": 1,
+        "unit": "px",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "body_size",
+        "label": "Body Font Size",
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "🎨 Layout & Spacing"
+      },
+      {
+        "type": "range",
+        "id": "container_width",
+        "label": "Container Width",
+        "min": 800,
+        "max": 1600,
+        "step": 10,
+        "unit": "px",
+        "default": 1200
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Section Spacing",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "unit": "rem",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "button_radius",
+        "label": "Button Border Radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 4
+      },
+      {
+        "type": "select",
+        "id": "theme_mode",
+        "label": "Theme Mode",
+        "options": [
+          { "value": "light-mode", "label": "Light Mode" },
+          { "value": "dark-mode", "label": "Dark Mode" },
+          { "value": "auto", "label": "Auto (System Preference)" }
+        ],
+        "default": "light-mode"
+      },
+      {
+        "type": "header",
+        "content": "✨ Animation Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_animations",
+        "label": "Enable Animations",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_smooth_scroll",
+        "label": "Enable Smooth Scroll",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "animation_speed",
+        "label": "Animation Speed",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "unit": "s",
+        "default": 0.3
+      },
+      {
+        "type": "header",
+        "content": "⚙️ Advanced Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_parallax",
+        "label": "Enable Parallax Effects",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_lazy_loading",
+        "label": "Enable Lazy Loading",
+        "default": true
+      },
+      {
+        "type": "textarea",
+        "id": "custom_css",
+        "label": "Custom CSS",
+        "info": "Add your custom CSS here",
+        "default": "/* Enter your custom CSS code here */"
+      }
+    ]
+  },
+  {
+    "name": "Header Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "🔝 Header Customization"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo Text",
+        "default": "MEAT SHOP"
+      },
+      {
+        "type": "color",
+        "id": "header_bg",
+        "label": "Header Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "header_text",
+        "label": "Header Text Color",
+        "default": "#2D2D2D"
+      },
+      {
+        "type": "range",
+        "id": "header_height",
+        "label": "Header Height",
+        "min": 50,
+        "max": 150,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      },
+      {
+        "type": "checkbox",
+        "id": "sticky_header",
+        "label": "Sticky Header",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Hero Section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "🎯 Hero Banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_image",
+        "label": "Hero Background Image"
+      },
+      {
+        "type": "text",
+        "id": "hero_title",
+        "label": "Hero Title",
+        "default": "Discover The Difference Quality Makes"
+      },
+      {
+        "type": "textarea",
+        "id": "hero_subtitle",
+        "label": "Hero Subtitle",
+        "default": "Farm To Table Excellence"
+      },
+      {
+        "type": "textarea",
+        "id": "hero_description",
+        "label": "Hero Description",
+        "default": "Premium quality beef, mutton, and chicken sourced from trusted farms. Freshly cut on order, hygienically packed, and delivered in temperature-controlled packaging across the UAE to ensure taste, safety, and freshness in every order."
+      },
+      {
+        "type": "text",
+        "id": "button1_text",
+        "label": "Primary Button Text",
+        "default": "Shop Now"
+      },
+      {
+        "type": "url",
+        "id": "button1_url",
+        "label": "Primary Button Link"
+      },
+      {
+        "type": "text",
+        "id": "button2_text",
+        "label": "Secondary Button Text",
+        "default": "Explore Products"
+      },
+      {
+        "type": "url",
+        "id": "button2_url",
+        "label": "Secondary Button Link"
+      },
+      {
+        "type": "select",
+        "id": "hero_layout",
+        "label": "Hero Layout",
+        "options": [
+          { "value": "left", "label": "Text Left, Image Right" },
+          { "value": "right", "label": "Text Right, Image Left" },
+          { "value": "center", "label": "Centered" },
+          { "value": "full", "label": "Full Screen" }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "color",
+        "id": "hero_bg_color",
+        "label": "Hero Background Color",
+        "default": "#FFF9F5"
+      },
+      {
+        "type": "color",
+        "id": "hero_text_color",
+        "label": "Hero Text Color",
+        "default": "#2D2D2D"
+      },
+      {
+        "type": "range",
+        "id": "title_size",
+        "label": "Title Font Size",
+        "min": 24,
+        "max": 72,
+        "step": 2,
+        "unit": "px",
+        "default": 48
+      },
+      {
+        "type": "select",
+        "id": "title_weight",
+        "label": "Title Font Weight",
+        "options": [
+          { "value": "300", "label": "Light" },
+          { "value": "400", "label": "Regular" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi Bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "700"
+      }
+    ]
+  },
+  {
+    "name": "Category Section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "📦 Categories Grid"
+      },
+      {
+        "type": "text",
+        "id": "categories_title",
+        "label": "Section Title",
+        "default": "Shop By Category"
+      },
+      {
+        "type": "range",
+        "id": "categories_per_row",
+        "label": "Categories Per Row",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "checkbox",
+        "id": "show_category_images",
+        "label": "Show Category Images",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_category_titles",
+        "label": "Show Category Titles",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "About Section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "ℹ️ About Us Section"
+      },
+      {
+        "type": "text",
+        "id": "about_title",
+        "label": "Section Title",
+        "default": "Trusted Meat Shop"
+      },
+      {
+        "type": "textarea",
+        "id": "about_content",
+        "label": "About Content",
+        "default": "We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction."
+      },
+      {
+        "type": "image_picker",
+        "id": "about_image",
+        "label": "About Image"
+      },
+      {
+        "type": "select",
+        "id": "about_layout",
+        "label": "Layout",
+        "options": [
+          { "value": "image_left", "label": "Image Left, Text Right" },
+          { "value": "image_right", "label": "Image Right, Text Left" },
+          { "value": "stacked", "label": "Stacked" }
+        ],
+        "default": "image_right"
+      }
+    ]
+  },
+  {
+    "name": "Product Section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "🍖 Menu Board Products"
+      },
+      {
+        "type": "text",
+        "id": "products_title",
+        "label": "Section Title",
+        "default": "Menu Board"
+      },
+      {
+        "type": "range",
+        "id": "products_per_row",
+        "label": "Products Per Row",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_prices",
+        "label": "Show Prices",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_add_to_cart",
+        "label": "Show Add to Cart Button",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Footer Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "👇 Footer Customization"
+      },
+      {
+        "type": "text",
+        "id": "footer_copyright",
+        "label": "Copyright Text",
+        "default": "© 2026 Meat Shop. All rights reserved."
+      },
+      {
+        "type": "text",
+        "id": "footer_email",
+        "label": "Contact Email",
+        "default": "meatshop@gmail.com"
+      },
+      {
+        "type": "text",
+        "id": "footer_phone",
+        "label": "Contact Phone",
+        "default": "+92 300000000"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_newsletter",
+        "label": "Show Newsletter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "Show Social Icons",
+        "default": true
+      }
+    ]
+  }
+]

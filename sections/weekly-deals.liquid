@@ -1,0 +1,290 @@
+{% comment %}
+  Weekly Fresh Deals Section
+  Converted for Shopify Theme with Customization Options
+{% endcomment %}
+
+<style>
+  /* Google Fonts Import - Agar aapki theme me pehle se fonts hain to is line ko hata sakte hain */
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Inter:wght@300;400;500;600&display=swap');
+
+  /* Dynamic CSS Variables based on Settings */
+  #shopify-section-{{ section.id }} .weekly-deals-section {
+    position: relative;
+    width: 100%;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    /* Default Image Fallback Logic is handled in Liquid below */
+  }
+
+  #shopify-section-{{ section.id }} .deals-overlay {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+    /* Dynamic Gradient based on user color selection */
+    background: linear-gradient(to right, 
+      {{ section.settings.overlay_color | color_modify: 'alpha', 0.1 }} 0%, 
+      {{ section.settings.overlay_color | color_modify: 'alpha', 0.6 }} 50%, 
+      {{ section.settings.overlay_color | color_modify: 'alpha', 0.9 }} 100%);
+  }
+
+  .container-deals {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .deals-content-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+
+  .deals-image-side {
+    flex: 1;
+    display: block;
+  }
+
+  .deals-text-side {
+    flex: 1;
+    max-width: 550px;
+    padding-left: 30px;
+    animation: fadeInRight 0.8s ease-out;
+  }
+
+  #shopify-section-{{ section.id }} .deals-title {
+    font-family: 'Oswald', sans-serif; /* Fallback to theme font if removed */
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .deals-description {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(16px, 2vw, 19px);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    opacity: 0.95;
+    max-width: 480px;
+    color: {{ section.settings.text_color }};
+  }
+
+  #shopify-section-{{ section.id }} .deals-btn {
+    display: inline-block;
+    background-color: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_text_color }};
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 15px 40px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  #shopify-section-{{ section.id }} .deals-btn:hover {
+    background-color: transparent;
+    border-color: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_bg_color }}; /* Text becomes the border color on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+
+  /* Tablet Responsiveness */
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} .deals-overlay {
+      background: linear-gradient(to right, 
+        {{ section.settings.overlay_color | color_modify: 'alpha', 0.3 }} 0%, 
+        {{ section.settings.overlay_color | color_modify: 'alpha', 0.8 }} 100%);
+    }
+    .deals-text-side {
+      max-width: 50%;
+    }
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .weekly-deals-section {
+      min-height: 400px;
+      background-position: 30% center;
+    }
+    #shopify-section-{{ section.id }} .deals-overlay {
+      background: {{ section.settings.overlay_color | color_modify: 'alpha', 0.6 }};
+      padding: 50px 0;
+      justify-content: center;
+    }
+    .deals-content-wrapper {
+      justify-content: center;
+      text-align: center;
+    }
+    .deals-image-side {
+      display: none;
+    }
+    .deals-text-side {
+      padding-left: 0;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .deals-description {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .deals-title {
+        margin-bottom: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container-deals {
+      padding: 0 20px;
+    }
+    #shopify-section-{{ section.id }} .deals-btn {
+      width: 100%;
+      text-align: center;
+      padding: 14px 20px;
+    }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+</style>
+
+{%- comment -%} Determine Background Image URL (User Selected or Default) {%- endcomment -%}
+{%- assign bg_image_url = 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' -%}
+{%- if section.settings.bg_image != blank -%}
+  {%- assign bg_image_url = section.settings.bg_image | image_url: width: 1600 -%}
+{%- endif -%}
+
+<section class="weekly-deals-section" style="background-image: url('{{ bg_image_url }}');">
+  <div class="deals-overlay">
+    <div class="container-deals">
+      <div class="deals-content-wrapper">
+        
+        <!-- Empty space for left side (Layout Balance) -->
+        <div class="deals-image-side"></div>
+
+        <!-- Text Content on the Right -->
+        <div class="deals-text-side">
+          {%- if section.settings.title != blank -%}
+            <h2 class="deals-title">{{ section.settings.title }}</h2>
+          {%- endif -%}
+          
+          {%- if section.settings.description != blank -%}
+            <p class="deals-description">
+              {{ section.settings.description }}
+            </p>
+          {%- endif -%}
+
+          {%- if section.settings.btn_label != blank -%}
+            <div class="deals-btn-container">
+              <a href="{{ section.settings.btn_link }}" class="deals-btn">
+                {{ section.settings.btn_label }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Weekly Fresh Deals",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image",
+      "info": "Leave empty to use the default meat image."
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Shadow Color",
+      "default": "#000000",
+      "info": "The dark gradient overlay color."
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Weekly Fresh Deals"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Enjoy exclusive discounts on selected meat cuts every week. Quality meat at prices you will love."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default": "View Offers"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#d32f2f"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Weekly Fresh Deals",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,423 @@
+{%- style -%}
+  /* Fonts Import (Sirf agar theme main nahi hain) */
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600&display=swap');
+
+  .collage-hero-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .ch-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 60px; /* Thoda gap badhaya */
+  }
+
+  /* --- LEFT CONTENT --- */
+  .ch-content {
+    flex: 1;
+    z-index: 5;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .ch-content h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+  }
+
+  .ch-content p {
+    font-size: {{ section.settings.desc_size }}px;
+    line-height: 1.6;
+    color: {{ section.settings.text_color }};
+    margin-bottom: 35px;
+    max-width: 480px;
+    /* Agar text center hai to p tag bhi center ho */
+    {% if section.settings.text_alignment == 'center' %}
+      margin-left: auto;
+      margin-right: auto;
+    {% endif %}
+  }
+
+  .ch-btn-group {
+    display: flex;
+    gap: 15px;
+    /* Alignment ke hisab se button adjust */
+    justify-content: {{ section.settings.text_alignment }};
+  }
+
+  .ch-btn {
+    padding: 15px 40px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* Primary Button */
+  .ch-btn-primary {
+    background-color: {{ section.settings.btn_primary_bg }};
+    color: {{ section.settings.btn_primary_text }};
+    border: 1px solid {{ section.settings.btn_primary_bg }};
+  }
+  .ch-btn-primary:hover {
+    background-color: {{ section.settings.btn_primary_bg | color_darken: 10 }};
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
+
+  /* Secondary Button */
+  .ch-btn-secondary {
+    background: transparent;
+    color: {{ section.settings.btn_secondary_color }};
+    border: 2px solid {{ section.settings.btn_secondary_border }};
+  }
+  .ch-btn-secondary:hover {
+    background-color: {{ section.settings.btn_secondary_border }};
+    color: #fff;
+    transform: translateY(-3px);
+  }
+
+  /* --- RIGHT SIDE IMAGE COLLAGE --- */
+  .ch-image-stack {
+    flex: 1.2;
+    position: relative;
+    height: 550px; /* Thoda height badhaya */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 1. Colored Shape (Backmost Layer) */
+  .ch-shape-bg {
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    background: {{ section.settings.shape_color }};
+    border-radius: 30px;
+    z-index: 1;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+
+  /* 2. Left Image */
+  .ch-img-left {
+    position: absolute;
+    width: 42%;
+    height: 38%;
+    left: 2%;
+    top: 35%;
+    transform: translateY(-50%);
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border: 4px solid #fff;
+  }
+
+  /* 3. Right Image */
+  .ch-img-right {
+    position: absolute;
+    width: 38%;
+    height: 35%;
+    right: 2%;
+    top: 75%;
+    transform: translateY(-50%);
+    border-radius: 15px;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    border: 4px solid #fff;
+  }
+
+  /* 4. MAIN VERTICAL IMAGE */
+  .ch-img-main {
+    position: absolute;
+    width: 50%;
+    height: 90%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    overflow: hidden;
+    z-index: 10;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    border: 4px solid #fff; /* White border for popup effect */
+  }
+
+  .ch-image-stack img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  
+  /* Hover Effect: Zoom images slightly */
+  .ch-image-stack:hover .ch-img-main img {
+    transform: scale(1.05);
+  }
+
+  /* --- RESPONSIVE DESIGN --- */
+  @media (max-width: 1024px) {
+    .ch-container { flex-direction: column; text-align: center; gap: 60px; }
+    .ch-content { text-align: center; }
+    .ch-content p { margin-left: auto; margin-right: auto; }
+    .ch-btn-group { justify-content: center; }
+    .ch-image-stack { height: 480px; max-width: 600px; }
+  }
+
+  @media (max-width: 768px) {
+    .ch-content h2 { font-size: calc({{ section.settings.title_size }}px * 0.7); }
+    .ch-image-stack { height: 400px; }
+    .ch-shape-bg { width: 90%; }
+    .ch-img-main { width: 55%; }
+  }
+
+  @media (max-width: 480px) {
+    .ch-btn-group { flex-direction: column; width: 100%; }
+    .ch-btn { width: 100%; text-align: center; }
+    .ch-image-stack { height: 350px; }
+    .ch-img-left, .ch-img-right { display: none; /* Hide small images on very small screens to avoid clutter */ }
+    .ch-img-main { width: 70%; height: 90%; }
+  }
+{%- endstyle -%}
+
+<section class="collage-hero-{{ section.id }}">
+  <div class="ch-container">
+    
+    <!-- Left Text Column -->
+    <div class="ch-content">
+      <h2>{{ section.settings.title | newline_to_br }}</h2>
+      <p>{{ section.settings.desc }}</p>
+      
+      <div class="ch-btn-group">
+        {% if section.settings.btn1_text != blank %}
+          <a href="{{ section.settings.btn1_link | default: '#' }}" class="ch-btn ch-btn-primary">{{ section.settings.btn1_text }}</a>
+        {% endif %}
+        {% if section.settings.btn2_text != blank %}
+          <a href="{{ section.settings.btn2_link | default: '#' }}" class="ch-btn ch-btn-secondary">{{ section.settings.btn2_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Right Collage Column -->
+    <div class="ch-image-stack">
+      <!-- 1. Colored Shape Background -->
+      <div class="ch-shape-bg"></div>
+      
+      <!-- 2. Left Image -->
+      <div class="ch-img-left">
+        {% if section.settings.image_left != blank %}
+          {{ section.settings.image_left | image_url: width: 600 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=600&auto=format&fit=crop" alt="Steak Cut">
+        {% endif %}
+      </div>
+
+      <!-- 3. Right Image -->
+      <div class="ch-img-right">
+        {% if section.settings.image_right != blank %}
+          {{ section.settings.image_right | image_url: width: 600 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1594179047519-f347310d3322?q=80&w=600&auto=format&fit=crop" alt="Butcher Preparation">
+        {% endif %}
+      </div>
+
+      <!-- 4. Main Vertical Image -->
+      <div class="ch-img-main">
+        {% if section.settings.image_main != blank %}
+          {{ section.settings.image_main | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Meat Display">
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Collage Premium",
+  "settings": [
+    {
+      "type": "header",
+      "content": "📝 Text Content"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Heading",
+      "default": "Fresh Halal Meat\nDelivered to You"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description",
+      "default": "Experience the finest cuts of meat, sourced directly from premium farms. Hygienically packed and delivered fresh."
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "🖼️ Collage Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_main",
+      "label": "Main Image (Vertical Center)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left Small Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right Small Image"
+    },
+    {
+      "type": "header",
+      "content": "🔗 Buttons"
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Secondary Button Text",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Colors & Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "shape_color",
+      "label": "Collage Shape Color",
+      "default": "#b30000",
+      "info": "The colored box behind images"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description Color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_bg",
+      "label": "Primary Button Background",
+      "default": "#b30000"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_text",
+      "label": "Primary Button Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_color",
+      "label": "Secondary Button Text",
+      "default": "#b30000"
+    },
+    {
+      "type": "color",
+      "id": "btn_secondary_border",
+      "label": "Secondary Button Border",
+      "default": "#dddddd"
+    },
+    {
+      "type": "header",
+      "content": "📏 Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container Width",
+      "min": 1000, "max": 1600, "step": 50, "unit": "px", "default": 1250
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Heading Font Size",
+      "min": 24, "max": 80, "step": 2, "unit": "px", "default": 60
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Description Font Size",
+      "min": 14, "max": 24, "step": 1, "unit": "px", "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0, "max": 150, "step": 5, "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0, "max": 150, "step": 5, "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Collage Premium"
+    }
+  ]
+}
+{% endschema %}

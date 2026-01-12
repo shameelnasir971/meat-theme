@@ -1,0 +1,1 @@
+/home/ali-bukhari/Desktop/shopify-The/meat-shop-theme/AGENTS.md

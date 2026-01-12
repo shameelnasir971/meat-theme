@@ -1,0 +1,279 @@
+{%- style -%}
+  /* Section Wrapper */
+  .about-meat-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .about-meat-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  /* Grid Layout (Same as Screenshot) */
+  .about-meat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50% Image - 50% Text */
+    gap: 60px;
+    align-items: center; /* Vertically Center */
+  }
+
+  /* Image Column */
+  .about-meat-image-col {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-meat-image-col img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px; /* Screenshot jaisa rounded corner */
+    display: block;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Halki si shadow */
+  }
+
+  /* Text Column */
+  .about-meat-text-col {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  /* Heading Styling (Bold & Condensed like screenshot) */
+  .about-meat-text-col h2 {
+    font-family: 'Impact', 'Oswald', sans-serif; /* Bold font mimicking screenshot */
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+  }
+
+  /* Paragraph Styling */
+  .about-meat-text-col .description {
+    font-size: {{ section.settings.desc_size }}px;
+    color: {{ section.settings.text_color | color_modify: 'alpha', 0.8 }};
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .about-meat-text-col .description p {
+    margin-bottom: 15px;
+  }
+
+  /* Button Styling (Screenshot match - Rounded Rectangle) */
+  .btn-meat-shop {
+    display: inline-block;
+    background-color: {{ section.settings.btn_color }};
+    color: {{ section.settings.btn_text_color }};
+    padding: 14px 35px;
+    border-radius: 6px; /* Pill shape nahi, slightly rounded box */
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-meat-shop:hover {
+    background-color: {{ section.settings.btn_color | color_darken: 10 }};
+    transform: translateY(-2px);
+  }
+
+  /* RESPONSIVE MEDIA QUERIES */
+
+  /* Tablet (iPad) */
+  @media (max-width: 1024px) {
+    .about-meat-grid { gap: 40px; }
+    .about-meat-text-col h2 { font-size: 36px; }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .about-meat-{{ section.id }} {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .about-meat-grid {
+      grid-template-columns: 1fr; /* Stack Image top, Text bottom */
+      gap: 30px;
+    }
+    .about-meat-image-col {
+      max-width: 100%;
+    }
+    .about-meat-text-col {
+      padding-left: 0;
+      text-align: center; /* Mobile pe center acha lagta hai */
+    }
+    .about-meat-text-col h2 {
+      font-size: 30px;
+    }
+    .btn-meat-shop {
+      width: 100%; /* Mobile pe full width button */
+      box-sizing: border-box;
+      text-align: center;
+    }
+  }
+{%- endstyle -%}
+
+<section class="about-meat-{{ section.id }}">
+  <div class="about-meat-container">
+    <div class="about-meat-grid">
+
+      <!-- Left Side: Image -->
+      <div class="about-meat-image-col">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.title }}
+        {%- else -%}
+          <!-- Default Image matching the Steak vibe -->
+          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1000&auto=format&fit=crop" alt="Fresh Steak Meat" loading="lazy" width="800" height="800">
+        {%- endif -%}
+      </div>
+
+      <!-- Right Side: Content -->
+      <div class="about-meat-text-col">
+        <h2>{{ section.settings.title }}</h2>
+
+        <div class="description">
+          {%- if section.settings.content != blank -%}
+            {{ section.settings.content }}
+          {%- else -%}
+            <p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction.</p>
+            <p>Every cut of meat is carefully selected, hygienically processed, and prepared by skilled butchers who understand quality and precision. We follow strict halal standards and maintain proper temperature control from sourcing to delivery.</p>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.btn_label != blank -%}
+          <a href="{{ section.settings.btn_link | default: '#' }}" class="btn-meat-shop">
+            {{ section.settings.btn_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Meat Shop About Us",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🥩 Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Section Image (Left)"
+    },
+    {
+      "type": "header",
+      "content": "📝 Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Trusted Meat Shop"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Description",
+      "default": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Colors (From Screenshot)"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF0F0",
+      "info": "Light Pinkish Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Button Background",
+      "default": "#C62828",
+      "info": "Dark Red"						
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "📏 Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container Width",
+      "min": 1000, "max": 1600, "step": 50, "unit": "px", "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Heading Size",
+      "min": 24, "max": 60, "step": 1, "unit": "px", "default": 42
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Text Size",
+      "min": 14, "max": 20, "step": 1, "unit": "px", "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meat Shop About Us"
+    }
+  ]
+}
+{% endschema %}

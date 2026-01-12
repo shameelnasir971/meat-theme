@@ -1,0 +1,373 @@
+{%- style -%}
+  /* Section Base Styles */
+  .category-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .category-container-{{ section.id }} {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Heading Styles */
+  .section-header-{{ section.id }} {
+    text-align: {{ section.settings.heading_align }};
+    margin-bottom: {{ section.settings.heading_margin }}px;
+  }
+
+  .section-header-{{ section.id }} h2 {
+    font-size: {{ section.settings.heading_size }}px;
+    color: {{ section.settings.heading_color }};
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+    text-transform: capitalize;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Grid Layout */
+  .category-grid-{{ section.id }} {
+    display: grid;
+    /* Desktop: Uses setting value */
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr); 
+    gap: {{ section.settings.grid_gap }}px;
+  }
+
+  /* Card Styles */
+  .category-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    aspect-ratio: 4 / 3; 
+    background-color: #f5f5f5;
+  }
+
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  }
+
+  /* Image Handling */
+  .category-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .category-card:hover img {
+    transform: scale(1.1);
+  }
+
+  /* Text Overlay Gradient */
+  .category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; 
+    background: linear-gradient(to top, rgba(0,0,0,{{ section.settings.overlay_opacity }}) 0%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Card Text */
+  .category-title {
+    color: {{ section.settings.card_text_color }};
+    font-size: {{ section.settings.card_font_size }}px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.2;
+  }
+
+  /* RESPONSIVE CSS */
+  @media (max-width: 1024px) {
+    .category-grid-{{ section.id }} {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .category-section-{{ section.id }} {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    .category-grid-{{ section.id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .category-title {
+      font-size: 16px;
+      padding-bottom: 5px;
+    }
+    .category-overlay {
+      padding: 12px;
+    }
+    .section-header-{{ section.id }} h2 {
+      font-size: 28px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="category-section-{{ section.id }}">
+  <div class="category-container-{{ section.id }}">
+    
+    {%- if section.settings.title != blank -%}
+      <div class="section-header-{{ section.id }}">
+        <h2>{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="category-grid-{{ section.id }}">
+      
+      {%- if section.blocks.size > 0 -%}
+        <!-- CASE 1: USER NE BLOCKS ADD KIYE HAIN -->
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.link | default: '#' }}" class="category-card" {{ block.shopify_attributes }}>
+            <div class="category-image-wrapper">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | img_url: '720x' }}" 
+                     alt="{{ block.settings.heading | escape }}" 
+                     loading="lazy" width="720" height="540">
+              {%- else -%}
+                <!-- Agar User ne block banaya par image nahi dali, to Placeholder -->
+                {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="category-overlay">
+              <h3 class="category-title">{{ block.settings.heading | default: 'Category' }}</h3>
+            </div>
+          </a>
+        {%- endfor -%}
+
+      {%- else -%}
+        <!-- CASE 2: DEFAULT DEMO (Agar koi block nahi hai to ye dikhega) -->
+        
+        <!-- Demo Card 1: Beef -->
+        <a href="#" class="category-card">
+          <div class="category-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=600&q=80 " alt="Beef">
+          </div>
+          <div class="category-overlay"><h3 class="category-title">Beef</h3></div>
+        </a>
+
+        <!-- Demo Card 2: Goat -->
+        <a href="#" class="category-card">
+          <div class="category-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=600&q=80" alt="Goat">
+          </div>
+          <div class="category-overlay"><h3 class="category-title">Goat</h3></div>
+        </a>
+
+        <!-- Demo Card 3: Duck -->
+        <a href="#" class="category-card">
+          <div class="category-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=600&q=80" alt="Duck">
+          </div>
+          <div class="category-overlay"><h3 class="category-title">Duck</h3></div>
+        </a>
+
+        <!-- Demo Card 4: Chicken -->
+        <a href="#" class="category-card">
+          <div class="category-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=600&q=80" alt="Chicken">
+          </div>
+          <div class="category-overlay"><h3 class="category-title">Chicken</h3></div>
+        </a>
+
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop By Category (Grid)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Section Heading",
+      "default": "Shop By Category"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Appearance"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Text Shadow Opacity",
+      "min": 0, "max": 1, "step": 0.1, "default": 0.6
+    },
+    {
+      "type": "header",
+      "content": "📐 Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container Width",
+      "min": 800, "max": 1600, "step": 50, "default": 1300, "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Cards per row (Desktop)",
+      "min": 2, "max": 5, "step": 1, "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Corner Radius",
+      "min": 0, "max": 40, "step": 1, "default": 12, "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap Between Cards",
+      "min": 10, "max": 50, "step": 5, "default": 20, "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "🔤 Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Font Size",
+      "min": 20, "max": 80, "step": 2, "default": 42, "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin",
+      "label": "Heading Bottom Margin",
+      "min": 10, "max": 80, "step": 5, "default": 40, "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "card_font_size",
+      "label": "Card Title Size",
+      "min": 14, "max": 30, "step": 1, "default": 24, "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "↕️ Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding",
+      "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding",
+      "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Category Name",
+          "default": "Meat Type",
+          "info": "Example: Beef, Mutton, Chicken"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Category (Grid)",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": { "heading": "Beef" }
+        },
+        {
+          "type": "category",
+          "settings": { "heading": "Goat" }
+        },
+        {
+          "type": "category",
+          "settings": { "heading": "Duck" }
+        },
+        {
+          "type": "category",
+          "settings": { "heading": "Chicken" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

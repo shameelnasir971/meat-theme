@@ -1,0 +1,29 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "primary_color": "#B22222",
+      "secondary_color": "#8B4513",
+      "accent_color": "#D4AF37",
+      "background_color": "#FFF9F5",
+      "text_color": "#2D2D2D",
+      "text_light_color": "#666666",
+      "heading_font": "playfair_display_n7",
+      "body_font": "inter_n4",
+      "subheading_font": "montserrat_n6",
+      "heading_size": 48,
+      "subheading_size": 24,
+      "body_size": 16,
+      "container_width": 1200,
+      "section_spacing": 5,
+      "button_radius": 4,
+      "theme_mode": "light-mode",
+      "enable_animations": true,
+      "enable_smooth_scroll": true,
+      "animation_speed": 0.3,
+      "enable_parallax": false,
+      "enable_lazy_loading": true,
+      "custom_css": "/* Enter your custom CSS code here */"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Meat Shop Premium",
+  "author": "Shopify Expert",
+  "settings_obfuscation": false,
+  "features": {
+    "preview_mode": true,
+    "theme_editor": true,
+    "color_customization": true,
+    "typography_customization": true,
+    "layout_customization": true
+  },
+  "version": "1.0.0"
+}

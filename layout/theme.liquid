@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>{{ page_title }}</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+    img { max-width: 100%; height: auto; display: block; }
+  </style>
+  
+  {{ content_for_header }}
+</head>
+<body>
+  
+  <!-- Announcement Bar -->
+  {% section 'announcement-bar' %}
+  
+  <!-- Header & Sidebar Drawer is inside this section -->
+  {% section 'header' %}
+  
+  <main id="MainContent" role="main">
+    {{ content_for_layout }}
+  </main>
+  
+  {% section 'footer' %}
+  
+  {{ 'theme.js' | asset_url | script_tag }}
+</body>
+</html>
