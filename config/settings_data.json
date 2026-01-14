@@ -1,5 +1,337 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "current": "Default",
+  "current": {
+    "primary_color": "#B22222",
+    "secondary_color": "#8B4513",
+    "accent_color": "#D4AF37",
+    "background_color": "#FFF9F5",
+    "text_color": "#2D2D2D",
+    "text_light_color": "#666666",
+    "heading_font": "playfair_display_n7",
+    "body_font": "inter_n4",
+    "subheading_font": "montserrat_n6",
+    "heading_size": 48,
+    "subheading_size": 24,
+    "body_size": 16,
+    "container_width": 1200,
+    "section_spacing": 5,
+    "button_radius": 4,
+    "theme_mode": "light-mode",
+    "enable_animations": true,
+    "enable_smooth_scroll": true,
+    "animation_speed": 0.3,
+    "enable_parallax": false,
+    "enable_lazy_loading": true,
+    "custom_css": "/* Enter your custom CSS code here */",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "bg_color": "#a10c0e",
+          "text_color": "#ffffff",
+          "font_size": 13,
+          "text_transform": "none",
+          "icon_text_gap": 30,
+          "padding_v": 10,
+          "show_arrows": true,
+          "autoplay": true,
+          "autoplay_speed": 5,
+          "icon_size": 12
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "main_menu": "",
+          "logo_image": "shopify://shop_images/Group.png",
+          "logo_text": "MEAT SHOP",
+          "logo_size": 80,
+          "text_color": "#ffffff",
+          "hover_color": "#ffcc00",
+          "scrolled_bg": "#d32f2f",
+          "icon_width": 12,
+          "dropdown_bg": "#ffffff",
+          "dropdown_link_color": "#333333",
+          "dropdown_hover_bg": "#f8f8f8",
+          "dropdown_hover_text": "#d32f2f",
+          "dropdown_font_size": 14,
+          "hover_animation": "slide"
+        }
+      },
+      "hero-banner": {
+        "type": "hero-banner",
+        "settings": {
+          "background_image": "shopify://shop_images/Rectangle_61.png",
+          "main_title": "Fresh Halal Meat, Cut to Perfection",
+          "sub_text": "Sourced from trusted farms, expertly cut, and delivered fresh to your doorstep.",
+          "btn1_text": "Shop Now",
+          "btn1_link": "",
+          "btn2_text": "Today's Deals",
+          "btn2_link": "",
+          "glass_tagline": "Farm To Table Excellence",
+          "glass_title": "Discover The Difference Quality Makes",
+          "glass_desc": "Premium quality beef, mutton, and chicken sourced from trusted farms. Freshly cut by expert butchers."
+        }
+      },
+      "icon-features-bar": {
+        "type": "icon-features-bar",
+        "blocks": {
+          "feature_iybRNN": {
+            "type": "feature",
+            "settings": {
+              "icon_class": "fas fa-check-circle",
+              "custom_image": "shopify://shop_images/Group.svg",
+              "title": "Feature Title",
+              "subtext": "Add a short description"
+            }
+          },
+          "feature_BXYVtj": {
+            "type": "feature",
+            "settings": {
+              "icon_class": "fas fa-check-circle",
+              "custom_image": "shopify://shop_images/Vector_2.svg",
+              "title": "Feature Title",
+              "subtext": "Add a short description"
+            }
+          },
+          "feature_P9a7it": {
+            "type": "feature",
+            "settings": {
+              "icon_class": "fas fa-check-circle",
+              "custom_image": "shopify://shop_images/Vector.svg",
+              "title": "Feature Title",
+              "subtext": "Add a short description"
+            }
+          }
+        },
+        "block_order": [
+          "feature_iybRNN",
+          "feature_BXYVtj",
+          "feature_P9a7it"
+        ],
+        "settings": {
+          "background_color": "#fdf0f0",
+          "icon_color": "#d32f2f",
+          "heading_color": "#1a1a1a",
+          "text_color": "#666666",
+          "container_width": 1200,
+          "padding_top": 40,
+          "padding_bottom": 40,
+          "icon_size": 45,
+          "heading_size": 18,
+          "text_size": 14
+        }
+      },
+      "categories": {
+        "type": "categories",
+        "blocks": {
+          "category_FJgjbi": {
+            "type": "category",
+            "settings": {
+              "collection": "shop-by-category"
+            }
+          }
+        },
+        "block_order": [
+          "category_FJgjbi"
+        ],
+        "settings": {
+          "title": "Shop By Category",
+          "products_limit": 8,
+          "bg_color": "#ffffff",
+          "heading_color": "#1a1a1a",
+          "card_text_color": "#ffffff",
+          "overlay_opacity": 0.6,
+          "container_width": 1300,
+          "columns_desktop": 4,
+          "card_radius": 12,
+          "grid_gap": 20,
+          "heading_size": 42,
+          "heading_margin": 40,
+          "heading_align": "center",
+          "card_font_size": 24,
+          "padding_top": 60,
+          "padding_bottom": 60
+        }
+      },
+      "about-us": {
+        "type": "about-us",
+        "settings": {
+          "image": "shopify://shop_images/13dee0d198ebd247e779f1e0a8ac2b248f50309f.png",
+          "title": "Trusted Meat Shop",
+          "content": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country.</p>",
+          "btn_label": "Learn More",
+          "btn_link": "",
+          "bg_color": "#fff0f0",
+          "text_color": "#111111",
+          "btn_color": "#c62828",
+          "btn_text_color": "#ffffff",
+          "container_width": 1200,
+          "title_size": 42,
+          "desc_size": 15,
+          "padding_top": 80,
+          "padding_bottom": 80
+        }
+      },
+      "best-sellers": {
+        "type": "best-sellers",
+        "settings": {
+          "heading": "Best Sellers",
+          "collection": "shop-by-category",
+          "limit": 8,
+          "acc_color": "#d32f2f",
+          "h_color": "#1a1a1a",
+          "bg_color": "#ffffff",
+          "font_family": "'Poppins', sans-serif",
+          "h_size": 42,
+          "container_width": 1250,
+          "p_top": 60,
+          "p_bottom": 60
+        }
+      },
+      "menu-deals": {
+        "type": "menu-deals",
+        "settings": {
+          "heading": "Menu Board",
+          "title_size": 45,
+          "bg_color": "#111111",
+          "card_bg": "#1a1a1a",
+          "accent_color": "#d32f2f",
+          "title_color": "#ffffff",
+          "container_width": 1200,
+          "padding_top": 60,
+          "padding_bottom": 60
+        }
+      },
+      "testimonials": {
+        "type": "testimonials",
+        "settings": {
+          "title": "Fresh Halal Meat\nDelivered to You",
+          "desc": "Experience the finest cuts of meat, sourced directly from premium farms. Hygienically packed and delivered fresh.",
+          "text_alignment": "left",
+          "btn1_text": "Shop Now",
+          "btn1_link": "",
+          "btn2_text": "Our Story",
+          "btn2_link": "",
+          "bg_color": "#ffffff",
+          "shape_color": "#b30000",
+          "heading_color": "#1a1a1a",
+          "text_color": "#555555",
+          "btn_primary_bg": "#b30000",
+          "btn_primary_text": "#ffffff",
+          "btn_secondary_color": "#b30000",
+          "btn_secondary_border": "#dddddd",
+          "container_width": 1250,
+          "title_size": 60,
+          "desc_size": 16,
+          "padding_top": 100,
+          "padding_bottom": 100
+        }
+      },
+      "weekly-deals": {
+        "type": "weekly-deals",
+        "settings": {
+          "overlay_color": "#000000",
+          "title": "Weekly Fresh Deals",
+          "description": "Enjoy exclusive discounts on selected meat cuts every week. Quality meat at prices you will love.",
+          "text_color": "#ffffff",
+          "btn_label": "View Offers",
+          "btn_link": "",
+          "btn_bg_color": "#d32f2f",
+          "btn_text_color": "#ffffff"
+        }
+      },
+      "our-customer": {
+        "type": "our-customer",
+        "settings": {
+          "heading": "What Our Customer Say",
+          "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
+          "bg_color": "#ffffff",
+          "card_bg_color": "#fdf0f0",
+          "accent_color": "#d32f2f",
+          "text_color_heading": "#1a1a1a",
+          "text_color_sub": "#555555"
+        }
+      },
+      "team-members": {
+        "type": "team-members",
+        "settings": {
+          "heading": "Meet Our Team Members",
+          "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
+          "bg_color": "#ffffff",
+          "accent_color": "#d32f2f",
+          "text_color_heading": "#1a1a1a",
+          "text_color_sub": "#555555"
+        }
+      },
+      "faq": {
+        "type": "faq",
+        "settings": {
+          "heading": "Frequently Asked Questions",
+          "subheading": "<p>Everything you need to know about our premium meat cuts, delivery process, and quality standards.</p>",
+          "bg_color": "#ffffff",
+          "active_bg": "#d32f2f",
+          "active_text": "#ffffff",
+          "inactive_bg": "#fdf2f2",
+          "inactive_text": "#1a1a1a",
+          "text_color_heading": "#1a1a1a",
+          "text_color_sub": "#666666"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "heading": "Our Newsletter",
+          "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
+          "overlay_opacity": 0.6,
+          "section_bg": "#ffffff",
+          "text_color": "#ffffff",
+          "accent_color": "#d32f2f",
+          "input_placeholder": "Enter Email",
+          "button_text": "Subscribe"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "bg_color": "#fdf0f0",
+          "text_color": "#555555",
+          "heading_color": "#1a1a1a",
+          "accent_color": "#d32f2f",
+          "logo_width": 80,
+          "show_logo_text": true,
+          "logo_text": "MEAT SHOP",
+          "description": "Cras tincidunt lobortis feugiat vivamus at morbi leo urna molestie atole elementum eu facilisis faucibus interdum posuere.",
+          "social_facebook": "",
+          "social_twitter": "",
+          "social_instagram": "",
+          "social_linkedin": "",
+          "social_youtube": "",
+          "menu_1_title": "Quick Link",
+          "menu_1": "",
+          "menu_2_title": "Customer Care",
+          "menu_2": "",
+          "menu_3_title": "Policies",
+          "menu_3": "",
+          "contact_title": "Contact",
+          "contact_email": "meetshop@gmail.com",
+          "contact_phone": "+92 300000000",
+          "contact_address": "Dubai and Abu Dhabi",
+          "copyright_text": "Meat Shop | All Rights Reserved",
+          "show_payment_icons": true
+        }
+      }
+    },
+    "content_for_index": []
+  },
   "presets": {
     "Default": {
       "primary_color": "#B22222",
