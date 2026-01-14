@@ -1,111 +1,125 @@
 {%- style -%}
-  .custom-features-bar {
+  .features-bar-{{ section.id }} {
     background-color: {{ section.settings.background_color }};
-    padding: {{ section.settings.padding }}px 0;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
     width: 100%;
   }
   
-  .features-container {
-    max-width: 1200px;
+  .fb-container-{{ section.id }} {
+    max-width: {{ section.settings.container_width }}px;
     margin: 0 auto;
     padding: 0 20px;
   }
   
-  .features-flex {
+  .fb-flex {
     display: flex;
-    justify-content: {{ section.settings.alignment }};
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    gap: {{ section.settings.gap }}px;
+    gap: 30px;
   }
   
-  .feature-box {
+  .fb-item {
     display: flex;
     align-items: center;
     gap: 15px;
     flex: 1;
-    min-width: 250px;
-    justify-content: {{ section.settings.box_alignment }};
+    min-width: 280px;
+    justify-content: center;
   }
   
-  .feature-icon {
+  .fb-icon {
+    flex-shrink: 0;
     width: {{ section.settings.icon_size }}px;
-    height: {{ section.settings.icon_size }}px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: calc({{ section.settings.icon_size }}px * 0.6);
     color: {{ section.settings.icon_color }};
   }
+
+  .fb-icon i {
+    font-size: {{ section.settings.icon_size }}px;
+    line-height: 1;
+  }
+
+  .fb-icon img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
   
-  .feature-info {
+  .fb-info {
     text-align: left;
   }
   
-  .feature-info h4 {
+  .fb-info h4 {
     margin: 0;
-    font-family: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
     font-size: {{ section.settings.heading_size }}px;
-    font-weight: {{ section.settings.heading_weight }};
+    font-weight: 700;
     color: {{ section.settings.heading_color }};
     line-height: 1.2;
   }
   
-  .feature-info p {
-    margin: 3px 0 0 0;
+  .fb-info p {
+    margin: 4px 0 0 0;
     font-size: {{ section.settings.text_size }}px;
     color: {{ section.settings.text_color }};
+    line-height: 1.4;
     font-weight: 400;
   }
 
   @media (max-width: 768px) {
-    .features-flex {
+    .fb-flex {
       flex-direction: column;
-      gap: 30px;
+      gap: 25px;
     }
-    .feature-box {
+    .fb-item {
       justify-content: flex-start;
       width: 100%;
+      max-width: 350px;
+      margin: 0 auto;
     }
   }
 {%- endstyle -%}
 
-<section class="custom-features-bar">
-  <div class="features-container">
-    <div class="features-flex">
+<!-- FontAwesome link for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<section class="features-bar-{{ section.id }}">
+  <div class="fb-container-{{ section.id }}">
+    <div class="fb-flex">
       
-      <!-- Feature 1 -->
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="{{ section.settings.icon1 }}"></i>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="fb-item" {{ block.shopify_attributes }}>
+            <div class="fb-icon">
+              {%- if block.settings.custom_image != blank -%}
+                <img src="{{ block.settings.custom_image | img_url: '100x' }}" alt="{{ block.settings.title }}" width="45" height="45" loading="lazy">
+              {%- else -%}
+                <i class="{{ block.settings.icon_class }}"></i>
+              {%- endif -%}
+            </div>
+            <div class="fb-info">
+              <h4>{{ block.settings.title }}</h4>
+              <p>{{ block.settings.subtext }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Onboarding Content (Screenshot look) {%- endcomment -%}
+        <div class="fb-item">
+          <div class="fb-icon"><i class="fas fa-certificate"></i></div>
+          <div class="fb-info"><h4>100% Halal Certified</h4><p>Verified by UAE authorities</p></div>
         </div>
-        <div class="feature-info">
-          <h4>{{ section.settings.heading1 }}</h4>
-          <p>{{ section.settings.text1 }}</p>
+        <div class="fb-item">
+          <div class="fb-icon"><i class="fas fa-leaf"></i></div>
+          <div class="fb-info"><h4>Always Fresh</h4><p>Cut and delivered same day</p></div>
         </div>
-      </div>
-      
-      <!-- Feature 2 -->
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="{{ section.settings.icon2 }}"></i>
+        <div class="fb-item">
+          <div class="fb-icon"><i class="fas fa-truck-fast"></i></div>
+          <div class="fb-info"><h4>Free UAE Delivery</h4><p>On orders above $150</p></div>
         </div>
-        <div class="feature-info">
-          <h4>{{ section.settings.heading2 }}</h4>
-          <p>{{ section.settings.text2 }}</p>
-        </div>
-      </div>
-      
-      <!-- Feature 3 -->
-      <div class="feature-box">
-        <div class="feature-icon">
-          <i class="{{ section.settings.icon3 }}"></i>
-        </div>
-        <div class="feature-info">
-          <h4>{{ section.settings.heading3 }}</h4>
-          <p>{{ section.settings.text3 }}</p>
-        </div>
-      </div>
+      {%- endif -%}
 
     </div>
   </div>
@@ -113,236 +127,51 @@
 
 {% schema %}
 {
-  "name": "🎯 Icon Features Bar",
+  "name": "Icon Features Bar",
   "settings": [
     {
       "type": "header",
-      "content": "🎨 Colors"
+      "content": "🎨 Appearance"
     },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#FEEDED"
-    },
-    {
-      "type": "color",
-      "id": "icon_color",
-      "label": "Icon Color",
-      "default": "#C62828"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#666666"
-    },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#fdf0f0" },
+    { "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#d32f2f" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "text_color", "label": "Subtext Color", "default": "#666666" },
     {
       "type": "header",
       "content": "📐 Layout"
     },
-    {
-      "type": "range",
-      "id": "padding",
-      "label": "Section Padding",
-      "min": 10,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "default": 30
-    },
-    {
-      "type": "select",
-      "id": "alignment",
-      "label": "Horizontal Alignment",
-      "options": [
-        { "value": "flex-start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Right" },
-        { "value": "space-around", "label": "Space Around" },
-        { "value": "space-between", "label": "Space Between" }
-      ],
-      "default": "space-around"
-    },
-    {
-      "type": "range",
-      "id": "gap",
-      "label": "Space Between Items",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 20
-    },
-    {
-      "type": "select",
-      "id": "box_alignment",
-      "label": "Box Content Alignment",
-      "options": [
-        { "value": "flex-start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Right" }
-      ],
-      "default": "center"
-    },
+    { "type": "range", "id": "container_width", "label": "Max Container Width", "min": 1000, "max": 1600, "step": 50, "default": 1200 },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 10, "max": 100, "step": 5, "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 10, "max": 100, "step": 5, "default": 40 },
     {
       "type": "header",
-      "content": "🎯 Icons"
+      "content": "🔤 Sizes"
     },
+    { "type": "range", "id": "icon_size", "label": "Icon Size", "min": 20, "max": 60, "step": 1, "default": 45 },
+    { "type": "range", "id": "heading_size", "label": "Heading Font Size", "min": 14, "max": 30, "step": 1, "default": 18 },
+    { "type": "range", "id": "text_size", "label": "Subtext Font Size", "min": 12, "max": 20, "step": 1, "default": 14 }
+  ],
+  "blocks": [
     {
-      "type": "range",
-      "id": "icon_size",
-      "label": "Icon Size",
-      "min": 20,
-      "max": 80,
-      "step": 5,
-      "unit": "px",
-      "default": 45
-    },
-    {
-      "type": "text",
-      "id": "icon1",
-      "label": "Icon 1 (Font Awesome Class)",
-      "default": "fas fa-certificate",
-      "info": "Example: fas fa-certificate, fas fa-star, fas fa-check"
-    },
-    {
-      "type": "text",
-      "id": "icon2",
-      "label": "Icon 2 (Font Awesome Class)",
-      "default": "fas fa-clock"
-    },
-    {
-      "type": "text",
-      "id": "icon3",
-      "label": "Icon 3 (Font Awesome Class)",
-      "default": "fas fa-truck"
-    },
-    {
-      "type": "header",
-      "content": "🔤 Content 1"
-    },
-    {
-      "type": "text",
-      "id": "heading1",
-      "label": "Heading 1",
-      "default": "100% Halal Certified"
-    },
-    {
-      "type": "text",
-      "id": "text1",
-      "label": "Text 1",
-      "default": "Verified by UAE authorities"
-    },
-    {
-      "type": "header",
-      "content": "🔤 Content 2"
-    },
-    {
-      "type": "text",
-      "id": "heading2",
-      "label": "Heading 2",
-      "default": "Always Fresh"
-    },
-    {
-      "type": "text",
-      "id": "text2",
-      "label": "Text 2",
-      "default": "Cut and delivered same day"
-    },
-    {
-      "type": "header",
-      "content": "🔤 Content 3"
-    },
-    {
-      "type": "text",
-      "id": "heading3",
-      "label": "Heading 3",
-      "default": "Free UAE Delivery"
-    },
-    {
-      "type": "text",
-      "id": "text3",
-      "label": "Text 3",
-      "default": "On orders above $150"
-    },
-    {
-      "type": "header",
-      "content": "✍️ Typography"
-    },
-    {
-      "type": "font_picker",
-      "id": "heading_font",
-      "label": "Heading Font",
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "label": "Heading Size",
-      "min": 12,
-      "max": 30,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "select",
-      "id": "heading_weight",
-      "label": "Heading Weight",
-      "options": [
-        { "value": "300", "label": "Light" },
-        { "value": "400", "label": "Regular" },
-        { "value": "500", "label": "Medium" },
-        { "value": "600", "label": "Semi Bold" },
-        { "value": "700", "label": "Bold" }
-      ],
-      "default": "700"
-    },
-    {
-      "type": "range",
-      "id": "text_size",
-      "label": "Text Size",
-      "min": 10,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "default": 13
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        { "type": "text", "id": "icon_class", "label": "Icon Class (Font Awesome)", "default": "fas fa-check-circle", "info": "Browse icons at fontawesome.com" },
+        { "type": "image_picker", "id": "custom_image", "label": "Custom Image Icon (Optional)" },
+        { "type": "text", "id": "title", "label": "Heading", "default": "Feature Title" },
+        { "type": "text", "id": "subtext", "label": "Description", "default": "Add a short description" }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Icon Features Bar",
-      "category": "Features",
-      "settings": {
-        "background_color": "#FEEDED",
-        "icon_color": "#C62828",
-        "heading_color": "#1a1a1a",
-        "text_color": "#666666",
-        "padding": 30,
-        "alignment": "space-around",
-        "gap": 20,
-        "box_alignment": "center",
-        "icon_size": 45,
-        "icon1": "fas fa-certificate",
-        "icon2": "fas fa-clock",
-        "icon3": "fas fa-truck",
-        "heading1": "100% Halal Certified",
-        "text1": "Verified by UAE authorities",
-        "heading2": "Always Fresh",
-        "text2": "Cut and delivered same day",
-        "heading3": "Free UAE Delivery",
-        "text3": "On orders above $150",
-        "heading_size": 16,
-        "heading_weight": "700",
-        "text_size": 13
-      }
+      "blocks": [
+        { "type": "feature", "settings": { "icon_class": "fas fa-certificate", "title": "100% Halal Certified", "subtext": "Verified by UAE authorities" } },
+        { "type": "feature", "settings": { "icon_class": "fas fa-leaf", "title": "Always Fresh", "subtext": "Cut and delivered same day" } },
+        { "type": "feature", "settings": { "icon_class": "fas fa-truck-fast", "title": "Free UAE Delivery", "subtext": "On orders above $150" } }
+      ]
     }
   ]
 }
