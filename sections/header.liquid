@@ -83,7 +83,15 @@
       <!-- CENTER: LOGO -->
       <div class="logo-center-pro">
         <a href="{{ routes.root_url }}" class="logo-link-pro">
-          <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Logo" class="meat-logo-icon" style="width: {{ section.settings.logo_size }}px;">
+          <img 
+            src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" 
+            alt="Meat Logo" 
+            class="meat-logo-icon" 
+            width="{{ section.settings.logo_size }}" 
+            height="{{ section.settings.logo_size }}" 
+            loading="eager"
+            style="width: {{ section.settings.logo_size }}px; height: auto;"
+          >
           <h1 class="meat-logo-text">{{ section.settings.logo_text }}</h1>
         </a>
       </div>
@@ -120,7 +128,6 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600&display=swap');
 
-  /* Wrapper to prevent jumping when becoming fixed */
   .header-wrapper-pro {
     width: 100%;
     position: absolute; 

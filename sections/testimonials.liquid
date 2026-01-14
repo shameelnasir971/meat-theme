@@ -218,27 +218,45 @@
       <!-- 2. Left Image -->
       <div class="ch-img-left">
         {% if section.settings.image_left != blank %}
-          {{ section.settings.image_left | image_url: width: 600 | image_tag: loading: 'lazy' }}
+          {{ section.settings.image_left | image_url: width: 600 | image_tag: loading: 'lazy', width: 600, height: 400 }}
         {% else %}
-          <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=600&auto=format&fit=crop" alt="Steak Cut">
+          <img 
+            src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=600&auto=format&fit=crop" 
+            alt="Steak Cut" 
+            width="600" 
+            height="400" 
+            loading="lazy"
+          >
         {% endif %}
       </div>
 
       <!-- 3. Right Image -->
       <div class="ch-img-right">
         {% if section.settings.image_right != blank %}
-          {{ section.settings.image_right | image_url: width: 600 | image_tag: loading: 'lazy' }}
+          {{ section.settings.image_right | image_url: width: 600 | image_tag: loading: 'lazy', width: 600, height: 400 }}
         {% else %}
-          <img src="https://images.unsplash.com/photo-1594179047519-f347310d3322?q=80&w=600&auto=format&fit=crop" alt="Butcher Preparation">
+          <img 
+            src="https://images.unsplash.com/photo-1594179047519-f347310d3322?q=80&w=600&auto=format&fit=crop" 
+            alt="Butcher Preparation" 
+            width="600" 
+            height="400" 
+            loading="lazy"
+          >
         {% endif %}
       </div>
 
       <!-- 4. Main Vertical Image -->
       <div class="ch-img-main">
         {% if section.settings.image_main != blank %}
-          {{ section.settings.image_main | image_url: width: 800 | image_tag: loading: 'lazy' }}
+          {{ section.settings.image_main | image_url: width: 800 | image_tag: loading: 'lazy', width: 800, height: 1200 }}
         {% else %}
-          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Meat Display">
+          <img 
+            src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+            alt="Premium Meat Display" 
+            width="800" 
+            height="1200" 
+            loading="lazy"
+          >
         {% endif %}
       </div>
     </div>
@@ -392,20 +410,17 @@
       "min": 24, "max": 80, "step": 2, "unit": "px", "default": 60
     },
     {
-      "type": "range",
-      "id": "desc_size",
+      "type": "range", "id": "desc_size",
       "label": "Description Font Size",
       "min": 14, "max": 24, "step": 1, "unit": "px", "default": 16
     },
     {
-      "type": "range",
-      "id": "padding_top",
+      "type": "range", "id": "padding_top",
       "label": "Padding Top",
       "min": 0, "max": 150, "step": 5, "default": 100
     },
     {
-      "type": "range",
-      "id": "padding_bottom",
+      "type": "range", "id": "padding_bottom",
       "label": "Padding Bottom",
       "min": 0, "max": 150, "step": 5, "default": 100
     }

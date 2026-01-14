@@ -2,8 +2,10 @@
   <div class="product-image">
     <img 
       src="{{ product_image }}" 
-      alt="{{ product_title }}" 
+      alt="{{ product_title | escape }}" 
       loading="lazy"
+      width="400" 
+      height="400"
       class="card-img"
     >
     {% if product_badge %}
@@ -33,6 +35,14 @@
 <style>
   .product-card {
     height: 100%;
+    position: relative; 
+  }
+  
+  .card-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
   }
   
   .product-info {
@@ -62,5 +72,6 @@
     position: absolute;
     top: 15px;
     left: 15px;
+    z-index: 1;
   }
 </style>

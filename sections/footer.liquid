@@ -122,9 +122,21 @@
       <div class="footer-column">
         <div class="footer-logo">
           {%- if section.settings.logo != blank -%}
-            <img src="{{ section.settings.logo | img_url: '120x' }}" alt="Logo">
+            <img 
+              src="{{ section.settings.logo | image_url: width: 120 }}" 
+              alt="{{ section.settings.logo.alt | default: 'Logo' }}" 
+              width="120" 
+              height="45" 
+              loading="lazy"
+            >
           {%- else -%}
-            <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Meat Icon">
+            <img 
+              src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" 
+              alt="Meat Icon" 
+              width="45" 
+              height="45" 
+              loading="lazy"
+            >
           {%- endif -%}
           <h2 class="logo-text">{{ section.settings.logo_text }}</h2>
         </div>
@@ -172,10 +184,10 @@
     <div class="footer-bottom">
       <p class="copyright">{{ section.settings.copyright }}</p>
       <div class="payment-icons-wrap">
-        <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard">
-        <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay">
-        <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay">
+        <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard" width="35" height="22" loading="lazy">
+        <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa" width="35" height="22" loading="lazy">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay" width="35" height="22" loading="lazy">
+        <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay" width="35" height="22" loading="lazy">
       </div>
     </div>
   </div>

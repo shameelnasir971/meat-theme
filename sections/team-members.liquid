@@ -150,19 +150,36 @@
               <div class="team-card" {{ block.shopify_attributes }}>
                 <div class="member-image-box">
                   {%- if block.settings.image != blank -%}
-                    <img src="{{ block.settings.image | img_url: '600x800', crop: 'center' }}" alt="Team Member" loading="lazy">
+                    <img 
+                      src="{{ block.settings.image | image_url: width: 600, height: 800, crop: 'center' }}" 
+                      alt="{{ block.settings.image.alt | default: 'Team Member' }}" 
+                      width="600" 
+                      height="800" 
+                      loading="lazy"
+                    >
                   {%- else -%}
-                    <img src="https://images.unsplash.com/photo-1594179047519-f347310d3322?q=80&w=600&auto=format&fit=crop" alt="Placeholder">
+                    <img 
+                      src="https://images.unsplash.com/photo-1594179047519-f347310d3322?q=80&w=600&auto=format&fit=crop" 
+                      alt="Placeholder Member" 
+                      width="600" 
+                      height="800" 
+                      loading="lazy"
+                    >
                   {%- endif -%}
                 </div>
               </div>
             {%- endfor -%}
           {%- else -%}
-            {%- comment -%} Placeholder cards dikhane ke liye agar blocks khali hain {%- endcomment -%}
             {%- for i in (1..3) -%}
               <div class="team-card">
                 <div class="member-image-box">
-                  <img src="https://images.unsplash.com/photo-1583394238711-b40f5f63bc1d?q=80&w=600&auto=format&fit=crop" alt="Meat Expert Demo">
+                  <img 
+                    src="https://images.unsplash.com/photo-1583394238711-b40f5f63bc1d?q=80&w=600&auto=format&fit=crop" 
+                    alt="Meat Expert Demo" 
+                    width="600" 
+                    height="800" 
+                    loading="lazy"
+                  >
                 </div>
               </div>
             {%- endfor -%}
@@ -175,10 +192,10 @@
     <div class="team-dots" id="teamDots-{{ section.id }}"></div>
 
     <div class="team-nav">
-      <button class="t-nav-btn" onclick="window.teamSlider_{{ section.id | replace: '-', '_' }}.move(-1)">
+      <button class="t-nav-btn" type="button" aria-label="Previous slide" onclick="window.teamSlider_{{ section.id | replace: '-', '_' }}.move(-1)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-      <button class="t-nav-btn" onclick="window.teamSlider_{{ section.id | replace: '-', '_' }}.move(1)">
+      <button class="t-nav-btn" type="button" aria-label="Next slide" onclick="window.teamSlider_{{ section.id | replace: '-', '_' }}.move(1)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </button>
     </div>

@@ -22,7 +22,7 @@
     text-align: center;
     {% if section.settings.bg_image != blank %}
       background: linear-gradient(rgba(0, 0, 0, {{ section.settings.overlay_opacity }}), rgba(0, 0, 0, {{ section.settings.overlay_opacity }})), 
-                  url('{{ section.settings.bg_image | img_url: '1600x' }}');
+                  url('{{ section.settings.bg_image | image_url: width: 1600 }}');
     {% else %}
       background: linear-gradient(rgba(0, 0, 0, {{ section.settings.overlay_opacity }}), rgba(0, 0, 0, {{ section.settings.overlay_opacity }})), 
                   url('https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=1600&auto=format&fit=crop');
@@ -132,7 +132,7 @@
           </div>
           
           {%- if form.posted_successfully? -%}
-            <p style="color: #fff; margin-top: 15px;">{{ 'general.newsletter_form.confirmation' | t | default: "Thanks for subscribing!" }}</p>
+            <p style="color: #fff; margin-top: 15px;">Thanks for subscribing!</p>
           {%- endif -%}
         {% endform %}
 

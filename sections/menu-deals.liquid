@@ -171,7 +171,13 @@
           {%- for product in collection.products limit: 6 -%}
             <div class="mb-card cat-{{ block.id }} all-items">
               <div class="mb-img-box">
-                <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">
+                <img 
+                  src="{{ product.featured_image | image_url: width: 600 }}" 
+                  alt="{{ product.title | escape }}" 
+                  width="600" 
+                  height="500" 
+                  loading="lazy"
+                >
               </div>
               <div class="mb-content">
                 <h3>{{ product.title }}</h3>
@@ -192,7 +198,13 @@
         {%- for i in (0..3) -%}
           <div class="mb-card all-items">
             <div class="mb-img-box">
-              <img src="{{ img_urls[i] }}" alt="Placeholder Meat">
+              <img 
+                src="{{ img_urls[i] }}" 
+                alt="Placeholder Meat" 
+                width="600" 
+                height="500" 
+                loading="lazy"
+              >
             </div>
             <div class="mb-content">
               <h3>{{ titles[i] }}</h3>
