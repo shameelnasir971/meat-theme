@@ -4,7 +4,6 @@
 {% endcomment %}
 
 <style>
-  /* Google Fonts Import - Agar aapki theme me pehle se fonts hain to is line ko hata sakte hain */
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Inter:wght@300;400;500;600&display=swap');
 
   /* Dynamic CSS Variables based on Settings */
@@ -17,7 +16,6 @@
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    /* Default Image Fallback Logic is handled in Liquid below */
   }
 
   #shopify-section-{{ section.id }} .deals-overlay {
@@ -27,7 +25,6 @@
     display: flex;
     align-items: center;
     padding: 60px 0;
-    /* Dynamic Gradient based on user color selection */
     background: linear-gradient(to right, 
       {{ section.settings.overlay_color | color_modify: 'alpha', 0.1 }} 0%, 
       {{ section.settings.overlay_color | color_modify: 'alpha', 0.6 }} 50%, 
@@ -61,7 +58,7 @@
   }
 
   #shopify-section-{{ section.id }} .deals-title {
-    font-family: 'Oswald', sans-serif; /* Fallback to theme font if removed */
+    font-family: 'Oswald', sans-serif; 
     font-size: clamp(32px, 5vw, 64px);
     font-weight: 600;
     line-height: 1.1;
@@ -101,7 +98,7 @@
   #shopify-section-{{ section.id }} .deals-btn:hover {
     background-color: transparent;
     border-color: {{ section.settings.btn_bg_color }};
-    color: {{ section.settings.btn_bg_color }}; /* Text becomes the border color on hover */
+    color: {{ section.settings.btn_bg_color }}; 
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
   }
@@ -169,7 +166,6 @@
   }
 </style>
 
-{%- comment -%} Determine Background Image URL (User Selected or Default) {%- endcomment -%}
 {%- assign bg_image_url = 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' -%}
 {%- if section.settings.bg_image != blank -%}
   {%- assign bg_image_url = section.settings.bg_image | image_url: width: 1600 -%}
@@ -180,7 +176,6 @@
     <div class="container-deals">
       <div class="deals-content-wrapper">
         
-        <!-- Empty space for left side (Layout Balance) -->
         <div class="deals-image-side"></div>
 
         <!-- Text Content on the Right -->

@@ -36,7 +36,7 @@
     margin: 0 auto;
   }
 
-  /* FAQ List Wrapper - EK HI LIST HO GI */
+  /* FAQ List Wrapper  */
   .faq-list-wrapper-{{ section.id }} {
     display: flex;
     flex-direction: column;
@@ -91,7 +91,7 @@
     line-height: 1.7; 
   }
 
-  /* ACTIVE STATE - Jab Sawal Khule ga */
+  /* ACTIVE STATE  */
   .faq-item-{{ section.id }}.is-active {
     background-color: {{ section.settings.active_bg }};
     box-shadow: 0 10px 25px rgba(211, 47, 47, 0.15);
@@ -126,7 +126,7 @@
       <div class="faq-subtitle-{{ section.id }}">{{ section.settings.subheading }}</div>
     </div>
 
-    <!-- FAQ Wrapper - Sari list isi ke andar render hogi -->
+    <!-- FAQ Wrapper -->
     <div class="faq-list-wrapper-{{ section.id }}" id="faqMainContainer-{{ section.id }}">
       
       {%- if section.blocks.size > 0 -%}
@@ -146,7 +146,6 @@
           </div>
         {%- endfor -%}
       {%- else -%}
-        {%- comment -%} Demo Placeholder Content {%- endcomment -%}
         {%- for i in (1..4) -%}
           <div class="faq-item-{{ section.id }} {% if forloop.first %}is-active{% endif %}">
             <div class="faq-question-{{ section.id }}">
@@ -168,7 +167,6 @@
     const mainContainer = document.getElementById('faqMainContainer-{{ section.id }}');
     if (!mainContainer) return;
 
-    // Event Delegation: Taki har naye add honay walay block par click kaam karay
     mainContainer.onclick = function(e) {
       const item = e.target.closest('.faq-item-{{ section.id }}');
       if (!item) return;
@@ -176,13 +174,11 @@
       const isActive = item.classList.contains('is-active');
       const allItems = mainContainer.querySelectorAll('.faq-item-{{ section.id }}');
 
-      // Sab ko band karo (Accordion mode)
       allItems.forEach(el => {
         el.classList.remove('is-active');
         el.querySelector('.icon-toggle').textContent = '+';
       });
 
-      // Agar pehle band tha, to kholo
       if (!isActive) {
         item.classList.add('is-active');
         item.querySelector('.icon-toggle').textContent = '×';
@@ -190,13 +186,11 @@
     };
   };
 
-  // Run on page load and inside editor
   document.addEventListener('DOMContentLoaded', initFaqSection);
   document.addEventListener('shopify:section:load', (e) => {
     if (e.detail.sectionId === '{{ section.id }}') initFaqSection();
   });
   
-  // Extra safety for editor re-renders
   if (window.Shopify && window.Shopify.designMode) {
     initFaqSection();
   }

@@ -20,7 +20,6 @@
     overflow: hidden;
   }
 
-  /* Main background darkened overlay */
   .hero-section-{{ section.id }}::before {
     content: '';
     position: absolute;
@@ -83,14 +82,13 @@
   .btn-secondary-hero { background-color: #fff; color: #d32f2f; }
   .btn-primary-hero:hover { background-color: #b71c1c; transform: translateY(-3px); }
 
-  /* RIGHT SIDE - DARK TRANSPARENT BOX (No Blur) */
+  /* RIGHT SIDE  */
   .hero-glass-card {
-    background: rgba(0, 0, 0, 0.45); /* Black transparent background */
-    border: 1px solid rgba(255, 255, 255, 0.25); /* Subtle white border */
+    background: rgba(0, 0, 0, 0.45); 
+    border: 1px solid rgba(255, 255, 255, 0.25); 
     padding: 45px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-    /* backdrop-filter removed as requested for no blur */
   }
 
   .glass-tagline {
@@ -126,7 +124,7 @@
   .glass-input {
     flex: 1;
     background: transparent;
-    border: 1px solid #fff; /* Solid white border like screenshot */
+    border: 1px solid #fff; 
     padding: 14px 18px;
     border-radius: 8px;
     color: #fff;
@@ -182,7 +180,7 @@
         </div>
       </div>
 
-      <!-- Right Side Dark Transparent Box -->
+      <!-- Right Side Transparent Box -->
       <div class="hero-right-wrap">
         <div class="hero-glass-card">
           <span class="glass-tagline">{{ section.settings.glass_tagline }}</span>

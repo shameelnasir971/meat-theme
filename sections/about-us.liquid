@@ -15,12 +15,12 @@
     box-sizing: border-box;
   }
 
-  /* Grid Layout (Same as Screenshot) */
+  /* Grid Layout  */
   .about-meat-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 50% Image - 50% Text */
+    grid-template-columns: 1fr 1fr; 
     gap: 60px;
-    align-items: center; /* Vertically Center */
+    align-items: center; 
   }
 
   /* Image Column */
@@ -35,9 +35,9 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 20px; /* Screenshot jaisa rounded corner */
+    border-radius: 20px;
     display: block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* Halki si shadow */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
   }
 
   /* Text Column */
@@ -46,9 +46,8 @@
     padding-left: 20px;
   }
 
-  /* Heading Styling (Bold & Condensed like screenshot) */
   .about-meat-text-col h2 {
-    font-family: 'Impact', 'Oswald', sans-serif; /* Bold font mimicking screenshot */
+    font-family: 'Impact', 'Oswald', sans-serif; 
     font-size: {{ section.settings.title_size }}px;
     font-weight: 700;
     color: {{ section.settings.text_color }};
@@ -58,7 +57,7 @@
     text-transform: capitalize;
   }
 
-  /* Paragraph Styling */
+
   .about-meat-text-col .description {
     font-size: {{ section.settings.desc_size }}px;
     color: {{ section.settings.text_color | color_modify: 'alpha', 0.8 }};
@@ -77,7 +76,7 @@
     background-color: {{ section.settings.btn_color }};
     color: {{ section.settings.btn_text_color }};
     padding: 14px 35px;
-    border-radius: 6px; /* Pill shape nahi, slightly rounded box */
+    border-radius: 6px; 
     text-decoration: none;
     font-weight: 500;
     font-size: 16px;
@@ -106,7 +105,7 @@
       padding-bottom: 50px;
     }
     .about-meat-grid {
-      grid-template-columns: 1fr; /* Stack Image top, Text bottom */
+      grid-template-columns: 1fr; 
       gap: 30px;
     }
     .about-meat-image-col {
@@ -114,13 +113,13 @@
     }
     .about-meat-text-col {
       padding-left: 0;
-      text-align: center; /* Mobile pe center acha lagta hai */
+      text-align: center; 
     }
     .about-meat-text-col h2 {
       font-size: 30px;
     }
     .btn-meat-shop {
-      width: 100%; /* Mobile pe full width button */
+      width: 100%; 
       box-sizing: border-box;
       text-align: center;
     }
@@ -136,7 +135,6 @@
         {%- if section.settings.image != blank -%}
           {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.title }}
         {%- else -%}
-          <!-- Default Image matching the Steak vibe -->
           <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1000&auto=format&fit=crop" alt="Fresh Steak Meat" loading="lazy" width="800" height="800">
         {%- endif -%}
       </div>

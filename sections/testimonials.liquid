@@ -1,5 +1,4 @@
 {%- style -%}
-  /* Fonts Import (Sirf agar theme main nahi hain) */
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600&display=swap');
 
   .collage-hero-{{ section.id }} {
@@ -16,7 +15,7 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
-    gap: 60px; /* Thoda gap badhaya */
+    gap: 60px; 
   }
 
   /* --- LEFT CONTENT --- */
@@ -43,7 +42,6 @@
     color: {{ section.settings.text_color }};
     margin-bottom: 35px;
     max-width: 480px;
-    /* Agar text center hai to p tag bhi center ho */
     {% if section.settings.text_alignment == 'center' %}
       margin-left: auto;
       margin-right: auto;
@@ -53,7 +51,6 @@
   .ch-btn-group {
     display: flex;
     gap: 15px;
-    /* Alignment ke hisab se button adjust */
     justify-content: {{ section.settings.text_alignment }};
   }
 
@@ -95,14 +92,14 @@
   .ch-image-stack {
     flex: 1.2;
     position: relative;
-    height: 550px; /* Thoda height badhaya */
+    height: 550px; 
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* 1. Colored Shape (Backmost Layer) */
+  /* 1. Colored Shape  */
   .ch-shape-bg {
     position: absolute;
     width: 80%;
@@ -155,7 +152,7 @@
     overflow: hidden;
     z-index: 10;
     box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-    border: 4px solid #fff; /* White border for popup effect */
+    border: 4px solid #fff; 
   }
 
   .ch-image-stack img {
@@ -166,7 +163,7 @@
     transition: transform 0.5s ease;
   }
   
-  /* Hover Effect: Zoom images slightly */
+  /* Hover Effect */
   .ch-image-stack:hover .ch-img-main img {
     transform: scale(1.05);
   }
@@ -191,7 +188,7 @@
     .ch-btn-group { flex-direction: column; width: 100%; }
     .ch-btn { width: 100%; text-align: center; }
     .ch-image-stack { height: 350px; }
-    .ch-img-left, .ch-img-right { display: none; /* Hide small images on very small screens to avoid clutter */ }
+    .ch-img-left, .ch-img-right { display: none; }
     .ch-img-main { width: 70%; height: 90%; }
   }
 {%- endstyle -%}
@@ -216,7 +213,6 @@
 
     <!-- Right Collage Column -->
     <div class="ch-image-stack">
-      <!-- 1. Colored Shape Background -->
       <div class="ch-shape-bg"></div>
       
       <!-- 2. Left Image -->

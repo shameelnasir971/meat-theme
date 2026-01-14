@@ -154,7 +154,6 @@
                      alt="{{ block.settings.heading | escape }}" 
                      loading="lazy" width="720" height="540">
               {%- else -%}
-                <!-- Agar User ne block banaya par image nahi dali, to Placeholder -->
                 {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
               {%- endif -%}
             </div>
@@ -165,7 +164,6 @@
         {%- endfor -%}
 
       {%- else -%}
-        <!-- CASE 2: DEFAULT DEMO (Agar koi block nahi hai to ye dikhega) -->
         
         <!-- Demo Card 1: Beef -->
         <a href="#" class="category-card">
