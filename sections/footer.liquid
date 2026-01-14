@@ -1,4 +1,6 @@
 {%- style -%}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@500;700&display=swap');
+
   .section-{{ section.id }} {
     --bg-color: {{ section.settings.bg_color }};
     --text-color: {{ section.settings.text_color }};
@@ -6,33 +8,39 @@
     --accent-red: {{ section.settings.accent_color }};
     
     background-color: var(--bg-color);
-    padding: 60px 0 20px;
+    padding: 70px 0 20px;
     font-family: 'Inter', sans-serif;
     color: var(--text-color);
+    border-top: 1px solid rgba(0,0,0,0.05);
   }
 
   .footer-container {
-    max-width: 1240px;
+    max-width: 1280px;
     margin: 0 auto;
     padding: 0 20px;
   }
 
-  /* Grid System  */
+  /* --- 5-Column Grid Layout --- */
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr;
+    grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1.3fr;
     gap: 30px;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
   }
 
+  /* --- Column 1: Brand --- */
   .footer-logo {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
-    text-decoration: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
   }
-  .footer-logo img { height: 45px; width: auto; }
+  
+  .footer-logo img {
+    height: auto;
+    object-fit: contain;
+  }
 
   .logo-text {
     font-family: 'Oswald', sans-serif;
@@ -41,7 +49,7 @@
     color: var(--heading-color);
     text-transform: uppercase;
     margin: 0;
-    letter-spacing: 1px;
+    line-height: 1;
   }
 
   .footer-desc {
@@ -49,49 +57,98 @@
     line-height: 1.6;
     margin-bottom: 25px;
     opacity: 0.8;
+    max-width: 320px;
   }
 
-  .social-wrapper { display: flex; gap: 10px; }
+  /* --- Social Icons --- */
+  .social-wrapper {
+    display: flex;
+    gap: 12px;
+  }
+
   .social-box {
     width: 35px;
     height: 35px;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--accent-red);
     text-decoration: none;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-size: 16px;
   }
-  .social-box:hover { background: var(--accent-red); color: #fff; transform: translateY(-3px); }
 
+  .social-box:hover {
+    background: var(--accent-red);
+    color: #fff;
+    transform: translateY(-3px);
+  }
+
+  /* --- Menus & Headings --- */
   .footer-h4 {
     font-family: 'Oswald', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--heading-color);
-    margin: 0 0 20px;
+    margin: 0 0 25px;
+    font-weight: 600;
     text-transform: capitalize;
   }
 
-  .footer-ul { list-style: none; padding: 0; margin: 0; }
-  .footer-ul li { margin-bottom: 12px; }
-  .footer-ul a, .contact-item {
+  .footer-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-ul li {
+    margin-bottom: 14px;
+  }
+
+  .footer-ul a {
     text-decoration: none;
     color: var(--text-color);
     font-size: 15px;
     transition: 0.3s;
     opacity: 0.8;
+    display: inline-block;
   }
-  .footer-ul a:hover { color: var(--accent-red); opacity: 1; padding-left: 5px; }
 
-  .contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 14px; }
-  .contact-item i { font-size: 16px; color: var(--heading-color); min-width: 20px; }
+  .footer-ul a:hover {
+    color: var(--accent-red);
+    opacity: 1;
+    transform: translateX(5px);
+  }
 
-  /* Bottom Bar */
+  /* --- Contact Column --- */
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .contact-icon-box {
+    min-width: 20px;
+    font-size: 18px;
+    color: var(--heading-color);
+    padding-top: 1px;
+  }
+  
+  .contact-item a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+  }
+  .contact-item a:hover { color: var(--accent-red); }
+
+  /* --- Bottom Bar --- */
   .footer-bottom {
-    border-top: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(0,0,0,0.08);
     padding-top: 25px;
     display: flex;
     justify-content: space-between;
@@ -99,142 +156,256 @@
     flex-wrap: wrap;
     gap: 20px;
   }
-  .copyright { font-size: 15px; font-weight: 500; margin: 0 auto; color: var(--text-color); }
-  
-  .payment-icons-wrap { display: flex; gap: 12px; align-items: center; }
-  .payment-icons-wrap img { height: 22px; width: auto; opacity: 0.9; }
 
-  @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 768px) { 
-    .footer-grid { grid-template-columns: 1fr; text-align: center; }
-    .footer-logo, .social-wrapper, .contact-item { justify-content: center; }
-    .footer-bottom { flex-direction: column; text-align: center; }
+  .copyright {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  .payment-icons-wrap {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .payment-icons-wrap img {
+    height: 20px;
+    width: auto;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+    }
+    .footer-column:first-child { grid-column: span 3; }
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer-logo, .social-wrapper, .contact-item {
+      align-items: center;
+      justify-content: center;
+    }
+    .footer-bottom {
+      flex-direction: column-reverse;
+      gap: 15px;
+    }
   }
 {%- endstyle -%}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- FontAwesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <footer class="section-{{ section.id }}">
   <div class="footer-container">
     <div class="footer-grid">
-      
-      <!-- 1. Brand Column -->
+
+      <!-- COLUMN 1: Brand Info -->
       <div class="footer-column">
         <div class="footer-logo">
           {%- if section.settings.logo != blank -%}
             <img 
-              src="{{ section.settings.logo | image_url: width: 120 }}" 
-              alt="{{ section.settings.logo.alt | default: 'Logo' }}" 
-              width="120" 
-              height="45" 
+              src="{{ section.settings.logo | image_url: width: 300 }}" 
+              alt="{{ section.settings.logo.alt | default: shop.name }}" 
+              width="{{ section.settings.logo_width }}"
+              height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | ceil }}"
               loading="lazy"
             >
           {%- else -%}
             <img 
               src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" 
-              alt="Meat Icon" 
-              width="45" 
-              height="45" 
+              alt="Meat Shop" 
+              width="65" 
+              height="65" 
               loading="lazy"
             >
           {%- endif -%}
-          <h2 class="logo-text">{{ section.settings.logo_text }}</h2>
+          
+          {%- if section.settings.show_logo_text -%}
+            <h2 class="logo-text">{{ section.settings.logo_text }}</h2>
+          {%- endif -%}
         </div>
+
         <p class="footer-desc">{{ section.settings.description }}</p>
+
         <div class="social-wrapper">
-          <a href="#" class="social-box"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social-box"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="social-box"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-box"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="social-box"><i class="fab fa-youtube"></i></a>
+          <a href="{{ section.settings.social_facebook | default: '#' }}" class="social-box"><i class="fab fa-facebook-f"></i></a>
+          <a href="{{ section.settings.social_twitter | default: '#' }}" class="social-box"><i class="fab fa-twitter"></i></a>
+          <a href="{{ section.settings.social_instagram | default: '#' }}" class="social-box"><i class="fab fa-instagram"></i></a>
+          <a href="{{ section.settings.social_linkedin | default: '#' }}" class="social-box"><i class="fab fa-linkedin-in"></i></a>
+          <a href="{{ section.settings.social_youtube | default: '#' }}" class="social-box"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
 
-      {%- if section.blocks.size > 0 -%}
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'menu' -%}
-              <div class="footer-column" {{ block.shopify_attributes }}>
-                <h4 class="footer-h4">{{ block.settings.title }}</h4>
-                <ul class="footer-ul">
-                  {%- for link in block.settings.menu.links -%}
-                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                  {%- endfor -%}
-                </ul>
-              </div>
-            {%- when 'contact' -%}
-              <div class="footer-column" {{ block.shopify_attributes }}>
-                <h4 class="footer-h4">{{ block.settings.title }}</h4>
-                <div class="contact-item"><i class="far fa-envelope"></i> {{ block.settings.email }}</div>
-                <div class="contact-item"><i class="fab fa-whatsapp"></i> {{ block.settings.phone }}</div>
-                <div class="contact-item"><i class="fas fa-map-marker-alt"></i> {{ block.settings.address }}</div>
-              </div>
-          {%- endcase -%}
-        {%- endfor -%}
-      {%- else -%}
-        <div class="footer-column"><h4 class="footer-h4">Quick Link</h4><ul class="footer-ul"><li><a href="#">Home</a></li><li><a href="#">About US</a></li><li><a href="#">Shop</a></li></ul></div>
-        <div class="footer-column"><h4 class="footer-h4">Customer Care</h4><ul class="footer-ul"><li><a href="#">Help & Support</a></li><li><a href="#">Delivery Info</a></li><li><a href="#">FAQs</a></li></ul></div>
-        <div class="footer-column"><h4 class="footer-h4">Policies</h4><ul class="footer-ul"><li><a href="#">Privacy Policy</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Terms</a></li></ul></div>
-        <div class="footer-column"><h4 class="footer-h4">Contact</h4><div class="contact-item"><i class="far fa-envelope"></i> meetshop@gmail.com</div><div class="contact-item"><i class="fab fa-whatsapp"></i> +92 300000000</div><div class="contact-item"><i class="fas fa-map-marker-alt"></i> Dubai and Abu Dhabi</div></div>
-      {%- endif -%}
+      <!-- COLUMN 2: Menu 1 -->
+      <div class="footer-column">
+        <h4 class="footer-h4">{{ section.settings.menu_1_title }}</h4>
+        <ul class="footer-ul">
+          {%- if section.settings.menu_1 != blank -%}
+            {%- for link in section.settings.menu_1.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About US</a></li>
+            <li><a href="#">Shop</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- COLUMN 3: Menu 2 -->
+      <div class="footer-column">
+        <h4 class="footer-h4">{{ section.settings.menu_2_title }}</h4>
+        <ul class="footer-ul">
+          {%- if section.settings.menu_2 != blank -%}
+            {%- for link in section.settings.menu_2.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="#">Help & Support</a></li>
+            <li><a href="#">Delivery Information</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact Us</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- COLUMN 4: Menu 3 -->
+      <div class="footer-column">
+        <h4 class="footer-h4">{{ section.settings.menu_3_title }}</h4>
+        <ul class="footer-ul">
+          {%- if section.settings.menu_3 != blank -%}
+            {%- for link in section.settings.menu_3.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- COLUMN 5: Contact Info -->
+      <div class="footer-column">
+        <h4 class="footer-h4">{{ section.settings.contact_title }}</h4>
+        
+        <div class="contact-item">
+          <span class="contact-icon-box"><i class="far fa-envelope"></i></span> 
+          <a href="mailto:{{ section.settings.contact_email }}">{{ section.settings.contact_email }}</a>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon-box"><i class="fab fa-whatsapp"></i></span> 
+          <a href="tel:{{ section.settings.contact_phone }}">{{ section.settings.contact_phone }}</a>
+        </div>
+        
+        <div class="contact-item">
+          <span class="contact-icon-box"><i class="fas fa-map-marker-alt"></i></span> 
+          <span>{{ section.settings.contact_address }}</span>
+        </div>
+      </div>
 
     </div>
 
-    <!-- Bottom Footer Bar -->
+    <!-- Bottom Bar -->
     <div class="footer-bottom">
-      <p class="copyright">{{ section.settings.copyright }}</p>
-      <div class="payment-icons-wrap">
-        <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard" width="35" height="22" loading="lazy">
-        <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa" width="35" height="22" loading="lazy">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay" width="35" height="22" loading="lazy">
-        <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay" width="35" height="22" loading="lazy">
-      </div>
+      <p class="copyright">
+        &copy; {{ 'now' | date: "%Y" }} {{ section.settings.copyright_text }}
+      </p>
+
+      {%- if section.settings.show_payment_icons -%}
+        <div class="payment-icons-wrap">
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard" width="38" height="24" loading="lazy" />
+          <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa" width="38" height="24" loading="lazy" />
+          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay" width="38" height="24" loading="lazy" />
+          <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay" width="38" height="24" loading="lazy" />
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </footer>
 
 {% schema %}
 {
-  "name": "Custom Footer Pro",
+  "name": "Meat Shop Footer",
   "settings": [
-    { "type": "color", "id": "bg_color", "label": "Background", "default": "#fdf0f0" },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#555555" },
-    { "type": "color", "id": "heading_color", "label": "Headings", "default": "#1a1a1a" },
-    { "type": "color", "id": "accent_color", "label": "Accent (Red)", "default": "#d32f2f" },
-    { "type": "image_picker", "id": "logo", "label": "Brand Logo" },
-    { "type": "text", "id": "logo_text", "label": "Logo Text", "default": "MEAT SHOP" },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "Cras tincidunt lobortis feugiat vivamus at morbi leo urna molestie atole elementum eu facilisis faucibus interdum posuere." },
-    { "type": "text", "id": "copyright", "label": "Copyright Text", "default": "Copyright | 2026 Meet Shop" }
-  ],
-  "blocks": [
     {
-      "type": "menu",
-      "name": "Navigation Menu",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Heading", "default": "Quick Link" },
-        { "type": "link_list", "id": "menu", "label": "Select Menu" }
-      ]
+      "type": "header",
+      "content": "Style Settings"
     },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#fdf0f0" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#555555" },
+    { "type": "color", "id": "heading_color", "label": "Headings Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "accent_color", "label": "Accent Red", "default": "#d32f2f" },
+    
     {
-      "type": "contact",
-      "name": "Contact Info",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Heading", "default": "Contact" },
-        { "type": "text", "id": "email", "label": "Email", "default": "meetshop@gmail.com" },
-        { "type": "text", "id": "phone", "label": "Phone", "default": "+92 300000000" },
-        { "type": "text", "id": "address", "label": "Address", "default": "Dubai and Abu Dhabi" }
-      ]
-    }
+      "type": "header",
+      "content": "Brand Info (Column 1)"
+    },
+    { "type": "image_picker", "id": "logo", "label": "Logo Image" },
+    { "type": "range", "id": "logo_width", "min": 50, "max": 250, "step": 5, "unit": "px", "label": "Logo Width", "default": 80 },
+    { "type": "checkbox", "id": "show_logo_text", "label": "Show Brand Text", "default": true },
+    { "type": "text", "id": "logo_text", "label": "Brand Name", "default": "MEAT SHOP" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Cras tincidunt lobortis feugiat vivamus at morbi leo urna molestie atole elementum eu facilisis faucibus interdum posuere." },
+    
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    { "type": "url", "id": "social_facebook", "label": "Facebook" },
+    { "type": "url", "id": "social_twitter", "label": "Twitter" },
+    { "type": "url", "id": "social_instagram", "label": "Instagram" },
+    { "type": "url", "id": "social_linkedin", "label": "LinkedIn" },
+    { "type": "url", "id": "social_youtube", "label": "YouTube" },
+
+    {
+      "type": "header",
+      "content": "Menu 1 (Column 2)"
+    },
+    { "type": "text", "id": "menu_1_title", "label": "Heading", "default": "Quick Link" },
+    { "type": "link_list", "id": "menu_1", "label": "Select Menu for Quick Links" },
+
+    {
+      "type": "header",
+      "content": "Menu 2 (Column 3)"
+    },
+    { "type": "text", "id": "menu_2_title", "label": "Heading", "default": "Customer Care" },
+    { "type": "link_list", "id": "menu_2", "label": "Select Menu for Customer Care" },
+
+    {
+      "type": "header",
+      "content": "Menu 3 (Column 4)"
+    },
+    { "type": "text", "id": "menu_3_title", "label": "Heading", "default": "Policies" },
+    { "type": "link_list", "id": "menu_3", "label": "Select Menu for Policies" },
+
+    {
+      "type": "header",
+      "content": "Contact Info (Column 5)"
+    },
+    { "type": "text", "id": "contact_title", "label": "Heading", "default": "Contact" },
+    { "type": "text", "id": "contact_email", "label": "Email", "default": "meetshop@gmail.com" },
+    { "type": "text", "id": "contact_phone", "label": "Phone", "default": "+92 300000000" },
+    { "type": "text", "id": "contact_address", "label": "Address", "default": "Dubai and Abu Dhabi" },
+
+    {
+      "type": "header",
+      "content": "Bottom Bar"
+    },
+    { "type": "text", "id": "copyright_text", "label": "Copyright Text", "default": "Meat Shop | All Rights Reserved" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show Payment Icons", "default": true }
   ],
   "presets": [
     {
-      "name": "Custom Footer Pro",
-      "blocks": [
-        { "type": "menu", "settings": { "title": "Quick Link" } },
-        { "type": "menu", "settings": { "title": "Customer Care" } },
-        { "type": "menu", "settings": { "title": "Policies" } },
-        { "type": "contact" }
-      ]
+      "name": "Meat Shop Footer"
     }
   ]
 }
