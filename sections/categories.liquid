@@ -145,37 +145,48 @@
   
   {%- if section.blocks.size > 0 -%}
     {%- for block in section.blocks -%}
-      {%- assign collection = block.settings.collection -%}
+      {%- assign selected_collection = block.settings.collection -%}
       
-      <a href="{{ collection.url | default: '#' }}" class="category-card" {{ block.shopify_attributes }}>
-        <div class="category-image-wrapper">
-          {%- if collection.featured_image != blank -%}
-            <img src="{{ collection.featured_image | img_url: '720x' }}" 
-                 alt="{{ collection.title | escape }}" 
-                 loading="lazy" width="720" height="800" />
-          {%- elsif collection.image != blank -%}
-            <img src="{{ collection.image | img_url: '720x' }}" 
-                 alt="{{ collection.title | escape }}" 
-                 loading="lazy" width="720" height="800" />
-          {%- else -%}
-            {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
-          {%- endif -%}
+      {%- if selected_collection != blank -%}
+        {%- comment -%}Yahan loop chal raha hai collection ke saare products dikhane ke liye{%- endcomment -%}
+        {%- for product in selected_collection.products limit: section.settings.products_limit -%}
+          <a href="{{ product.url }}" class="category-card" {{ block.shopify_attributes }}>
+            <div class="category-image-wrapper">
+              {%- if product.featured_image != blank -%}
+                <img src="{{ product.featured_image | image_url: width: 720 }}" 
+                     alt="{{ product.title | escape }}" 
+                     loading="lazy" width="720" height="800" />
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="category-overlay">
+              <h3 class="category-title">{{ product.title }}</h3>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%}Agar collection select nahi ki toh placeholder dikhega{%- endcomment -%}
+        <div class="category-card">
+          <div class="category-image-wrapper">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          <div class="category-overlay">
+             <h3 class="category-title">Select a Collection</h3>
+          </div>
         </div>
-        <div class="category-overlay">
-          <h3 class="category-title">{{ collection.title | default: 'Collection' }}</h3>
-        </div>
-      </a>
+      {%- endif -%}
     {%- endfor -%}
 
   {%- else -%}
-    <!-- Agar block select nahi kiya toh demo cards dikhenge -->
+    <!-- Default Demo Cards -->
     {%- for i in (1..4) -%}
       <div class="category-card">
         <div class="category-image-wrapper">
-          {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+          {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
         </div>
         <div class="category-overlay">
-           <h3 class="category-title">Title</h3>
+           <h3 class="category-title">Sample Product</h3>
         </div>
       </div>
     {%- endfor -%}
@@ -188,13 +199,22 @@
 
 {% schema %}
 {
-  "name": "Shop By Category (Grid)",
+  "name": "Products from Collection",
   "settings": [
     {
       "type": "text",
       "id": "title",
       "label": "Main Section Heading",
       "default": "Shop By Category"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products Limit (per collection)",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 8
     },
     {
       "type": "header",
@@ -305,7 +325,7 @@
   "blocks": [
     {
       "type": "category",
-      "name": "Category Card",
+      "name": "Collection to Show",
       "settings": [
         {
           "type": "collection",
@@ -317,11 +337,8 @@
   ],
   "presets": [
     {
-      "name": "Shop By Category (Grid)",
+      "name": "Products Grid from Collection",
       "blocks": [
-        { "type": "category" },
-        { "type": "category" },
-        { "type": "category" },
         { "type": "category" }
       ]
     }
