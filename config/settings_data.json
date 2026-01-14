@@ -199,6 +199,42 @@
       },
       "menu-deals": {
         "type": "menu-deals",
+        "blocks": {
+          "collection_group_irByUk": {
+            "type": "collection_group",
+            "settings": {
+              "tab_title": "",
+              "collection": "goat"
+            }
+          },
+          "collection_group_ExJdBa": {
+            "type": "collection_group",
+            "settings": {
+              "tab_title": "",
+              "collection": "duck"
+            }
+          },
+          "collection_group_MCCNYf": {
+            "type": "collection_group",
+            "settings": {
+              "tab_title": "",
+              "collection": "beef"
+            }
+          },
+          "collection_group_FDeKRj": {
+            "type": "collection_group",
+            "settings": {
+              "tab_title": "",
+              "collection": "steak"
+            }
+          }
+        },
+        "block_order": [
+          "collection_group_irByUk",
+          "collection_group_ExJdBa",
+          "collection_group_MCCNYf",
+          "collection_group_FDeKRj"
+        ],
         "settings": {
           "heading": "Menu Board",
           "title_size": 45,
@@ -217,6 +253,9 @@
           "title": "Fresh Halal Meat\nDelivered to You",
           "desc": "Experience the finest cuts of meat, sourced directly from premium farms. Hygienically packed and delivered fresh.",
           "text_alignment": "left",
+          "image_main": "shopify://shop_images/1021812f35b541d231bb82706720589462a9c41a.png",
+          "image_left": "shopify://shop_images/54fbae1eecfcf1283827ab8f3f0e1ddbf425fd5a.png",
+          "image_right": "shopify://shop_images/21cc343e1157c6014e4356cdbbc93f43ad029c03.png",
           "btn1_text": "Shop Now",
           "btn1_link": "",
           "btn2_text": "Our Story",
@@ -239,6 +278,7 @@
       "weekly-deals": {
         "type": "weekly-deals",
         "settings": {
+          "bg_image": "shopify://shop_images/8e539a08d6f3d4f35fc22ed24384ca76e002e224.png",
           "overlay_color": "#000000",
           "title": "Weekly Fresh Deals",
           "description": "Enjoy exclusive discounts on selected meat cuts every week. Quality meat at prices you will love.",
@@ -263,6 +303,31 @@
       },
       "team-members": {
         "type": "team-members",
+        "blocks": {
+          "member_b9eCjG": {
+            "type": "member",
+            "settings": {
+              "image": "shopify://shop_images/7dee53ee4705fac01ac3c5236731e28cbae31019.png"
+            }
+          },
+          "member_9qtEcG": {
+            "type": "member",
+            "settings": {
+              "image": "shopify://shop_images/cf3b51cc3dfbc1b1734d1c3fea17ca06fdddfebf.png"
+            }
+          },
+          "member_N746g6": {
+            "type": "member",
+            "settings": {
+              "image": "shopify://shop_images/8f1403a454bc43a1e9e639d568c964ef57ee0615.png"
+            }
+          }
+        },
+        "block_order": [
+          "member_b9eCjG",
+          "member_9qtEcG",
+          "member_N746g6"
+        ],
         "settings": {
           "heading": "Meet Our Team Members",
           "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
@@ -291,6 +356,7 @@
         "settings": {
           "heading": "Our Newsletter",
           "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
+          "bg_image": "shopify://shop_images/7fdeb9df99ca2303dd3aa096b74f1e0d08bab887.png",
           "overlay_opacity": 0.6,
           "section_bg": "#ffffff",
           "text_color": "#ffffff",
@@ -306,7 +372,8 @@
           "text_color": "#555555",
           "heading_color": "#1a1a1a",
           "accent_color": "#d32f2f",
-          "logo_width": 80,
+          "logo": "shopify://shop_images/Group.png",
+          "logo_width": 95,
           "show_logo_text": true,
           "logo_text": "MEAT SHOP",
           "description": "Cras tincidunt lobortis feugiat vivamus at morbi leo urna molestie atole elementum eu facilisis faucibus interdum posuere.",
