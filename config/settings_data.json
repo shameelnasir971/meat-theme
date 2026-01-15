@@ -291,6 +291,55 @@
       },
       "our-customer": {
         "type": "our-customer",
+        "blocks": {
+          "testimonial_nyrCYC": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "name": "John Carter",
+              "location": "Pakistan"
+            }
+          },
+          "testimonial_fbHPcR": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "name": "John Carter",
+              "location": "Pakistan"
+            }
+          },
+          "testimonial_cTRy6n": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "name": "John Carter",
+              "location": "Pakistan"
+            }
+          },
+          "testimonial_L6hpQb": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "name": "John Carter",
+              "location": "Pakistan"
+            }
+          },
+          "testimonial_UzJNcc": {
+            "type": "testimonial",
+            "settings": {
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "name": "John Carter",
+              "location": "Pakistan"
+            }
+          }
+        },
+        "block_order": [
+          "testimonial_nyrCYC",
+          "testimonial_fbHPcR",
+          "testimonial_cTRy6n",
+          "testimonial_L6hpQb",
+          "testimonial_UzJNcc"
+        ],
         "settings": {
           "heading": "What Our Customer Say",
           "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
