@@ -1,0 +1,145 @@
+{% style %}
+  /* Section level cleanup - Theme ki default gaps khatam karne ke liye */
+  #shopify-section-{{ section.id }} {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: {{ section.settings.top_offset }}px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ms-hero-wrapper-{{ section.id }} {
+    width: 100%;
+    line-height: 0; /* Tiny gaps khatam karne ke liye */
+    display: block;
+  }
+
+  .ms-hero-banner-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.hero_height }}px;
+    background-image: url('{{ section.settings.hero_img | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    line-height: normal; /* Restore for text */
+  }
+
+  /* Overlay */
+  .ms-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0, {{ section.settings.overlay_opacity }});
+    z-index: 1;
+  }
+
+  /* Title Style */
+  .ms-hero-title {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: {{ section.settings.hero_font_size }}px;
+    font-weight: 700;
+    margin: 0;
+    padding-left: 60px;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  /* Responsive Fix for Mobile */
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      margin-top: {{ section.settings.top_offset_mobile }}px !important;
+    }
+    .ms-hero-banner-{{ section.id }} {
+      height: {{ section.settings.hero_height_mobile }}px;
+      justify-content: center;
+    }
+    .ms-hero-title {
+      font-size: {{ section.settings.hero_font_size_mobile }}px;
+      padding-left: 20px;
+      padding-right: 20px;
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<div class="ms-hero-wrapper-{{ section.id }}">
+  <div class="ms-hero-banner-{{ section.id }}">
+    <div class="ms-hero-overlay"></div>
+    <h1 class="ms-hero-title">{{ section.settings.hero_title }}</h1>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "MS Hero Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Attachment Control",
+      "info": "Banner ko header ke sath jodne ke liye 'Top Offset' ko use karein."
+    },
+    { 
+      "type": "range", 
+      "id": "top_offset", 
+      "label": "Top Offset (Adjust Gap)", 
+      "info": "Agar gap zyada hai to minus (-) ki taraf le jayen.",
+      "min": -100, 
+      "max": 100, 
+      "step": 2, 
+      "default": 0, 
+      "unit": "px" 
+    },
+    { 
+      "type": "range", 
+      "id": "top_offset_mobile", 
+      "label": "Mobile Top Offset", 
+      "min": -50, 
+      "max": 50, 
+      "step": 2, 
+      "default": 0, 
+      "unit": "px" 
+    },
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    { "type": "image_picker", "id": "hero_img", "label": "Banner Image" },
+    { "type": "text", "id": "hero_title", "label": "Banner Title", "default": "Our Collection" },
+    {
+      "type": "header",
+      "content": "Desktop Settings"
+    },
+    { "type": "range", "id": "hero_height", "label": "Desktop Height", "min": 200, "max": 700, "step": 10, "default": 350, "unit": "px" },
+    { "type": "range", "id": "hero_font_size", "label": "Desktop Font Size", "min": 30, "max": 100, "step": 1, "default": 60, "unit": "px" },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    { "type": "range", "id": "hero_height_mobile", "label": "Mobile Height", "min": 150, "max": 500, "step": 10, "default": 250, "unit": "px" },
+    { "type": "range", "id": "hero_font_size_mobile", "label": "Mobile Font Size", "min": 20, "max": 60, "step": 1, "default": 40, "unit": "px" },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    { 
+      "type": "select", 
+      "id": "overlay_opacity", 
+      "label": "Darkness Intensity", 
+      "options": [
+        {"value":"0.2","label":"Light"},
+        {"value":"0.4","label":"Medium"},
+        {"value":"0.6","label":"Dark"}
+      ], 
+      "default": "0.4" 
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Hero Banner"
+    }
+  ]
+}
+{% endschema %}

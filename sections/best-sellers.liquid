@@ -139,8 +139,9 @@
                 {% endif %}
 
                 <div class="bs-actions">
-                  <a href="{{ product.url }}" class="bs-icon"><i class="far fa-eye"></i></a>
-                  <a href="#" class="bs-icon"><i class="far fa-heart"></i></a>
+<a href="{{ product.url | within: collection }}" class="bs-icon">
+  <i class="far fa-eye"></i>
+</a>                  <a href="#" class="bs-icon"><i class="far fa-heart"></i></a>
                 </div>
 
                 <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">

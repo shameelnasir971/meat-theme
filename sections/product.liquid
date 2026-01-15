@@ -1,0 +1,103 @@
+{%- style -%}
+.ms-prod-{{ section.id }} {
+  padding: 60px 0;
+  background: {{ section.settings.bg_color }};
+  font-family: 'Inter', sans-serif;
+}
+.ms-p-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+.ms-p-media { flex: 1; min-width: 300px; }
+.ms-p-info { flex: 1; min-width: 300px; }
+
+.ms-p-img-box {
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  background: #f9f9f9;
+}
+.ms-p-img-box img { width: 100%; display: block; object-fit: cover; }
+
+.ms-p-title { font-family: 'Oswald', sans-serif; font-size: 45px; margin: 0 0 10px; color: #111; text-transform: uppercase; }
+.ms-p-stars { color: #FFB400; margin-bottom: 20px; font-size: 18px; }
+.ms-p-price { font-size: 32px; font-weight: 700; color: {{ section.settings.acc_color }}; margin-bottom: 20px; }
+.ms-p-desc { line-height: 1.8; color: #555; margin-bottom: 30px; font-size: 16px; }
+
+.ms-p-form { border-top: 1px solid #eee; padding-top: 30px; }
+.ms-qty-label { font-weight: 700; margin-bottom: 10px; display: block; }
+.ms-p-actions { display: flex; gap: 15px; align-items: center; margin-top: 15px; }
+
+.ms-qty-input {
+  width: 100px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; text-align: center; font-size: 16px;
+}
+.ms-p-add-btn {
+  flex: 1; background: {{ section.settings.acc_color }}; color: #fff; border: none;
+  padding: 15px; border-radius: 8px; font-weight: 700; font-size: 18px; cursor: pointer;
+  text-transform: uppercase; transition: 0.3s;
+}
+.ms-p-add-btn:hover { background: #8e0a0a; transform: translateY(-2px); }
+
+@media (max-width: 768px) {
+  .ms-p-container { flex-direction: column; }
+  .ms-p-title { font-size: 32px; }
+}
+{%- endstyle -%}
+
+<section class="ms-prod-{{ section.id }}">
+  <div class="ms-p-container">
+    <!-- Left Side: Image -->
+    <div class="ms-p-media">
+      <div class="ms-p-img-box">
+        <img src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}" alt="{{ product.title }}">
+      </div>
+    </div>
+
+    <!-- Right Side: Info -->
+    <div class="ms-p-info">
+      <h1 class="ms-p-title">{{ product.title }}</h1>
+      
+      <div class="ms-p-stars">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <span style="color: #888; font-size: 14px; margin-left: 10px;">(Customer Reviews)</span>
+      </div>
+
+      <div class="ms-p-price">{{ product.price | money }}</div>
+
+      <div class="ms-p-desc">
+        {{ product.description | truncatewords: 50 }}
+      </div>
+
+      <div class="ms-p-form">
+        <form method="post" action="/cart/add">
+          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+          
+          <label class="ms-qty-label">SELECT QUANTITY:</label>
+          <div class="ms-p-actions">
+            <input type="number" name="quantity" value="1" min="1" class="ms-qty-input">
+            <button type="submit" class="ms-p-add-btn">Add to Cart</button>
+          </div>
+        </form>
+      </div>
+
+      <div style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 20px;">
+        <p><strong>Category:</strong> {{ product.collections.first.title }}</p>
+        <p><strong>Availability:</strong> {% if product.available %} <span style="color:green;">In Stock</span> {% else %} <span style="color:red;">Out of Stock</span> {% endif %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Meat Shop Product Detail",
+  "settings": [
+    { "type": "color", "id": "acc_color", "label": "Accent Color (Red)", "default": "#d32f2f" },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" }
+  ]
+}
+{% endschema %}

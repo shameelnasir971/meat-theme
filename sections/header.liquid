@@ -1,261 +1,194 @@
 {% schema %}
 {
-  "name": "Custom Header Pro",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Layout Settings"
-    },
-    {
-      "type": "link_list",
-      "id": "main_menu",
-      "label": "Select Menu",
-      "info": "Agar menu select nahi karenge toh default Home, Shop, About, Category, Contact dikhega."
-    },
-    {
-      "type": "header",
-      "content": "Logo Settings"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo_image",
-      "label": "Logo Image",
-      "info": "Upload your custom logo"
-    },
-    {
-      "type": "text",
-      "id": "logo_text",
-      "label": "Logo Text",
-      "default": "MEAT SHOP"
-    },
-    {
-      "type": "range",
-      "id": "logo_size",
-      "min": 30,
-      "max": 200,
-      "step": 5,
-      "unit": "px",
-      "label": "Logo Image/Icon Width",
-      "default": 50
-    },
-    {
-      "type": "header",
-      "content": "Main Menu Colors"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Menu/Icon Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "hover_color",
-      "label": "Menu Hover Color",
-      "default": "#ffcc00"
-    },
-    {
-      "type": "color",
-      "id": "scrolled_bg",
-      "label": "Scrolled Background Color",
-      "default": "#d32f2f"
-    },
-    {
-      "type": "header",
-      "content": "Dropdown Customization"
-    },
-    {
-      "type": "image_picker",
-      "id": "custom_dropdown_icon",
-      "label": "Upload Dropdown Icon (PNG/SVG)",
-      "info": "Upload a small icon for dropdown"
-    },
-    {
-      "type": "range",
-      "id": "icon_width",
-      "min": 5,
-      "max": 30,
-      "step": 1,
-      "unit": "px",
-      "label": "Icon Width",
-      "default": 12
-    },
-    {
-      "type": "color",
-      "id": "dropdown_bg",
-      "label": "Dropdown Background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "dropdown_link_color",
-      "label": "Dropdown Link Color",
-      "default": "#333333"
-    },
-    {
-      "type": "color",
-      "id": "dropdown_hover_bg",
-      "label": "Dropdown Hover Background",
-      "default": "#f8f8f8"
-    },
-    {
-      "type": "color",
-      "id": "dropdown_hover_text",
-      "label": "Dropdown Hover Text",
-      "default": "#d32f2f"
-    },
-    {
-      "type": "range",
-      "id": "dropdown_font_size",
-      "min": 10,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "label": "Dropdown Font Size",
-      "default": 14
-    },
-    {
-      "type": "select",
-      "id": "hover_animation",
-      "label": "Hover Effect",
-      "options": [
-        { "value": "fade", "label": "Fade In" },
-        { "value": "slide", "label": "Slide Down" },
-        { "value": "zoom", "label": "Zoom In" }
-      ],
-      "default": "slide"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Header Pro"
-    }
-  ]
+"name": "Custom Header Pro",
+"settings": [
+{
+"type": "header",
+"content": "Menu Settings"
+},
+{
+"type": "link_list",
+"id": "main_menu",
+"label": "Select Menu",
+"info": "Agar menu select nahi karenge toh niche diye gaye default options dikhenge."
+},
+{
+"type": "header",
+"content": "Logo Settings"
+},
+{
+"type": "image_picker",
+"id": "logo_image",
+"label": "Logo Image"
+},
+{
+"type": "text",
+"id": "logo_text",
+"label": "Logo Text",
+"default": "MEAT SHOP"
+},
+{
+"type": "range",
+"id": "logo_size",
+"min": 30,
+"max": 150,
+"step": 5,
+"unit": "px",
+"label": "Logo Width",
+"default": 60
+},
+{
+"type": "header",
+"content": "Color Settings (Top State)"
+},
+{
+"type": "color",
+"id": "text_color",
+"label": "Menu/Icon Color",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "hover_color",
+"label": "Menu Hover Color (Red)",
+"default": "#ff0000"
+},
+{
+"type": "header",
+"content": "Color Settings (Scrolled State)"
+},
+{
+"type": "color",
+"id": "scrolled_bg",
+"label": "Scrolled Background",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "scrolled_text",
+"label": "Scrolled Text/Icon Color",
+"default": "#000000"
+},
+{
+"type": "header",
+"content": "Dropdown Design"
+},
+{
+"type": "color",
+"id": "dropdown_bg",
+"label": "Dropdown Background",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "dropdown_text",
+"label": "Dropdown Link Color",
+"default": "#333333"
+}
+],
+"presets": [
+{
+"name": "Custom Header Pro"
+}
+]
 }
 {% endschema %}
 
-<!-- External Resources -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<div class="header-wrapper-pro">
-  <header class="header-main-pro" id="headerSticky">
-    <div class="header-inner-wrap">
+<div class="header-wrapper-pro {% unless template.name == 'index' %}header-static-white{% endunless %}">
+  <header class="header-main-pro {% unless template.name == 'index' %}is-scrolled{% endunless %}" id="headerSticky">
+    <div class="header-inner-wrap container-pro">
       
-      <!-- LEFT: NAVIGATION -->
-      <nav class="nav-left-pro">
+      <!-- NAVIGATION -->
+      <nav class="nav-section-pro">
         <div class="mobile-menu-trigger" id="openMobileMenu">
           <i class="fa-solid fa-bars-staggered"></i>
         </div>
-        <ul class="menu-list">
+        <ul class="menu-list-pro">
           {% if section.settings.main_menu != blank %}
             {% for link in section.settings.main_menu.links %}
-              <li class="menu-item {% if link.links != blank %}has-dropdown{% endif %}">
-                <div class="link-container">
-                  <a href="{{ link.url }}" class="link-pro">{{ link.title }}</a>
-                  {% if link.links != blank %}
-                    <span class="dropdown-trigger-icon">
-                      {% if section.settings.custom_dropdown_icon != blank %}
-                        {% assign drop_icon_url = section.settings.custom_dropdown_icon | image_url: width: 50 %}
-                        <img src="{{ drop_icon_url }}" style="width: {{ section.settings.icon_width }}px; height: auto;" alt="icon">
-                      {% else %}
-                        <i class="fa-solid fa-chevron-down default-arrow"></i>
-                      {% endif %}
-                    </span>
-                  {% endif %}
+              <li class="menu-item-pro {% if link.links != blank %}has-dropdown-pro{% endif %}">
+                <div class="link-flex">
+                  <a href="{{ link.url }}" class="main-link-pro">{{ link.title }}</a>
+                  {% if link.links != blank %}<i class="fa-solid fa-chevron-down drop-icon"></i>{% endif %}
                 </div>
                 {% if link.links != blank %}
-                  <ul class="dropdown-menu effect-{{ section.settings.hover_animation }}">
+                  <ul class="dropdown-menu-pro">
                     {% for childlink in link.links %}
-                      <li class="dropdown-item"><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                      <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
                     {% endfor %}
                   </ul>
                 {% endif %}
               </li>
             {% endfor %}
           {% else %}
-            <!-- Default Static Menus -->
-            <li class="menu-item"><div class="link-container"><a href="/" class="link-pro">Home</a></div></li>
-            <li class="menu-item"><div class="link-container"><a href="/collections/all" class="link-pro">Shop</a></div></li>
-            <li class="menu-item"><div class="link-container"><a href="/pages/about-us" class="link-pro">About</a></div></li>
-            <li class="menu-item has-dropdown">
-              <div class="link-container">
-                <a href="#" class="link-pro">Category</a>
-                <span class="dropdown-trigger-icon">
-                   {% if section.settings.custom_dropdown_icon != blank %}
-                      {% assign drop_icon_url_static = section.settings.custom_dropdown_icon | image_url: width: 50 %}
-                      <img src="{{ drop_icon_url_static }}" style="width: {{ section.settings.icon_width }}px; height: auto;" alt="icon">
-                   {% else %}
-                      <i class="fa-solid fa-chevron-down default-arrow"></i>
-                   {% endif %}
-                </span>
+            <!-- Default Menu as per Screenshot -->
+            <li class="menu-item-pro"><div class="link-flex"><a href="/" class="main-link-pro">Home</a></div></li>
+            <li class="menu-item-pro"><div class="link-flex"><a href="/collections/all" class="main-link-pro">Shop</a></div></li>
+            <li class="menu-item-pro"><div class="link-flex"><a href="/pages/about-us" class="main-link-pro">About</a></div></li>
+            <li class="menu-item-pro has-dropdown-pro">
+              <div class="link-flex">
+                <a href="/collections" class="main-link-pro">Category</a>
+                <i class="fa-solid fa-chevron-down drop-icon"></i>
               </div>
-              <ul class="dropdown-menu effect-{{ section.settings.hover_animation }}">
-                <li class="dropdown-item"><a href="/collections">All Categories</a></li>
-                <li class="dropdown-item"><a href="#">Fresh Items</a></li>
+              <ul class="dropdown-menu-pro">
+                <li><a href="/collections">All Collections</a></li>
+                <li><a href="/collections/beef">Fresh Beef</a></li>
+                <li><a href="/collections/mutton">Mutton Deals</a></li>
               </ul>
             </li>
-            <li class="menu-item"><div class="link-container"><a href="/pages/contact" class="link-pro">Contact</a></div></li>
+            <li class="menu-item-pro"><div class="link-flex"><a href="/pages/contact" class="main-link-pro">Contact</a></div></li>
           {% endif %}
         </ul>
       </nav>
 
-      <!-- CENTER: LOGO -->
-      <div class="logo-center-pro">
-        <a href="{{ routes.root_url }}" class="logo-link-pro">
+      <!-- LOGO -->
+      <div class="logo-section-pro">
+        <a href="{{ routes.root_url }}" class="logo-box-pro">
           {% if section.settings.logo_image != blank %}
-            {% assign logo_img_url = section.settings.logo_image | image_url: width: 400 %}
-            <img src="{{ logo_img_url }}" alt="{{ shop.name }}" style="width: {{ section.settings.logo_size }}px; height: auto;">
+            <img src="{{ section.settings.logo_image | image_url: width: 300 }}" alt="{{ shop.name }}" class="logo-img-pro" style="width: {{ section.settings.logo_size }}px;">
           {% else %}
-            <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Default Logo" style="width: {{ section.settings.logo_size }}px; height: auto;">
+            <img src="https://cdn-icons-png.flaticon.com/512/1046/1046769.png" alt="Meat Icon" class="logo-img-pro" style="width: {{ section.settings.logo_size }}px;">
           {% endif %}
-          <h1 class="meat-logo-text">{{ section.settings.logo_text }}</h1>
+          <span class="logo-text-pro">{{ section.settings.logo_text }}</span>
         </a>
       </div>
 
-      <!-- RIGHT: ICONS -->
-      <div class="icons-right-pro">
-        <a href="{{ routes.search_url }}" class="icon-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
+      <!-- ICONS -->
+      <div class="icons-section-pro">
+        <a href="{{ routes.search_url }}" class="icon-link-pro"><i class="fa-solid fa-magnifying-glass"></i></a>
         {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}" class="icon-btn hide-mob"><i class="fa-regular fa-user"></i></a>
+          <a href="{{ routes.account_url }}" class="icon-link-pro hide-mob"><i class="fa-regular fa-user"></i></a>
         {% endif %}
-        <a href="{{ routes.cart_url }}" class="icon-btn cart-wrap">
+        <a href="{{ routes.cart_url }}" class="icon-btn cart-btn-pro icon-link-pro">
           <i class="fa-solid fa-bag-shopping"></i>
-          <span class="cart-count-badge">{{ cart.item_count }}</span>
+          <span class="cart-count-pro">{{ cart.item_count }}</span>
         </a>
       </div>
+
     </div>
   </header>
 </div>
 
-<!-- MOBILE DRAWER -->
-<div class="mobile-overlay-pro" id="mobileOverlay"></div>
-<aside class="mobile-drawer-pro" id="mobileDrawer">
-  <div class="drawer-header">
+<!-- Mobile Drawer -->
+<div class="mob-overlay-pro" id="mobOverlay"></div>
+<aside class="mob-drawer-pro" id="mobDrawer">
+  <div class="mob-drawer-head">
     <span>MENU</span>
     <i class="fa-solid fa-xmark" id="closeMobileMenu"></i>
   </div>
-  <ul class="drawer-links">
+  <ul class="mob-nav-list">
     {% if section.settings.main_menu != blank %}
       {% for link in section.settings.main_menu.links %}
-        <li class="mob-item">
-          <div class="mob-link-wrap">
-            <a href="{{ link.url }}">{{ link.title }}</a>
-            {% if link.links != blank %}<i class="fa-solid fa-plus mob-drop-toggle"></i>{% endif %}
-          </div>
-          {% if link.links != blank %}
-            <ul class="mobile-child-links">
-              {% for childlink in link.links %}
-                <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
+        <li class="mob-nav-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
       {% endfor %}
     {% else %}
-      <li class="mob-item"><div class="mob-link-wrap"><a href="/">Home</a></div></li>
-      <li class="mob-item"><div class="mob-link-wrap"><a href="/collections/all">Shop</a></div></li>
-      <li class="mob-item"><div class="mob-link-wrap"><a href="#">Category</a><i class="fa-solid fa-plus mob-drop-toggle"></i></div></li>
-      <li class="mob-item"><div class="mob-link-wrap"><a href="/pages/contact">Contact</a></div></li>
+      <li class="mob-nav-item"><a href="/">Home</a></li>
+      <li class="mob-nav-item"><a href="/collections/all">Shop</a></li>
+      <li class="mob-nav-item"><a href="/pages/about-us">About</a></li>
+      <li class="mob-nav-item"><a href="/collections">Category</a></li>
+      <li class="mob-nav-item"><a href="/pages/contact">Contact</a></li>
     {% endif %}
   </ul>
 </aside>
@@ -264,111 +197,139 @@
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600&display=swap');
 
   :root {
-    --header-text: {{ section.settings.text_color }};
-    --header-hover: {{ section.settings.hover_color }};
+    --text-color: {{ section.settings.text_color }};
+    --hover-red: {{ section.settings.hover_color }};
+    --scrolled-bg: {{ section.settings.scrolled_bg }};
+    --scrolled-text: {{ section.settings.scrolled_text }};
     --drop-bg: {{ section.settings.dropdown_bg }};
-    --drop-text: {{ section.settings.dropdown_link_color }};
-    --drop-hover-bg: {{ section.settings.dropdown_hover_bg }};
-    --drop-hover-text: {{ section.settings.dropdown_hover_text }};
-    --drop-font-size: {{ section.settings.dropdown_font_size }}px;
+    --drop-text: {{ section.settings.dropdown_text }};
   }
 
-  .header-wrapper-pro { width: 100%; position: absolute; z-index: 1000; }
-  .header-main-pro { width: 100%; padding: 20px 0; background: transparent; transition: 0.4s; font-family: 'Inter', sans-serif; }
-  .header-main-pro.is-scrolled { position: fixed; top: 0; background: {{ section.settings.scrolled_bg }} !important; padding: 10px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-
-  .header-inner-wrap { max-width: 1440px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-
-  .menu-list { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
-  .menu-item { position: relative; }
-  .link-container { display: flex; align-items: center; gap: 5px; cursor: pointer; padding: 10px 0; }
+  /* FIXED: Changed from absolute to relative to prevent topbar overlap */
+  .header-wrapper-pro { width: 100%; position: relative; z-index: 999; }
   
-  .link-pro { color: var(--header-text); text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; }
-  .link-pro:hover { color: var(--header-hover); }
+  .header-static-white { background: var(--scrolled-bg); border-bottom: 1px solid #eee; }
+  
+  .header-main-pro { width: 100%; padding: 20px 0; transition: all 0.4s ease; font-family: 'Inter', sans-serif; }
+  
+  /* FIXED: Home page overlay effect without leaking into topbar */
+  {% if template.name == 'index' %}
+  .header-main-pro:not(.is-scrolled) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  {% endif %}
 
-  .dropdown-trigger-icon { display: flex; align-items: center; color: var(--header-text); transition: 0.3s; }
-  .default-arrow { font-size: 10px; }
-  .menu-item:hover .dropdown-trigger-icon { transform: rotate(180deg); color: var(--header-hover); }
+  .container-pro { max-width: 1440px; margin: 0 auto; padding: 0 30px; }
 
-  .dropdown-menu {
+  .header-inner-wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+
+  .nav-section-pro { order: 1; display: flex; justify-content: flex-start; }
+  .logo-section-pro { order: 2; display: flex; justify-content: center; }
+  .icons-section-pro { order: 3; display: flex; justify-content: flex-end; gap: 20px; align-items: center; }
+
+  .header-main-pro.is-scrolled {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: var(--scrolled-bg) !important; padding: 10px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    z-index: 1000;
+  }
+  .header-main-pro.is-scrolled .header-inner-wrap { grid-template-columns: auto 1fr auto; }
+  .header-main-pro.is-scrolled .logo-section-pro { order: 1; justify-content: flex-start; }
+  .header-main-pro.is-scrolled .nav-section-pro { order: 2; justify-content: center; }
+  
+  .header-main-pro.is-scrolled .logo-box-pro { flex-direction: row; gap: 10px; }
+  .header-main-pro.is-scrolled .main-link-pro,
+  .header-main-pro.is-scrolled .logo-text-pro,
+  .header-main-pro.is-scrolled .icon-link-pro,
+  .header-main-pro.is-scrolled .drop-icon { color: var(--scrolled-text) !important; }
+
+  .logo-box-pro { display: flex; flex-direction: column; align-items: center; text-decoration: none; position: relative; z-index: 5; }
+  .logo-text-pro { font-family: 'Oswald', sans-serif; color: var(--text-color); font-size: 20px; text-transform: uppercase; font-weight: 700; }
+
+  .menu-list-pro { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
+  .link-flex { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+  .main-link-pro { color: var(--text-color); text-decoration: none; font-size: 15px; font-weight: 500; transition: 0.3s; }
+  .main-link-pro:hover { color: var(--hover-red) !important; }
+  .drop-icon { font-size: 10px; color: var(--text-color); transition: 0.3s; }
+
+  .has-dropdown-pro { position: relative; }
+  .dropdown-menu-pro {
     position: absolute; top: 100%; left: 0; background: var(--drop-bg);
-    min-width: 220px; list-style: none; padding: 10px 0;
-    opacity: 0; visibility: hidden; z-index: 1001; border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease;
+    min-width: 200px; list-style: none; padding: 15px 0; border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); opacity: 0; visibility: hidden; transform: translateY(10px); transition: 0.3s;
+  }
+  .has-dropdown-pro:hover .dropdown-menu-pro { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu-pro a { display: block; padding: 8px 25px; color: var(--drop-text); text-decoration: none; font-size: 14px; transition: 0.2s; }
+  .dropdown-menu-pro a:hover { color: var(--hover-red); }
+
+  .icon-link-pro { color: var(--text-color); font-size: 18px; text-decoration: none; transition: 0.3s; background: none; border: none; cursor: pointer;}
+  .icon-link-pro:hover { color: var(--hover-red) !important; }
+  .cart-btn-pro { position: relative; }
+  .cart-count-pro {
+    position: absolute; top: -8px; right: -10px;
+    background: var(--hover-red); color: #fff;
+    font-size: 10px; width: 17px; height: 17px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
   }
 
-  .effect-fade { transform: translateY(0); }
-  .effect-slide { transform: translateY(15px); }
-  .effect-zoom { transform: scale(0.9); }
+  .mobile-menu-trigger { display: none; font-size: 22px; color: var(--text-color); cursor: pointer; }
 
-  .menu-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-
-  .dropdown-item a {
-    display: block; padding: 12px 20px; color: var(--drop-text);
-    text-decoration: none; font-size: var(--drop-font-size); transition: 0.3s;
-  }
-  .dropdown-item a:hover { background: var(--drop-hover-bg); color: var(--drop-hover-text); padding-left: 25px; }
-
-  .logo-link-pro { display: flex; flex-direction: column; align-items: center; text-decoration: none; }
-  .meat-logo-text { font-family: 'Oswald', sans-serif; color: var(--header-text); font-size: 24px; text-transform: uppercase; margin: 0; }
-  .icons-right-pro { display: flex; gap: 20px; justify-content: flex-end; align-items: center; }
-  .icon-btn { color: var(--header-text); font-size: 20px; text-decoration: none; transition: 0.3s; }
-  .icon-btn:hover { color: var(--header-hover); }
-  .cart-wrap { position: relative; }
-  .cart-count-badge { position: absolute; top: -8px; right: -10px; background: #000; color: #fff; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
-  .mobile-menu-trigger { display: none; color: var(--header-text); font-size: 22px; cursor: pointer; }
-  @media (max-width: 991px) {
-    .menu-list { display: none; }
+  @media (max-width: 1024px) {
+    .menu-list-pro { display: none; }
     .mobile-menu-trigger { display: block; }
-    .header-inner-wrap { grid-template-columns: auto 1fr auto; padding: 0 20px; }
+    .header-inner-wrap { grid-template-columns: auto 1fr auto !important; }
+    .nav-section-pro { order: 1; }
+    .logo-section-pro { order: 2; justify-content: center !important; }
+    .logo-box-pro { flex-direction: column !important; }
   }
 
-  .mobile-drawer-pro { position: fixed; top: 0; left: -100%; width: 300px; height: 100vh; background: #111; z-index: 10001; transition: 0.4s; padding: 30px; }
-  .mobile-drawer-pro.active { left: 0; }
-  .mobile-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; display: none; }
-  
-  .drawer-links { list-style: none; padding: 0; }
-  .mob-item { border-bottom: 1px solid #333; padding: 15px 0; }
-  .mob-link-wrap { display: flex; justify-content: space-between; align-items: center; }
-  .mob-link-wrap a { color: #fff; text-decoration: none; font-size: 16px; }
-  .mob-drop-toggle { color: #fff; cursor: pointer; padding: 5px; }
-  .mobile-child-links { list-style: none; padding-left: 15px; display: none; margin-top: 10px; }
-  .mobile-child-links a { color: #ccc; font-size: 14px; text-decoration: none; display: block; padding: 5px 0; }
+  .mob-drawer-pro { position: fixed; top: 0; left: -100%; width: 300px; height: 100vh; background: #fff; z-index: 1001; transition: 0.4s; padding: 20px; }
+  .mob-drawer-pro.active { left: 0; }
+  .mob-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; }
+  .mob-drawer-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; font-weight: bold; }
+  .mob-nav-list { list-style: none; padding: 20px 0; }
+  .mob-nav-item { padding: 12px 0; border-bottom: 1px solid #f9f9f9; }
+  .mob-nav-item a { text-decoration: none; color: #333; font-weight: 500; display: block; }
 </style>
 
 <script>
   (function() {
     const header = document.getElementById('headerSticky');
-    const openBtn = document.getElementById('openMobileMenu');
-    const closeBtn = document.getElementById('closeMobileMenu');
-    const drawer = document.getElementById('mobileDrawer');
-    const overlay = document.getElementById('mobileOverlay');
+    const isHome = "{{ template.name }}" === "index";
 
     window.addEventListener('scroll', () => {
-      if(header) header.classList.toggle('is-scrolled', window.scrollY > 50);
+      if(window.scrollY > 40) {
+        header.classList.add('is-scrolled');
+      } else {
+        if(isHome) header.classList.remove('is-scrolled');
+      }
     });
 
-    const toggleMenu = (state) => {
-      if(drawer) drawer.classList.toggle('active', state);
-      if(overlay) overlay.style.display = state ? 'block' : 'none';
-      document.body.style.overflow = state ? 'hidden' : '';
-    };
+    const openBtn = document.getElementById('openMobileMenu');
+    const closeBtn = document.getElementById('closeMobileMenu');
+    const drawer = document.getElementById('mobDrawer');
+    const overlay = document.getElementById('mobOverlay');
 
-    if(openBtn) openBtn.onclick = () => toggleMenu(true);
-    if(closeBtn) closeBtn.onclick = () => toggleMenu(false);
-    if(overlay) overlay.onclick = () => toggleMenu(false);
+    if(openBtn) {
+      openBtn.onclick = () => {
+        drawer.classList.add('active');
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      }
+    }
 
-    document.querySelectorAll('.mob-drop-toggle').forEach(toggle => {
-      toggle.onclick = function() {
-        const submenu = this.parentElement.nextElementSibling;
-        if(submenu) {
-          const isOpen = submenu.style.display === 'block';
-          submenu.style.display = isOpen ? 'none' : 'block';
-          this.classList.toggle('fa-plus', isOpen);
-          this.classList.toggle('fa-minus', !isOpen);
-        }
-      };
-    });
+    if(closeBtn || overlay) {
+      const close = () => {
+        drawer.classList.remove('active');
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      if(closeBtn) closeBtn.onclick = close;
+      if(overlay) overlay.onclick = close;
+    }
   })();
 </script>

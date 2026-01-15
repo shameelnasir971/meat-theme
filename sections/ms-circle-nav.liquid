@@ -1,0 +1,216 @@
+{% comment %}
+  MS Pro Collection Circles - Final Perfect UI
+  1. Square Crop for Product Images to ensure Perfect Circles.
+  2. Fallback Demo Mode with HD Meat Images.
+  3. Fully Responsive & Customizable.
+{% endcomment %}
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap');
+
+  .ms-wrap-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .ms-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ms-circle-box {
+    text-align: center;
+    width: 160px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.4s ease;
+  }
+
+  /* Outer Border - Perfect Circle */
+  .ms-outer-ring {
+    width: 150px;
+    height: 150px;
+    border: 1px solid {{ section.settings.primary_color }};
+    border-radius: 50%;
+    padding: 8px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Inner Background - Perfect Circle */
+  .ms-inner-fill {
+    width: 100%;
+    height: 100%;
+    background-color: {{ section.settings.inner_bg_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* This ensures image stays inside circle */
+    position: relative;
+  }
+
+  /* Image Display Logic */
+  .ms-inner-fill img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain; /* Ensures the whole product is visible */
+    border-radius: 50%; /* Double safety for circular shape */
+    transition: transform 0.4s ease;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.12));
+  }
+
+  .ms-title-text {
+    font-family: 'Oswald', sans-serif;
+    color: {{ section.settings.primary_color }};
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    text-transform: capitalize;
+    line-height: 1.2;
+  }
+
+  /* Hover Effects */
+  .ms-circle-box:hover .ms-outer-ring {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.06);
+  }
+
+  .ms-circle-box:hover img {
+    transform: scale(1.12);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .ms-flex-container { gap: 15px; }
+    .ms-circle-box { width: 130px; }
+    .ms-outer-ring { width: 120px; height: 120px; padding: 6px; }
+    .ms-title-text { font-size: 18px; }
+  }
+
+  @media (max-width: 480px) {
+    .ms-circle-box { width: 45%; }
+    .ms-outer-ring { width: 110px; height: 110px; }
+  }
+{% endstyle %}
+
+<div class="ms-wrap-{{ section.id }}">
+  <div class="ms-flex-container">
+    
+    {%- assign collection = section.settings.collection -%}
+
+    {% if collection != blank %}
+      {% comment %} --- LIVE COLLECTION MODE --- {% endcomment %}
+      {% for product in collection.products limit: section.settings.limit %}
+        <a href="{{ product.url }}" class="ms-circle-box">
+          <div class="ms-outer-ring">
+            <div class="ms-inner-fill">
+              {% comment %} Using crop: 'center' to force square image for perfect circle {% endcomment %}
+              <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
+                   alt="{{ product.title }}" 
+                   loading="lazy">
+            </div>
+          </div>
+          <h3 class="ms-title-text">{{ product.title }}</h3>
+        </a>
+      {% endfor %}
+
+    {% else %}
+      {% comment %} --- DEMO MODE (Shows 5 Meat Categories) --- {% endcomment %}
+      {% assign names = "Beef,Goat,Duck,Steak,Veal" | split: "," %}
+      {% comment %} High-Quality Transparent Meat Images from a Public CDN {% endcomment %}
+      {% assign imgs = "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8yNV9waG90b19vZl9yYXdfYmVlZl9zdGVha19pc29sYXRlZF9vbl93aGl0ZV9iYWNrZ19kOTY0ZDAxYy1mOTZmLTQ5OWYtYmQxMC1jOTRkYjc0ZGI2N2JfMS5wbmc.png,https://static.vecteezy.com/system/resources/previews/027/215/121/non_2x/raw-lamb-meat-isolated-on-transparent-background-png.png,https://static.vecteezy.com/system/resources/previews/021/665/596/non_2x/meat-duck-breast-isolated-on-white-background-generative-ai-png.png,https://static.vecteezy.com/system/resources/previews/019/607/547/non_2x/beef-steak-isolated-on-transparent-background-free-png.png,https://static.vecteezy.com/system/resources/previews/024/534/496/non_2x/fresh-raw-meat-on-transparent-background-free-png.png" | split: "," %}
+
+      {% for i in (0..4) %}
+        <div class="ms-circle-box">
+          <div class="ms-outer-ring">
+            <div class="ms-inner-fill">
+              <img src="{{ imgs[i] }}" alt="{{ names[i] }}">
+            </div>
+          </div>
+          <h3 class="ms-title-text">{{ names[i] }}</h3>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "MS Meat Collection Nav",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection",
+      "info": "Leave empty to show Demo Items"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "label": "Product Limit",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Design Customization"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color (Red)",
+      "default": "#b91c1c"
+    },
+    {
+      "type": "color",
+      "id": "inner_bg_color",
+      "label": "Circle Background",
+      "default": "#fff5f5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "MS Meat Collection Nav"
+    }
+  ]
+}
+{% endschema %}

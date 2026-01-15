@@ -1,0 +1,360 @@
+{% comment %} <!-- 
+  MEAT SHOP PREMIUM COLLECTION PAGE - PRODUCT DISPLAY FIXED
+  UI Match: Exact as per screenshot
+  Update: Added collection selection to ensure products display by default
+-->
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --primary-color: {{ section.settings.primary_color }};
+    --bg-color: {{ section.settings.bg_color }};
+    --text-color: {{ section.settings.text_color }};
+    --star-color: {{ section.settings.star_color }};
+    --btn-radius: {{ section.settings.btn_radius }}px;
+    --section-gap: {{ section.settings.section_gap }}px;
+  }
+
+  .meat-shop-wrapper {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    padding-bottom: 60px;
+  }
+
+  .ms-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ section.settings.side_padding }}px;
+  }
+
+  /* --- HERO --- */
+  .ms-hero {
+    height: {{ section.settings.hero_height }}px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--section-gap);
+  }
+  .ms-hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0, {{ section.settings.overlay_opacity }});
+  }
+  .ms-hero-title {
+    position: relative;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: {{ section.settings.hero_font_size }}px;
+    font-weight: 700;
+    margin: 0;
+    z-index: 1;
+    text-transform: capitalize;
+  }
+
+  /* --- CIRCLE NAV --- */
+  .ms-circle-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: var(--section-gap);
+    padding: 20px 0;
+  }
+  .ms-circle-item {
+    text-align: center;
+    width: 140px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .ms-circle-img-box {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+    padding: 5px;
+    margin: 0 auto 10px;
+  }
+  .ms-circle-inner {
+    width: 100%; height: 100%;
+    background: #fff5f5;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .ms-circle-inner img { width: 75%; object-fit: contain; }
+  .ms-circle-name {
+    font-family: 'Oswald';
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  /* --- TOOLBAR --- */
+  .ms-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 40px;
+  }
+  .ms-toolbar-title { font-family: 'Oswald'; font-size: 38px; margin: 0; }
+  .ms-tool-item { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; }
+
+  /* --- LAYOUT --- */
+  .ms-main-layout { display: flex; gap: 50px; }
+  .ms-sidebar { width: 280px; flex-shrink: 0; transition: 0.3s; }
+  .ms-sidebar.is-hidden { width: 0; opacity: 0; overflow: hidden; margin-right: -50px; }
+
+  .filter-group { margin-bottom: 30px; }
+  .filter-h {
+    font-family: 'Oswald'; font-size: 30px; font-weight: 500;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; cursor: pointer;
+  }
+  .tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ms-tag {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px 5px; border-radius: 8px;
+    font-size: 14px; text-align: center; text-decoration: none;
+  }
+  .ms-tag.active { background: var(--primary-color); color: #fff; }
+  .tag-long { grid-column: span 1; }
+
+  /* Price Range */
+  .price-slider { height: 4px; background: var(--primary-color); position: relative; margin: 25px 0; }
+  .knob { width: 16px; height: 16px; background: #8e1a1a; border-radius: 50%; position: absolute; top: -6px; }
+  .price-row { display: flex; gap: 10px; }
+  .p-input { 
+    flex: 1; border: 1px solid var(--primary-color); padding: 10px; 
+    border-radius: 5px; color: var(--primary-color); display: flex; justify-content: space-between;
+  }
+
+  /* --- PRODUCTS --- */
+  .ms-grid { flex-grow: 1; }
+  .ms-product-flex {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.grid_desktop }}, 1fr);
+    gap: 20px;
+  }
+  .ms-sidebar.is-hidden + .ms-grid .ms-product-flex {
+    grid-template-columns: repeat({{ section.settings.grid_desktop | plus: 1 }}, 1fr);
+  }
+
+  .ms-card { text-align: center; margin-bottom: 20px; position: relative; }
+  .ms-img-wrap { 
+    height: {{ section.settings.card_height }}px; 
+    background: #f4f4f4; border-radius: 8px; overflow: hidden; position: relative;
+  }
+  .ms-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+  .ms-card:hover img { transform: scale(1.05); }
+  
+  .ms-badge {
+    position: absolute; top: 0; left: 0;
+    background: var(--primary-color); color: #fff;
+    padding: 5px 12px; font-size: 12px; font-weight: 700; border-radius: 0 0 8px 0; z-index: 2;
+  }
+
+  .ms-card-info { padding: 15px 0; }
+  .ms-p-title { font-family: 'Oswald'; font-size: 22px; margin: 0 0 8px; color: #111; }
+  .ms-stars { color: var(--star-color); font-size: 14px; margin-bottom: 10px; }
+  .ms-price { color: var(--primary-color); font-weight: 700; font-size: 20px; margin-bottom: 15px; }
+  .ms-add-btn {
+    width: 100%; background: var(--primary-color); color: #fff;
+    border: none; padding: 14px; border-radius: var(--btn-radius);
+    font-weight: 700; text-transform: uppercase; cursor: pointer;
+  }
+
+  /* NEWSLETTER */
+  .ms-news {
+    height: 400px; border-radius: 15px; overflow: hidden;
+    background-size: cover; background-position: center;
+    position: relative; display: flex; align-items: center; justify-content: center;
+    margin-top: 60px; text-align: center;
+  }
+  .ms-news-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+  .ms-news-content { position: relative; z-index: 2; color: #fff; max-width: 600px; padding: 20px; }
+  .ms-news-content h2 { font-family: 'Oswald'; font-size: 55px; margin: 0 0 10px; }
+
+  @media (max-width: 1024px) {
+    .ms-sidebar { display: none; }
+    .ms-product-flex { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+{% endstyle %}
+
+<div class="meat-shop-wrapper">
+  <!-- HERO -->
+  <div class="ms-hero" style="background-image: url('{{ section.settings.hero_img | image_url: width: 2000 }}');">
+    <div class="ms-hero-overlay"></div>
+    <div class="ms-container">
+      <h1 class="ms-hero-title">{{ section.settings.hero_title }}</h1>
+    </div>
+  </div>
+
+  <div class="ms-container">
+    <!-- CIRCLE NAV (Top Categories) -->
+    <div class="ms-circle-nav">
+      {% for collection_item in collections limit: 6 %}
+        <a href="{{ collection_item.url }}" class="ms-circle-item">
+          <div class="ms-circle-img-box">
+            <div class="ms-circle-inner">
+              {% if collection_item.featured_image %}
+                <img src="{{ collection_item.featured_image | img_url: '200x200' }}" alt="{{ collection_item.title }}">
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+          </div>
+          <span class="ms-circle-name">{{ collection_item.title }}</span>
+        </a>
+      {% endfor %}
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="ms-toolbar">
+      <div class="ms-tool-item" onclick="toggleSidebar()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+        <span>Filter</span>
+      </div>
+      <h2 class="ms-toolbar-title">Products</h2>
+      <div class="ms-tool-item">Sort By <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg></div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="ms-main-layout">
+      <!-- SIDEBAR -->
+      <aside class="ms-sidebar" id="CollSidebar">
+        <div class="filter-group">
+          <h3 class="filter-h">Category <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></h3>
+          <div class="tag-grid">
+            <a href="#" class="ms-tag active">Beef</a>
+            <a href="#" class="ms-tag">Goat</a>
+            <a href="#" class="ms-tag">Duck</a>
+            <a href="#" class="ms-tag tag-long">Chicken</a>
+          </div>
+        </div>
+        <div class="filter-group">
+          <h3 class="filter-h">Weight <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></h3>
+          <div class="tag-grid">
+            <a href="#" class="ms-tag active">1 Kg</a>
+            <a href="#" class="ms-tag">1.5 Kg</a>
+            <a href="#" class="ms-tag">2 Kg</a>
+            <a href="#" class="ms-tag">500g</a>
+            <a href="#" class="ms-tag">600g</a>
+            <a href="#" class="ms-tag">250g</a>
+          </div>
+        </div>
+        <div class="filter-group">
+          <h3 class="filter-h">Price <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></h3>
+          <div class="price-slider">
+            <div class="knob" style="left:0"></div>
+            <div class="knob" style="right:0"></div>
+          </div>
+          <div class="price-row">
+            <div class="p-input"><span>$</span><span>0.00</span></div>
+            <div class="p-input"><span>$</span><span>0.00</span></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- PRODUCT GRID (This part is fixed) -->
+      <div class="ms-grid">
+        <div class="ms-product-flex">
+          {%- assign main_coll = section.settings.collection | default: collection -%}
+          {%- if main_coll == blank or main_coll.products_count == 0 -%}
+             {%- assign main_coll = collections.all -%}
+          {%- endif -%}
+
+          {% for product in main_coll.products limit: 12 %}
+            <div class="ms-card">
+              <div class="ms-img-wrap">
+                <span class="ms-badge">20% Off</span>
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">
+                </a>
+              </div>
+              <div class="ms-card-info">
+                <h4 class="ms-p-title">{{ product.title }}</h4>
+                <div class="ms-stars">★★★★★</div>
+                <div class="ms-price">{{ product.price | money }}</div>
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                  <button type="submit" class="ms-add-btn">Add To Cart</button>
+                </form>
+              </div>
+            </div>
+          {% else %}
+            <!-- Placeholder if no products exist -->
+            <p style="grid-column: 1/-1; text-align: center; padding: 50px;">No products found in the selected collection.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- NEWSLETTER -->
+    <div class="ms-news" style="background-image: url('{{ section.settings.news_img | image_url: width: 2000 }}');">
+      <div class="ms-news-overlay"></div>
+      <div class="ms-news-content">
+        <h2>{{ section.settings.news_title }}</h2>
+        <p>{{ section.settings.news_sub }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('CollSidebar').classList.toggle('is-hidden');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Meat Shop Premium Page",
+  "settings": [
+    { "type": "header", "content": "Products Selection" },
+    { "type": "collection", "id": "collection", "label": "Select Collection to Display" },
+    
+    { "type": "header", "content": "Layout Settings" },
+    { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1400, "unit": "px" },
+    { "type": "range", "id": "side_padding", "label": "Side Padding", "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px" },
+    { "type": "range", "id": "section_gap", "label": "Section Spacing", "min": 20, "max": 100, "step": 5, "default": 50, "unit": "px" },
+    
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "primary_color", "label": "Primary Red", "default": "#d32f2f" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
+    { "type": "color", "id": "star_color", "label": "Star Color", "default": "#ffb400" },
+    { "type": "range", "id": "btn_radius", "label": "Button Roundness", "min": 0, "max": 50, "step": 2, "default": 6, "unit": "px" },
+
+    { "type": "header", "content": "Hero Banner" },
+    { "type": "image_picker", "id": "hero_img", "label": "Banner Image" },
+    { "type": "text", "id": "hero_title", "label": "Banner Title", "default": "Our Collection" },
+    { "type": "range", "id": "hero_height", "label": "Banner Height", "min": 200, "max": 600, "step": 10, "default": 350, "unit": "px" },
+    { "type": "range", "id": "hero_font_size", "label": "Font Size", "min": 30, "max": 100, "step": 2, "default": 60, "unit": "px" },
+    { "type": "select", "id": "overlay_opacity", "label": "Darkness", "options": [
+        {"value": "0.3", "label": "Light"},
+        {"value": "0.5", "label": "Medium"},
+        {"value": "0.7", "label": "Dark"}
+      ], "default": "0.5" },
+
+    { "type": "header", "content": "Product Grid" },
+    { "type": "range", "id": "grid_desktop", "label": "Desktop Grid", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "range", "id": "card_height", "label": "Image Height", "min": 200, "max": 500, "step": 10, "default": 320, "unit": "px" },
+
+    { "type": "header", "content": "Newsletter Section" },
+    { "type": "image_picker", "id": "news_img", "label": "Newsletter Image" },
+    { "type": "text", "id": "news_title", "label": "News Title", "default": "Our Newsletter" },
+    { "type": "textarea", "id": "news_sub", "label": "Sub Text", "default": "Hygienically processed meat cuts for your home." }
+  ],
+  "presets": [
+    { "name": "Meat Shop Premium Page" }
+  ]
+}
+{% endschema %} {% endcomment %}
