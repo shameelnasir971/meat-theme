@@ -185,7 +185,7 @@
         "type": "best-sellers",
         "settings": {
           "heading": "Best Sellers",
-          "collection": "shop-by-category",
+          "collection": "",
           "limit": 8,
           "acc_color": "#d32f2f",
           "h_color": "#1a1a1a",
