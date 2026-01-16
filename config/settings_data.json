@@ -51,13 +51,24 @@
         "type": "header",
         "settings": {
           "main_menu": "",
+          "nav_font_size": 15,
           "logo_image": "shopify://shop_images/Group.png",
           "logo_text": "MEAT SHOP",
           "logo_size": 80,
+          "logo_size_scrolled": 50,
           "text_color": "#ffffff",
+          "icon_color": "#ffffff",
           "hover_color": "#ffcc00",
           "scrolled_bg": "#d32f2f",
-          "scrolled_text": "#000000"
+          "scrolled_text": "#000000",
+          "scrolled_icon_color": "#1a1a1a",
+          "scrolled_padding": 12,
+          "drop_bg": "#ffffff",
+          "drop_text": "#333333",
+          "drop_hover_bg": "#f8f8f8",
+          "drop_radius": 8,
+          "icon_size": 20,
+          "enable_hover_anim": true
         }
       },
       "hero-banner": {
@@ -80,8 +91,8 @@
             "settings": {
               "icon_class": "fas fa-check-circle",
               "custom_image": "shopify://shop_images/Group.svg",
-              "title": "Feature Title",
-              "subtext": "Add a short description"
+              "title": "100% Halal Certified",
+              "subtext": "Add a short Verified by UAE authoritiesdescription"
             }
           },
           "feature_BXYVtj": {
@@ -89,8 +100,8 @@
             "settings": {
               "icon_class": "fas fa-check-circle",
               "custom_image": "shopify://shop_images/Vector_2.svg",
-              "title": "Feature Title",
-              "subtext": "Add a short description"
+              "title": "Always Fresh",
+              "subtext": "Add a shoCut and delivered same dayrt description"
             }
           },
           "feature_P9a7it": {
@@ -98,8 +109,8 @@
             "settings": {
               "icon_class": "fas fa-check-circle",
               "custom_image": "shopify://shop_images/Vector.svg",
-              "title": "Feature Title",
-              "subtext": "Add a short description"
+              "title": "Free UAE Delivery",
+              "subtext": "Add a sOn orders above $150hort description"
             }
           }
         },
@@ -158,7 +169,7 @@
         "settings": {
           "image": "shopify://shop_images/13dee0d198ebd247e779f1e0a8ac2b248f50309f.png",
           "title": "Trusted Meat Shop",
-          "content": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country.</p>",
+          "content": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction. Every cut of meat is carefully selected, hygienically processed, and prepared by skilled butchers who understand quality and precision. We follow strict halal standards and maintain proper temperature control from sourcing to delivery. Whether you are shopping for daily meals, family gatherings, or special occasions, we ensure that every order meets the highest standards of taste and freshness. With reliable delivery.</p>",
           "btn_label": "Learn More",
           "btn_link": "",
           "bg_color": "#fff0f0",
@@ -240,15 +251,15 @@
       "testimonials": {
         "type": "testimonials",
         "settings": {
-          "title": "Fresh Halal Meat\nDelivered to You",
-          "desc": "Experience the finest cuts of meat, sourced directly from premium farms. Hygienically packed and delivered fresh.",
+          "title": "Fresh Halal Meat Delivered",
+          "desc": "Premium quality beef, mutton, and chicken sourced from trusted farms. Freshly cut on order, hygienically packed, and delivered in temperature-controlled packaging across the UAE to ensure taste, safety, and freshness in every order.",
           "text_alignment": "left",
           "image_main": "shopify://shop_images/1021812f35b541d231bb82706720589462a9c41a.png",
           "image_left": "shopify://shop_images/54fbae1eecfcf1283827ab8f3f0e1ddbf425fd5a.png",
           "image_right": "shopify://shop_images/21cc343e1157c6014e4356cdbbc93f43ad029c03.png",
-          "btn1_text": "Shop Now",
-          "btn1_link": "",
-          "btn2_text": "Our Story",
+          "btn1_text": "Start Shopping",
+          "btn1_link": "shopify://collections",
+          "btn2_text": "Learn More",
           "btn2_link": "",
           "bg_color": "#ffffff",
           "shape_color": "#b30000",
@@ -285,7 +296,7 @@
           "testimonial_nyrCYC": {
             "type": "testimonial",
             "settings": {
-              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
             }
@@ -293,7 +304,7 @@
           "testimonial_fbHPcR": {
             "type": "testimonial",
             "settings": {
-              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
             }
@@ -301,7 +312,7 @@
           "testimonial_cTRy6n": {
             "type": "testimonial",
             "settings": {
-              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
             }
@@ -309,7 +320,7 @@
           "testimonial_L6hpQb": {
             "type": "testimonial",
             "settings": {
-              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
             }
@@ -317,7 +328,7 @@
           "testimonial_UzJNcc": {
             "type": "testimonial",
             "settings": {
-              "quote": "A visual guide could be a wireframe, creative composition, or information architecture.",
+              "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
             }
