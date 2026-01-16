@@ -57,13 +57,7 @@
           "text_color": "#ffffff",
           "hover_color": "#ffcc00",
           "scrolled_bg": "#d32f2f",
-          "icon_width": 12,
-          "dropdown_bg": "#ffffff",
-          "dropdown_link_color": "#333333",
-          "dropdown_hover_bg": "#f8f8f8",
-          "dropdown_hover_text": "#d32f2f",
-          "dropdown_font_size": 14,
-          "hover_animation": "slide"
+          "scrolled_text": "#000000"
         }
       },
       "hero-banner": {
@@ -75,10 +69,7 @@
           "btn1_text": "Shop Now",
           "btn1_link": "",
           "btn2_text": "Today's Deals",
-          "btn2_link": "",
-          "glass_tagline": "Farm To Table Excellence",
-          "glass_title": "Discover The Difference Quality Makes",
-          "glass_desc": "Premium quality beef, mutton, and chicken sourced from trusted farms. Freshly cut by expert butchers."
+          "btn2_link": ""
         }
       },
       "icon-features-bar": {
@@ -185,8 +176,7 @@
         "type": "best-sellers",
         "settings": {
           "heading": "Best Sellers",
-          "collection": "",
-          "limit": 8,
+          "collection": "shop-by-category",
           "acc_color": "#d32f2f",
           "h_color": "#1a1a1a",
           "bg_color": "#ffffff",
