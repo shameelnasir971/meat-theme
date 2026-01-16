@@ -467,6 +467,80 @@
           "btn_radius": 6,
           "show_badge": true
         }
+      },
+      "product": {
+        "type": "product",
+        "settings": {
+          "acc_color": "#e21e1e",
+          "bg_color": "#ffffff",
+          "img_card_bg": "#f7dbdb",
+          "heading_font_family": "'Oswald'",
+          "body_font_family": "'Poppins'",
+          "title_size": 45,
+          "check_1": "100% Halal Certified",
+          "check_2": "Fresh, Never Frozen",
+          "check_3": "Hygienically Prepared",
+          "check_4": "Boneless Premium Cut",
+          "commit_txt": "We are committed to providing you with the freshest meat sourced from local farms."
+        }
+      },
+      "quality-promise": {
+        "type": "quality-promise",
+        "blocks": {
+          "feature_4XcQr3": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_1.svg",
+              "title": "Freshness First",
+              "text": "Feature desMeat is cut fresh on order and never pre-frozen.cription goes here."
+            }
+          },
+          "feature_kQjMeV": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_2.svg",
+              "title": "Halal Commitment",
+              "text": "Strict adherence to approved halal practices at every step."
+            }
+          },
+          "feature_NTzUhJ": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_3.svg",
+              "title": "Hygiene & Safety",
+              "text": "Clean processing, secure packaging, controlled delivery."
+            }
+          },
+          "feature_8iwgQc": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_4.svg",
+              "title": "Customer Trust",
+              "text": "Honest weights, consistent quality, and reliable service."
+            }
+          }
+        },
+        "block_order": [
+          "feature_4XcQr3",
+          "feature_kQjMeV",
+          "feature_NTzUhJ",
+          "feature_8iwgQc"
+        ],
+        "settings": {
+          "heading": "Our Quality Promise",
+          "subheading": "Every cut of meat is carefully selected, hygienically processed.",
+          "bg_color": "#ffffff",
+          "card_bg_color": "#fff0f0",
+          "icon_color": "#d32f2f",
+          "heading_color": "#111111",
+          "text_color": "#555555",
+          "padding_top": 60,
+          "padding_bottom": 80
+        }
       }
     },
     "content_for_index": []
