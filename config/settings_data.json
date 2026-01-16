@@ -134,34 +134,12 @@
       },
       "categories": {
         "type": "categories",
-        "blocks": {
-          "category_FJgjbi": {
-            "type": "category",
-            "settings": {
-              "collection": "shop-by-category"
-            }
-          }
-        },
-        "block_order": [
-          "category_FJgjbi"
-        ],
         "settings": {
-          "title": "Shop By Category",
-          "products_limit": 8,
-          "bg_color": "#ffffff",
-          "heading_color": "#1a1a1a",
-          "card_text_color": "#ffffff",
-          "overlay_opacity": 0.6,
           "container_width": 1300,
-          "columns_desktop": 4,
-          "card_radius": 12,
-          "grid_gap": 20,
-          "heading_size": 42,
-          "heading_margin": 40,
-          "heading_align": "center",
-          "card_font_size": 24,
           "padding_top": 60,
-          "padding_bottom": 60
+          "padding_bottom": 60,
+          "bg_color": "#ffffff",
+          "heading_color": "#1a1a1a"
         }
       },
       "about-us": {
@@ -444,6 +422,50 @@
           "contact_address": "Dubai and Abu Dhabi",
           "copyright_text": "Meat Shop | All Rights Reserved",
           "show_payment_icons": true
+        }
+      },
+      "ms-hero": {
+        "type": "ms-hero",
+        "settings": {
+          "top_offset": 0,
+          "top_offset_mobile": 0,
+          "hero_img": "shopify://shop_images/955f04766e0e9065a11cbfdc90d7de88821d16de.png",
+          "hero_title": "Our Collection",
+          "hero_height": 350,
+          "hero_font_size": 60,
+          "hero_height_mobile": 250,
+          "hero_font_size_mobile": 40,
+          "overlay_opacity": "0.4"
+        }
+      },
+      "ms-circle-nav": {
+        "type": "ms-circle-nav",
+        "settings": {
+          "collection": "shop-by-category",
+          "limit": 5,
+          "bg_color": "#ffffff",
+          "primary_color": "#b91c1c",
+          "inner_bg_color": "#fff5f5",
+          "padding_top": 60,
+          "padding_bottom": 60
+        }
+      },
+      "ms-main-grid": {
+        "type": "ms-main-grid",
+        "settings": {
+          "collection": "",
+          "products_to_show": 24,
+          "title": "Products",
+          "container_width": 1400,
+          "side_padding": 60,
+          "grid_desktop": 3,
+          "card_height": 320,
+          "primary_color": "#d32f2f",
+          "bg_color": "#ffffff",
+          "text_color": "#111111",
+          "star_color": "#ffb400",
+          "btn_radius": 6,
+          "show_badge": true
         }
       }
     },
