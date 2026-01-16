@@ -131,7 +131,7 @@
         {%- assign collection = collections[section.settings.collection] -%}
         
         {%- if collection != blank and collection.products_count > 0 -%}
-          {%- for product in collection.products limit: section.settings.limit -%}
+          {%- for product in collection.products -%}
             <div class="bs-card">
               <div class="bs-img-box">
                 {% if product.compare_at_price > product.price %}
@@ -139,9 +139,10 @@
                 {% endif %}
 
                 <div class="bs-actions">
-<a href="{{ product.url | within: collection }}" class="bs-icon">
-  <i class="far fa-eye"></i>
-</a>                  <a href="#" class="bs-icon"><i class="far fa-heart"></i></a>
+                  <a href="{{ product.url | within: collection }}" class="bs-icon">
+                    <i class="far fa-eye"></i>
+                  </a>                  
+                  <a href="#" class="bs-icon"><i class="far fa-heart"></i></a>
                 </div>
 
                 <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">
@@ -199,7 +200,6 @@ function scrollBS{{ section.id | replace: '-', '' }}(dir) {
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Best Sellers" },
     { "type": "collection", "id": "collection", "label": "Select Collection" },
-    { "type": "range", "id": "limit", "label": "Products Limit", "min": 4, "max": 16, "default": 8 },
     { "type": "header", "content": "Colors & Style" },
     { "type": "color", "id": "acc_color", "label": "Accent Color (Red)", "default": "#d32f2f" },
     { "type": "color", "id": "h_color", "label": "Heading Color", "default": "#1a1a1a" },
