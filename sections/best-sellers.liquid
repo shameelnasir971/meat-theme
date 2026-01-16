@@ -58,6 +58,8 @@
 .bs-img-box::after {
   content: ""; position: absolute; inset: 0;
   background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s; z-index: 2;
+  /* UPDATED: Pointer events none ensures click passes through overlay to the image link */
+  pointer-events: none;
 }
 
 .bs-badge {
@@ -145,7 +147,10 @@
                   <a href="#" class="bs-icon"><i class="far fa-heart"></i></a>
                 </div>
 
-                <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">
+                <!-- UPDATED: Image ab clickable Link ban gaya hai -->
+                <a href="{{ product.url | within: collection }}" style="display: block; width: 100%; height: 100%;">
+                  <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">
+                </a>
 
                 <form method="post" action="/cart/add">
                   <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
@@ -154,7 +159,13 @@
               </div>
 
               <div class="bs-info">
-                <h3>{{ product.title }}</h3>
+                <!-- UPDATED: Title bhi clickable hai -->
+                <h3>
+                  <a href="{{ product.url | within: collection }}" style="text-decoration: none; color: inherit;">
+                    {{ product.title }}
+                  </a>
+                </h3>
+                
                 <div class="bs-stars">
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     {% assign r = product.metafields.reviews.rating.value.rating | floor %}

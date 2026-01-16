@@ -1,122 +1,125 @@
 {% style %}
-  /* --- MAIN LAYOUT & GRID CSS --- */
-  .ms-main-wrapper {
-    background-color: {{ section.settings.bg_color }};
-    padding: 50px 0;
-    font-family: 'Inter', sans-serif;
-  }
+/* --- MAIN LAYOUT & GRID CSS --- */
+.ms-main-wrapper {
+background-color: {{ section.settings.bg_color }};
+padding: 50px 0;
+font-family: 'Inter', sans-serif;
+}
 
-  .ms-container {
-    max-width: {{ section.settings.container_width }}px;
-    margin: 0 auto;
-    padding: 0 {{ section.settings.side_padding }}px;
-  }
+.ms-container {
+max-width: {{ section.settings.container_width }}px;
+margin: 0 auto;
+padding: 0 {{ section.settings.side_padding }}px;
+}
 
-  /* --- TOOLBAR --- */
-  .ms-toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 0;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 40px;
-  }
-  .ms-toolbar-title { font-family: 'Oswald'; font-size: 38px; margin: 0; color: {{ section.settings.text_color }}; }
-  .ms-tool-item { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: {{ section.settings.text_color }}; }
+/* --- TOOLBAR --- */
+.ms-toolbar {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 25px 0;
+border-top: 1px solid #f0f0f0;
+border-bottom: 1px solid #f0f0f0;
+margin-bottom: 40px;
+}
+.ms-toolbar-title { font-family: 'Oswald'; font-size: 38px; margin: 0; color: {{ section.settings.text_color }}; }
+.ms-tool-item { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: {{ section.settings.text_color }}; }
 
-  /* --- MAIN LAYOUT --- */
-  .ms-main-layout { display: flex; gap: 50px; }
-  
-  /* --- SIDEBAR / FILTER SECTION --- */
-  .ms-sidebar { width: 280px; flex-shrink: 0; transition: 0.3s ease; }
-  .ms-sidebar.is-hidden { width: 0; opacity: 0; overflow: hidden; margin-right: -50px; }
+/* --- MAIN LAYOUT --- */
+.ms-main-layout { display: flex; gap: 50px; }
 
-  .filter-group { margin-bottom: 35px; }
-  .filter-h {
-    font-family: 'Oswald'; font-size: 30px; font-weight: 500;
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; cursor: pointer; color: {{ section.settings.text_color }};
-  }
-  .tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .ms-tag {
-    border: 1px solid {{ section.settings.primary_color }};
-    color: {{ section.settings.primary_color }};
-    padding: 10px 5px; border-radius: 8px;
-    font-size: 14px; text-align: center; text-decoration: none;
-    transition: 0.3s;
-  }
-  .ms-tag.active, .ms-tag:hover { background: {{ section.settings.primary_color }}; color: #fff; }
-  .tag-long { grid-column: span 1; }
+/* --- SIDEBAR / FILTER SECTION --- */
+.ms-sidebar { width: 280px; flex-shrink: 0; transition: 0.3s ease; }
+.ms-sidebar.is-hidden { width: 0; opacity: 0; overflow: hidden; margin-right: -50px; }
 
-  /* Price Range Visuals */
-  .price-slider { height: 4px; background: {{ section.settings.primary_color }}; position: relative; margin: 25px 0; }
-  .knob { width: 16px; height: 16px; background: #8e1a1a; border-radius: 50%; position: absolute; top: -6px; }
-  .price-row { display: flex; gap: 10px; }
-  .p-input { 
-    flex: 1; border: 1px solid {{ section.settings.primary_color }}; padding: 10px; 
-    border-radius: 5px; color: {{ section.settings.primary_color }}; display: flex; justify-content: space-between;
-  }
+.filter-group { margin-bottom: 35px; }
+.filter-h {
+font-family: 'Oswald'; font-size: 30px; font-weight: 500;
+display: flex; justify-content: space-between; align-items: center;
+margin-bottom: 20px; cursor: pointer; color: {{ section.settings.text_color }};
+}
+.tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ms-tag {
+border: 1px solid {{ section.settings.primary_color }};
+color: {{ section.settings.primary_color }};
+padding: 10px 5px; border-radius: 8px;
+font-size: 14px; text-align: center; text-decoration: none;
+transition: 0.3s;
+cursor: pointer;
+}
+.ms-tag.active, .ms-tag:hover { background: {{ section.settings.primary_color }}; color: #fff; }
+.tag-long { grid-column: span 1; }
 
-  /* --- PRODUCT GRID / CARDS --- */
-  .ms-grid-area { flex-grow: 1; }
-  .ms-product-flex {
-    display: grid;
-    grid-template-columns: repeat({{ section.settings.grid_desktop }}, 1fr);
-    gap: 20px;
-  }
-  /* Expand grid when sidebar is hidden */
-  .ms-sidebar.is-hidden + .ms-grid-area .ms-product-flex {
-    grid-template-columns: repeat({{ section.settings.grid_desktop | plus: 1 }}, 1fr);
-  }
+/* Price Range Visuals */
+.price-slider { height: 4px; background: {{ section.settings.primary_color }}; position: relative; margin: 25px 0; }
+.knob { width: 16px; height: 16px; background: #8e1a1a; border-radius: 50%; position: absolute; top: -6px; }
+.price-row { display: flex; gap: 10px; }
+.p-input {
+flex: 1; border: 1px solid {{ section.settings.primary_color }}; padding: 10px;
+border-radius: 5px; color: {{ section.settings.primary_color }}; display: flex; justify-content: space-between;
+}
 
-  .ms-card { text-align: center; margin-bottom: 25px; position: relative; background: #fff; }
-  .ms-img-wrap { 
-    height: {{ section.settings.card_height }}px; 
-    background: #f4f4f4; border-radius: 8px; overflow: hidden; position: relative;
-  }
-  .ms-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
-  .ms-card:hover img { transform: scale(1.08); }
-  
-  .ms-badge {
-    position: absolute; top: 0; left: 0;
-    background: {{ section.settings.primary_color }}; color: #fff;
-    padding: 5px 12px; font-size: 12px; font-weight: 700; border-radius: 0 0 8px 0; z-index: 2;
-  }
+/* --- PRODUCT GRID / CARDS --- */
+.ms-grid-area { flex-grow: 1; }
+.ms-product-flex {
+display: grid;
+grid-template-columns: repeat({{ section.settings.grid_desktop }}, 1fr);
+gap: 20px;
+}
+/* Expand grid when sidebar is hidden */
+.ms-sidebar.is-hidden + .ms-grid-area .ms-product-flex {
+grid-template-columns: repeat({{ section.settings.grid_desktop | plus: 1 }}, 1fr);
+}
 
-  .ms-card-info { padding: 15px 5px; }
-  .ms-p-title { font-family: 'Oswald'; font-size: 22px; margin: 0 0 8px; color: {{ section.settings.text_color }}; font-weight: 500; }
-  .ms-stars { color: {{ section.settings.star_color }}; font-size: 14px; margin-bottom: 10px; }
-  .ms-price { color: {{ section.settings.primary_color }}; font-weight: 700; font-size: 20px; margin-bottom: 15px; }
-  .ms-add-btn {
-    width: 100%; background: {{ section.settings.primary_color }}; color: #fff;
-    border: none; padding: 14px; border-radius: {{ section.settings.btn_radius }}px;
-    font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
-  }
-  .ms-add-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+.ms-card { text-align: center; margin-bottom: 25px; position: relative; background: #fff; }
+.ms-img-wrap {
+height: {{ section.settings.card_height }}px;
+background: #f4f4f4; border-radius: 8px; overflow: hidden; position: relative;
+}
+.ms-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
+.ms-card:hover img { transform: scale(1.08); }
 
-  @media (max-width: 1024px) {
-    .ms-sidebar { display: none; }
-    .ms-product-flex { grid-template-columns: repeat(2, 1fr) !important; }
-    .ms-toolbar-title { font-size: 28px; }
-  }
-  @media (max-width: 600px) {
-    .ms-product-flex { grid-template-columns: 1fr !important; }
-  }
+.ms-badge {
+position: absolute; top: 0; left: 0;
+background: {{ section.settings.primary_color }}; color: #fff;
+padding: 5px 12px; font-size: 12px; font-weight: 700; border-radius: 0 0 8px 0; z-index: 2;
+}
+
+.ms-card-info { padding: 15px 5px; }
+.ms-p-title { font-family: 'Oswald'; font-size: 22px; margin: 0 0 8px; color: {{ section.settings.text_color }}; font-weight: 500; }
+.ms-stars { color: {{ section.settings.star_color }}; font-size: 14px; margin-bottom: 10px; }
+.ms-price { color: {{ section.settings.primary_color }}; font-weight: 700; font-size: 20px; margin-bottom: 15px; }
+.ms-add-btn {
+width: 100%; background: {{ section.settings.primary_color }}; color: #fff;
+border: none; padding: 14px; border-radius: {{ section.settings.btn_radius }}px;
+font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+}
+.ms-add-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+@media (max-width: 1024px) {
+.ms-sidebar { display: none; }
+.ms-product-flex { grid-template-columns: repeat(2, 1fr) !important; }
+.ms-toolbar-title { font-size: 28px; }
+}
+@media (max-width: 600px) {
+.ms-product-flex { grid-template-columns: 1fr !important; }
+}
 {% endstyle %}
 
-<div class="ms-main-wrapper">
+<!-- Added ID to wrapper for scrolling -->
+
+<div class="ms-main-wrapper" id="ms-products-anchor">
   <div class="ms-container">
-    
+
     <!-- TOOLBAR SECTION -->
     <div class="ms-toolbar">
       <div class="ms-tool-item" id="filterToggleBtn" onclick="toggleMsSidebar()">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
         <span>Filter</span>
       </div>
-      <h2 class="ms-toolbar-title">{{ section.settings.title }}</h2>
-      <div class="ms-tool-item">
-        Sort By <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+      <h2 class="ms-toolbar-title" id="ms-grid-title">{{ section.settings.title }}</h2>
+      <div class="ms-tool-item" onclick="resetMeatFilter()">
+        Reset View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
       </div>
     </div>
 
@@ -124,31 +127,31 @@
       
       <!-- SIDEBAR / FILTER SECTION -->
       <aside class="ms-sidebar" id="MsMainSidebar">
-        <!-- Category Filter -->
+        <!-- Category Filter (Functional via JS) -->
         <div class="filter-group">
           <h3 class="filter-h">Category <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></h3>
           <div class="tag-grid">
-            <a href="#" class="ms-tag active">Beef</a>
-            <a href="#" class="ms-tag">Goat</a>
-            <a href="#" class="ms-tag">Duck</a>
-            <a href="#" class="ms-tag tag-long">Chicken</a>
+            <div onclick="filterMeatProducts('Beef')" class="ms-tag">Beef</div>
+            <div onclick="filterMeatProducts('Goat')" class="ms-tag">Goat</div>
+            <div onclick="filterMeatProducts('Duck')" class="ms-tag">Duck</div>
+            <div onclick="filterMeatProducts('Chicken')" class="ms-tag tag-long">Chicken</div>
           </div>
         </div>
 
-        <!-- Weight Filter -->
+        <!-- Weight Filter (Visual Only) -->
         <div class="filter-group">
           <h3 class="filter-h">Weight <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></h3>
           <div class="tag-grid">
-            <a href="#" class="ms-tag active">1 Kg</a>
-            <a href="#" class="ms-tag">1.5 Kg</a>
-            <a href="#" class="ms-tag">2 Kg</a>
-            <a href="#" class="ms-tag">500g</a>
-            <a href="#" class="ms-tag">600g</a>
-            <a href="#" class="ms-tag">250g</a>
+            <div class="ms-tag active">1 Kg</div>
+            <div class="ms-tag">1.5 Kg</div>
+            <div class="ms-tag">2 Kg</div>
+            <div class="ms-tag">500g</div>
+            <div class="ms-tag">600g</div>
+            <div class="ms-tag">250g</div>
           </div>
         </div>
 
-        <!-- Price Filter -->
+        <!-- Price Filter (Visual Only) -->
         <div class="filter-group">
           <h3 class="filter-h">Price <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></h3>
           <div class="price-slider">
@@ -164,14 +167,17 @@
 
       <!-- PRODUCT CARDS GRID -->
       <div class="ms-grid-area">
-        <div class="ms-product-flex">
+        <div class="ms-product-flex" id="ms-products-container">
           {%- assign main_coll = section.settings.collection | default: collection -%}
           {%- if main_coll == blank or main_coll.products_count == 0 -%}
              {%- assign main_coll = collections.all -%}
           {%- endif -%}
 
           {% for product in main_coll.products limit: section.settings.products_to_show %}
-            <div class="ms-card">
+            <!-- Added Data Attributes for Filtering -->
+            <div class="ms-card product-item-card" 
+                 data-meat-type="{{ product.title | downcase }} {{ product.type | downcase }} {{ product.tags | join: ' ' | downcase }}">
+              
               <div class="ms-img-wrap">
                 {% if section.settings.show_badge %}
                   <span class="ms-badge">20% Off</span>
@@ -194,6 +200,10 @@
             <p style="grid-column: 1/-1; text-align: center; padding: 50px;">No products found.</p>
           {% endfor %}
         </div>
+        <!-- No Results Message (Hidden by default) -->
+        <div id="ms-no-results" style="display:none; text-align:center; padding: 40px; font-size: 18px; width: 100%;">
+          No products found for this category. <a href="javascript:void(0)" onclick="resetMeatFilter()" style="color: {{ section.settings.primary_color }}; text-decoration: underline;">View All</a>
+        </div>
       </div>
 
     </div>
@@ -201,38 +211,116 @@
 </div>
 
 <script>
+  // Sidebar Toggle
   function toggleMsSidebar() {
     const sidebar = document.getElementById('MsMainSidebar');
     sidebar.classList.toggle('is-hidden');
   }
+
+  // --- FILTER LOGIC START ---
+  
+  // 1. Function called by Circle Nav & Sidebar Tags
+  window.filterMeatProducts = function(categoryName) {
+    if (!categoryName) return; // safety check
+    
+    // Convert to lowercase for matching
+    const filterValue = categoryName.toLowerCase();
+    
+    // Scroll smoothly to the product grid
+    const gridSection = document.getElementById('ms-products-anchor');
+    if(gridSection) {
+      gridSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update Title to show what is filtered
+    const titleEl = document.getElementById('ms-grid-title');
+    if(titleEl) titleEl.innerText = categoryName + " Products";
+
+    // Get all product cards
+    const cards = document.querySelectorAll('.product-item-card');
+    let hasVisible = false;
+
+    // Loop through cards and Show/Hide based on match
+    cards.forEach(card => {
+      const productData = card.getAttribute('data-meat-type');
+      
+      // Check if product title/type/tags contains the category name
+      if (productData.includes(filterValue)) {
+        card.style.display = 'block';
+        hasVisible = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Handle "No Results" message
+    const noResultMsg = document.getElementById('ms-no-results');
+    if(noResultMsg) {
+      noResultMsg.style.display = hasVisible ? 'none' : 'block';
+    }
+  };
+
+  // 2. Reset Filter Function
+  window.resetMeatFilter = function() {
+    const cards = document.querySelectorAll('.product-item-card');
+    cards.forEach(card => card.style.display = 'block');
+    
+    const titleEl = document.getElementById('ms-grid-title');
+    if(titleEl) titleEl.innerText = "{{ section.settings.title }}";
+
+    const noResultMsg = document.getElementById('ms-no-results');
+    if(noResultMsg) noResultMsg.style.display = 'none';
+    
+    // Remove query param from URL without refresh (optional clean up)
+    const url = new URL(window.location);
+    url.searchParams.delete('category');
+    window.history.pushState({}, '', url);
+  };
+
+  // 3. AUTO FILTER ON PAGE LOAD (NEW CODE ADDED HERE)
+  document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get('category');
+    
+    if (categoryParam) {
+      // Decode URI component handle spaces/special chars
+      const decodedCat = decodeURIComponent(categoryParam);
+      
+      // Slight delay to ensure DOM is ready
+      setTimeout(() => {
+        filterMeatProducts(decodedCat);
+      }, 100);
+    }
+  });
+  
 </script>
+
 
 {% schema %}
 {
-  "name": "MS Main Products Grid",
-  "settings": [
-    { "type": "header", "content": "Data Settings" },
-    { "type": "collection", "id": "collection", "label": "Select Collection" },
-    { "type": "range", "id": "products_to_show", "label": "Products Limit", "min": 4, "max": 24, "step": 4, "default": 12 },
-    
-    { "type": "header", "content": "Layout Settings" },
-    { "type": "text", "id": "title", "label": "Section Title", "default": "Products" },
-    { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1400, "unit": "px" },
-    { "type": "range", "id": "side_padding", "label": "Side Padding", "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px" },
-    { "type": "range", "id": "grid_desktop", "label": "Products per row (Desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
-    { "type": "range", "id": "card_height", "label": "Image Height", "min": 200, "max": 500, "step": 10, "default": 320, "unit": "px" },
+"name": "MS Main Products Grid",
+"settings": [
+{ "type": "header", "content": "Data Settings" },
+{ "type": "collection", "id": "collection", "label": "Select Collection" },
+{ "type": "range", "id": "products_to_show", "label": "Products Limit", "min": 4, "max": 50, "step": 1, "default": 24 },
+{ "type": "header", "content": "Layout Settings" },
+{ "type": "text", "id": "title", "label": "Section Title", "default": "Products" },
+{ "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1400, "unit": "px" },
+{ "type": "range", "id": "side_padding", "label": "Side Padding", "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px" },
+{ "type": "range", "id": "grid_desktop", "label": "Products per row (Desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
+{ "type": "range", "id": "card_height", "label": "Image Height", "min": 200, "max": 500, "step": 10, "default": 320, "unit": "px" },
 
-    { "type": "header", "content": "Colors & Style" },
-    { "type": "color", "id": "primary_color", "label": "Primary Red", "default": "#d32f2f" },
-    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" },
-    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
-    { "type": "color", "id": "star_color", "label": "Star Color", "default": "#ffb400" },
-    { "type": "range", "id": "btn_radius", "label": "Button Roundness", "min": 0, "max": 50, "step": 2, "default": 6, "unit": "px" },
-    { "type": "checkbox", "id": "show_badge", "label": "Show Discount Badge", "default": true }
-  ],
-  "presets": [
-    { "name": "MS Main Products Grid" }
-  ]
+{ "type": "header", "content": "Colors & Style" },
+{ "type": "color", "id": "primary_color", "label": "Primary Red", "default": "#d32f2f" },
+{ "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" },
+{ "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
+{ "type": "color", "id": "star_color", "label": "Star Color", "default": "#ffb400" },
+{ "type": "range", "id": "btn_radius", "label": "Button Roundness", "min": 0, "max": 50, "step": 2, "default": 6, "unit": "px" },
+{ "type": "checkbox", "id": "show_badge", "label": "Show Discount Badge", "default": true }
+
+],
+"presets": [
+{ "name": "MS Main Products Grid" }
+]
 }
 {% endschema %}
-

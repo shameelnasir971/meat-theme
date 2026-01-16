@@ -30,6 +30,7 @@
     text-decoration: none;
     display: block;
     transition: all 0.4s ease;
+    cursor: pointer; /* Added cursor pointer */
   }
 
   /* Outer Border - Perfect Circle */
@@ -109,9 +110,9 @@
     {%- assign collection = section.settings.collection -%}
 
     {% if collection != blank %}
-      {% comment %} --- LIVE COLLECTION MODE --- {% endcomment %}
+      {% comment %} --- LIVE COLLECTION MODE (Using Product Titles/Types as Filters) --- {% endcomment %}
       {% for product in collection.products limit: section.settings.limit %}
-        <a href="{{ product.url }}" class="ms-circle-box">
+        <div class="ms-circle-box" onclick="filterMeatProducts('{{ product.title | escape }}')">
           <div class="ms-outer-ring">
             <div class="ms-inner-fill">
               {% comment %} Using crop: 'center' to force square image for perfect circle {% endcomment %}
@@ -121,7 +122,7 @@
             </div>
           </div>
           <h3 class="ms-title-text">{{ product.title }}</h3>
-        </a>
+        </div>
       {% endfor %}
 
     {% else %}
@@ -131,7 +132,8 @@
       {% assign imgs = "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8yNV9waG90b19vZl9yYXdfYmVlZl9zdGVha19pc29sYXRlZF9vbl93aGl0ZV9iYWNrZ19kOTY0ZDAxYy1mOTZmLTQ5OWYtYmQxMC1jOTRkYjc0ZGI2N2JfMS5wbmc.png,https://static.vecteezy.com/system/resources/previews/027/215/121/non_2x/raw-lamb-meat-isolated-on-transparent-background-png.png,https://static.vecteezy.com/system/resources/previews/021/665/596/non_2x/meat-duck-breast-isolated-on-white-background-generative-ai-png.png,https://static.vecteezy.com/system/resources/previews/019/607/547/non_2x/beef-steak-isolated-on-transparent-background-free-png.png,https://static.vecteezy.com/system/resources/previews/024/534/496/non_2x/fresh-raw-meat-on-transparent-background-free-png.png" | split: "," %}
 
       {% for i in (0..4) %}
-        <div class="ms-circle-box">
+        <!-- Added onclick event to trigger filter -->
+        <div class="ms-circle-box" onclick="filterMeatProducts('{{ names[i] }}')">
           <div class="ms-outer-ring">
             <div class="ms-inner-fill">
               <img src="{{ imgs[i] }}" alt="{{ names[i] }}">

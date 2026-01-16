@@ -1,4 +1,7 @@
 {%- style -%}
+  /* Font Import for Exact Match */
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
+
   /* Section Wrapper */
   .about-meat-{{ section.id }} {
     background-color: {{ section.settings.bg_color }};
@@ -6,6 +9,7 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
     width: 100%;
     overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   .about-meat-container {
@@ -15,11 +19,11 @@
     box-sizing: border-box;
   }
 
-  /* Grid Layout  */
+  /* Grid Layout */
   .about-meat-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; 
-    gap: 60px;
+    gap: 50px; /* Gap kam kiya taake width/height compact rahe */
     align-items: center; 
   }
 
@@ -33,76 +37,78 @@
 
   .about-meat-image-col img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    aspect-ratio: 1 / 1; /* Square shape maintained */
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: 24px;
     display: block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    max-height: 500px; /* Height control taake image zyada lambi na ho */
   }
 
   /* Text Column */
   .about-meat-text-col {
     text-align: left;
-    padding-left: 20px;
+    padding-right: 10px;
   }
 
   .about-meat-text-col h2 {
-    font-family: 'Impact', 'Oswald', sans-serif; 
+    font-family: 'Oswald', sans-serif;
     font-size: {{ section.settings.title_size }}px;
     font-weight: 700;
     color: {{ section.settings.text_color }};
     margin: 0 0 20px 0;
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: 0.5px;
     text-transform: capitalize;
   }
 
-
   .about-meat-text-col .description {
     font-size: {{ section.settings.desc_size }}px;
     color: {{ section.settings.text_color | color_modify: 'alpha', 0.8 }};
-    line-height: 1.6;
+    line-height: 1.6; /* Line height thoda tight kiya */
     margin-bottom: 30px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
   .about-meat-text-col .description p {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
   }
 
-  /* Button  */
+  /* Button Style */
   .btn-meat-shop {
     display: inline-block;
     background-color: {{ section.settings.btn_color }};
     color: {{ section.settings.btn_text_color }};
-    padding: 14px 35px;
-    border-radius: 6px; 
+    padding: 14px 35px; /* Padding thodi adjust ki */
+    border-radius: 8px; 
     text-decoration: none;
     font-weight: 500;
     font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(198, 40, 40, 0.25);
   }
 
   .btn-meat-shop:hover {
     background-color: {{ section.settings.btn_color | color_darken: 10 }};
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(198, 40, 40, 0.35);
   }
 
   /* RESPONSIVE MEDIA QUERIES */
 
-  /* Tablet (iPad) */
+  /* Tablet */
   @media (max-width: 1024px) {
-    .about-meat-grid { gap: 40px; }
-    .about-meat-text-col h2 { font-size: 36px; }
+    .about-meat-grid { gap: 30px; }
+    .about-meat-text-col h2 { font-size: 34px; }
   }
 
   /* Mobile */
   @media (max-width: 767px) {
     .about-meat-{{ section.id }} {
-      padding-top: 50px;
-      padding-bottom: 50px;
+      padding-top: 40px;
+      padding-bottom: 40px;
     }
     .about-meat-grid {
       grid-template-columns: 1fr; 
@@ -111,17 +117,20 @@
     .about-meat-image-col {
       max-width: 100%;
     }
+    .about-meat-image-col img {
+      aspect-ratio: 1.2 / 1;
+      max-height: 350px; /* Mobile par height control */
+    }
     .about-meat-text-col {
       padding-left: 0;
-      text-align: center; 
+      padding-right: 0;
+      text-align: left;
     }
     .about-meat-text-col h2 {
-      font-size: 30px;
+      font-size: 28px;
     }
     .btn-meat-shop {
-      width: 100%; 
-      box-sizing: border-box;
-      text-align: center;
+      width: auto;
     }
   }
 {%- endstyle -%}
@@ -135,6 +144,7 @@
         {%- if section.settings.image != blank -%}
           {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.title }}
         {%- else -%}
+          <!-- Placeholder Image matching the red meat theme -->
           <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1000&auto=format&fit=crop" alt="Fresh Steak Meat" loading="lazy" width="800" height="800">
         {%- endif -%}
       </div>
@@ -148,7 +158,7 @@
             {{ section.settings.content }}
           {%- else -%}
             <p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction.</p>
-            <p>Every cut of meat is carefully selected, hygienically processed, and prepared by skilled butchers who understand quality and precision. We follow strict halal standards and maintain proper temperature control from sourcing to delivery.</p>
+            <p>Every cut of meat is carefully selected, hygienically processed, and prepared by skilled butchers who understand quality and precision. We follow strict halal standards and maintain proper temperature control from sourcing to delivery. Whether you are shopping for daily meals, family gatherings, or special occasions, we ensure that every order meets the highest standards of taste and freshness. With reliable delivery.</p>
           {%- endif -%}
         </div>
 
@@ -190,7 +200,7 @@
       "type": "richtext",
       "id": "content",
       "label": "Description",
-      "default": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country.</p>"
+      "default": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction.</p>"
     },
     {
       "type": "text",
@@ -225,7 +235,7 @@
       "id": "btn_color",
       "label": "Button Background",
       "default": "#C62828",
-      "info": "Dark Red"						
+      "info": "Dark Red"                        
     },
     {
       "type": "color",
@@ -259,13 +269,13 @@
       "type": "range",
       "id": "padding_top",
       "label": "Padding Top",
-      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 80
+      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 50
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "label": "Padding Bottom",
-      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 80
+      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 50
     }
   ],
   "presets": [

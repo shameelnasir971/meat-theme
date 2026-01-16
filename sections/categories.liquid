@@ -1,347 +1,285 @@
-{%- style -%}
-/* Section Base Styles */
-.category-section-{{ section.id }} {
-  background-color: {{ section.settings.bg_color }};
-  padding-top: {{ section.settings.padding_top }}px;
-  padding-bottom: {{ section.settings.padding_bottom }}px;
-  width: 100%;
-  overflow: hidden;
+{% comment %}
+MS Pro Categories - Collection Based Dynamic Mode
+
+User selects a Collection from Theme Settings.
+
+Products in that collection become Category Cards.
+
+Product Image = Card Image.
+
+Product Title = Category Name & Filter Keyword.
+
+UI Matches Screenshot Exactly.
+{% endcomment %}
+
+{% style %}
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap');
+
+.section-{{ section.id }}-padding {
+padding-top: {{ section.settings.padding_top }}px;
+padding-bottom: {{ section.settings.padding_bottom }}px;
+background-color: {{ section.settings.bg_color }};
 }
 
-.category-container-{{ section.id }} {
-  max-width: {{ section.settings.container_width }}px;
-  margin: 0 auto;
-  padding: 0 20px;
+.ms-cat-container {
+max-width: {{ section.settings.container_width }}px;
+margin: 0 auto;
+padding: 0 20px;
 }
 
-/* Heading Styles */
-.section-header-{{ section.id }} {
-  text-align: {{ section.settings.heading_align }};
-  margin-bottom: {{ section.settings.heading_margin }}px;
-}
-
-.section-header-{{ section.id }} h2 {
-  font-size: {{ section.settings.heading_size }}px;
-  color: {{ section.settings.heading_color }};
-  font-weight: 800;
-  margin: 0;
-  line-height: 1.2;
-  text-transform: capitalize;
-  font-family: 'Inter', sans-serif;
+/* Section Heading */
+.ms-section-heading {
+text-align: center;
+font-family: 'Oswald', sans-serif;
+font-size: clamp(30px, 4vw, 42px);
+font-weight: 700;
+color: {{ section.settings.heading_color }};
+margin-bottom: 45px;
+text-transform: capitalize;
+letter-spacing: 0.5px;
 }
 
 /* Grid Layout */
-.category-grid-{{ section.id }} {
-  display: grid;
-  grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-  gap: {{ section.settings.grid_gap }}px;
+.ms-cat-grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 25px;
 }
 
-/* Card Styles */
-.category-card {
-  position: relative;
-  display: block;
-  width: 100%;
-  border-radius: {{ section.settings.card_radius }}px;
-  overflow: hidden;
-  text-decoration: none;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-  aspect-ratio: 1 / 1.1;
-  background-color: #f5f5f5;
+/* Rectangular Card Style */
+.ms-cat-card {
+position: relative;
+height: 300px; /* Fixed Height matching screenshot feel */
+border-radius: 12px;
+overflow: hidden;
+cursor: pointer;
+box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+background-color: #f0f0f0;
+display: block;
 }
 
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+.ms-cat-card:hover {
+transform: translateY(-6px);
+box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-/* Image Handling */
-.category-image-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
+/* Image Style */
+.ms-cat-img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.6s ease;
+display: block;
 }
 
-.category-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s ease;
+.ms-cat-card:hover .ms-cat-img {
+transform: scale(1.08);
 }
 
-.category-card:hover img {
-  transform: scale(1.1);
+/* SVG Placeholder */
+.ms-cat-card svg {
+width: 100%;
+height: 100%;
+background: #e0e0e0;
+object-fit: cover;
+transition: transform 0.6s ease;
+}
+.ms-cat-card:hover svg { transform: scale(1.08); }
+
+/* Dark Gradient Overlay */
+.ms-cat-overlay {
+position: absolute;
+bottom: 0;
+left: 0;
+width: 100%;
+height: 60%;
+background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+pointer-events: none;
+z-index: 1;
 }
 
-/* Text Overlay Gradient */
-.category-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  background: linear-gradient(to top, rgba(0,0,0,{{ section.settings.overlay_opacity }}) 0%, transparent 100%);
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
-  box-sizing: border-box;
-  z-index: 2;
-  pointer-events: none;
+/* Text Style - Bottom Left */
+.ms-cat-title {
+position: absolute;
+bottom: 25px;
+left: 25px;
+font-family: 'Oswald', sans-serif;
+color: #ffffff;
+font-size: 30px;
+font-weight: 700;
+text-transform: uppercase;
+margin: 0;
+text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+z-index: 2;
+line-height: 1;
+letter-spacing: 1px;
 }
 
-/* Card Text */
-.category-title {
-  color: {{ section.settings.card_text_color }};
-  font-size: {{ section.settings.card_font_size }}px;
-  font-weight: 700;
-  margin: 0;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  font-family: 'Inter', sans-serif;
-  line-height: 1.2;
-}
-
-/* RESPONSIVE CSS */
+/* Responsive Design */
 @media (max-width: 1024px) {
-  .category-grid-{{ section.id }} {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-  }
+.ms-cat-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+.ms-cat-card {
+height: 260px;
+}
 }
 
-@media (max-width: 768px) {
-  .category-section-{{ section.id }} {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  .category-grid-{{ section.id }} {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .category-title {
-    font-size: 16px;
-    padding-bottom: 5px;
-  }
-  .category-overlay {
-    padding: 12px;
-  }
-  .section-header-{{ section.id }} h2 {
-    font-size: 28px;
-  }
+@media (max-width: 600px) {
+.ms-cat-grid {
+grid-template-columns: 1fr;
 }
-{%- endstyle -%}
+.ms-cat-card {
+height: 240px;
+}
+.ms-section-heading {
+margin-bottom: 30px;
+}
+}
+{% endstyle %}
 
-<section class="category-section-{{ section.id }}">
-  <div class="category-container-{{ section.id }}">
+<div class="section-{{ section.id }}-padding">
+  <div class="ms-cat-container">
 
-{%- if section.settings.title != blank -%}
-  <div class="section-header-{{ section.id }}">
-    <h2>{{ section.settings.title }}</h2>
-  </div>
-{%- endif -%}
+    {% if section.settings.heading != blank %}
+      <h2 class="ms-section-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
 
-<div class="category-grid-{{ section.id }}">
-  
-  {%- if section.blocks.size > 0 -%}
-    {%- for block in section.blocks -%}
-      {%- assign selected_collection = block.settings.collection -%}
+    <div class="ms-cat-grid">
       
-      {%- if selected_collection != blank -%}
-        {%- comment -%}Yahan loop chal raha hai collection ke saare products dikhane ke liye{%- endcomment -%}
-        {%- for product in selected_collection.products limit: section.settings.products_limit -%}
-          <a href="{{ product.url }}" class="category-card" {{ block.shopify_attributes }}>
-            <div class="category-image-wrapper">
-              {%- if product.featured_image != blank -%}
-                <img src="{{ product.featured_image | image_url: width: 720 }}" 
-                     alt="{{ product.title | escape }}" 
-                     loading="lazy" width="720" height="800" />
-              {%- else -%}
-                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              {%- endif -%}
-            </div>
-            <div class="category-overlay">
-              <h3 class="category-title">{{ product.title }}</h3>
-            </div>
-          </a>
+      {%- assign selected_collection = section.settings.collection -%}
+
+      {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
+        
+        <!-- DYNAMIC LOOP: Collection ke products ko Card bana diya -->
+        {%- for product in selected_collection.products limit: section.settings.limit -%}
+          <!-- 
+             ONCLICK UPDATE: Ab ye dusre page (collections/all) par bhejega ?category parameter ke sath
+          -->
+          <div class="ms-cat-card" onclick="window.location.href='/collections?category={{ product.title | url_encode }}'">
+            
+            {%- if product.featured_image != blank -%}
+              <img 
+                src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" 
+                alt="{{ product.title }}" 
+                class="ms-cat-img" 
+                loading="lazy"
+                width="300"
+                height="300"
+              >
+            {%- else -%}
+              {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'ms-cat-img' }}
+            {%- endif -%}
+
+            <div class="ms-cat-overlay"></div>
+            <h3 class="ms-cat-title">{{ product.title }}</h3>
+          </div>
         {%- endfor -%}
+
       {%- else -%}
-        {%- comment -%}Agar collection select nahi ki toh placeholder dikhega{%- endcomment -%}
-        <div class="category-card">
-          <div class="category-image-wrapper">
-            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        
+        <!-- FALLBACK UI: Agar collection select nahi ki to ye dikhega -->
+        {% assign default_cats = "Beef,Goat,Duck,Chicken" | split: ',' %}
+        {% for cat in default_cats %}
+          <div class="ms-cat-card" onclick="window.location.href='/collections?category={{ cat | url_encode }}'">
+            {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'ms-cat-img' }}
+            <div class="ms-cat-overlay"></div>
+            <h3 class="ms-cat-title">{{ cat }}</h3>
           </div>
-          <div class="category-overlay">
-             <h3 class="category-title">Select a Collection</h3>
-          </div>
-        </div>
+        {% endfor %}
+
       {%- endif -%}
-    {%- endfor -%}
 
-  {%- else -%}
-    <!-- Default Demo Cards -->
-    {%- for i in (1..4) -%}
-      <div class="category-card">
-        <div class="category-image-wrapper">
-          {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
-        </div>
-        <div class="category-overlay">
-           <h3 class="category-title">Sample Product</h3>
-        </div>
-      </div>
-    {%- endfor -%}
-  {%- endif -%}
-
-</div>
+    </div>
   </div>
-</section>
+</div>
 
 
 {% schema %}
 {
-  "name": "Products from Collection",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Main Section Heading",
-      "default": "Shop By Category"
-    },
-    {
-      "type": "range",
-      "id": "products_limit",
-      "label": "Products Limit (per collection)",
-      "min": 1,
-      "max": 20,
-      "step": 1,
-      "default": 8
-    },
-    {
-      "type": "header",
-      "content": "Appearance"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#FFFFFF"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "color",
-      "id": "card_text_color",
-      "label": "Card Text Color",
-      "default": "#FFFFFF"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Text Shadow Opacity",
-      "min": 0, "max": 1, "step": 0.1, "default": 0.6
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "range",
-      "id": "container_width",
-      "label": "Container Width",
-      "min": 800, "max": 1600, "step": 50, "default": 1300, "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "label": "Cards per row (Desktop)",
-      "min": 2, "max": 5, "step": 1, "default": 4
-    },
-    {
-      "type": "range",
-      "id": "card_radius",
-      "label": "Card Corner Radius",
-      "min": 0, "max": 40, "step": 1, "default": 12, "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "Gap Between Cards",
-      "min": 10, "max": 50, "step": 5, "default": 20, "unit": "px"
-    },
-    {
-      "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "label": "Heading Font Size",
-      "min": 20, "max": 80, "step": 2, "default": 42, "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "heading_margin",
-      "label": "Heading Bottom Margin",
-      "min": 10, "max": 80, "step": 5, "default": 40, "unit": "px"
-    },
-    {
-      "type": "select",
-      "id": "heading_align",
-      "label": "Heading Alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "range",
-      "id": "card_font_size",
-      "label": "Card Title Size",
-      "min": 14, "max": 30, "step": 1, "default": 24, "unit": "px"
-    },
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Top Padding",
-      "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Bottom Padding",
-      "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "category",
-      "name": "Collection to Show",
-      "settings": [
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Select Collection"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Products Grid from Collection",
-      "blocks": [
-        { "type": "category" }
-      ]
-    }
-  ]
+"name": "Shop By Category",
+"settings": [
+{
+"type": "text",
+"id": "heading",
+"label": "Heading",
+"default": "Shop By Category"
+},
+{
+"type": "header",
+"content": "Data Source"
+},
+{
+"type": "collection",
+"id": "collection",
+"label": "Select Collection",
+"info": "Products inside this collection will display as Category Cards."
+},
+{
+"type": "range",
+"id": "limit",
+"min": 4,
+"max": 12,
+"step": 1,
+"label": "Limit Cards",
+"default": 4
+},
+{
+"type": "header",
+"content": "Layout Settings"
+},
+{
+"type": "range",
+"id": "container_width",
+"min": 1000,
+"max": 1600,
+"step": 10,
+"unit": "px",
+"label": "Container Width",
+"default": 1400
+},
+{
+"type": "range",
+"id": "padding_top",
+"min": 0,
+"max": 100,
+"step": 5,
+"unit": "px",
+"label": "Padding Top",
+"default": 60
+},
+{
+"type": "range",
+"id": "padding_bottom",
+"min": 0,
+"max": 100,
+"step": 5,
+"unit": "px",
+"label": "Padding Bottom",
+"default": 60
+},
+{
+"type": "header",
+"content": "Colors"
+},
+{
+"type": "color",
+"id": "bg_color",
+"label": "Background Color",
+"default": "#ffffff"
+},
+{
+"type": "color",
+"id": "heading_color",
+"label": "Heading Color",
+"default": "#1a1a1a"
+}
+],
+"presets": [
+{
+"name": "Shop By Category"
+}
+]
 }
 {% endschema %}

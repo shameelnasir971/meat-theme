@@ -65,6 +65,7 @@
   align-items: center;
   border: 1px solid rgba(255,255,255,0.05);
   transition: transform 0.3s ease;
+  cursor: pointer; /* Added cursor pointer to show it is clickable */
 }
 
 .mb-card:hover {
@@ -169,7 +170,12 @@
         {%- for block in section.blocks -%}
           {%- assign collection = collections[block.settings.collection] -%}
           {%- for product in collection.products limit: 6 -%}
-            <div class="mb-card cat-{{ block.id }} all-items">
+            <!-- 
+               CLICKABLE CARD LOGIC:
+               onclick event poore card par laga diya hai.
+               Image, title ya white space par click karne se product page open hoga.
+            -->
+            <div class="mb-card cat-{{ block.id }} all-items" onclick="window.location.href='{{ product.url }}'">
               <div class="mb-img-box">
                 <img 
                   src="{{ product.featured_image | image_url: width: 600 }}" 
@@ -183,7 +189,12 @@
                 <h3>{{ product.title }}</h3>
                 <p class="mb-desc">{{ product.description | strip_html | truncate: 120 }}</p>
                 <div class="mb-price">From: {{ product.price | money }}</div>
-                <form method="post" action="/cart/add">
+                
+                <!-- 
+                   STOP PROPAGATION:
+                   Add to cart button click karne par redirect RUK jayega aur form submit hoga.
+                -->
+                <form method="post" action="/cart/add" onclick="event.stopPropagation()">
                   <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
                   <button type="submit" class="mb-add-btn">Add To Cart</button>
                 </form>
