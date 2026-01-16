@@ -59,7 +59,7 @@
           "text_color": "#ffffff",
           "icon_color": "#ffffff",
           "hover_color": "#ffcc00",
-          "scrolled_bg": "#d32f2f",
+          "scrolled_bg": "#ffffff",
           "scrolled_text": "#000000",
           "scrolled_icon_color": "#1a1a1a",
           "scrolled_padding": 12,
@@ -135,6 +135,9 @@
       "categories": {
         "type": "categories",
         "settings": {
+          "heading": "Shop By Category",
+          "collection": "shop-by-category",
+          "limit": 4,
           "container_width": 1300,
           "padding_top": 60,
           "padding_bottom": 60,
