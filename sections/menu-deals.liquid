@@ -128,6 +128,8 @@
   text-decoration: none;
   width: fit-content;
 }
+/* Loading State */
+.mb-add-btn.loading { opacity: 0.7; pointer-events: none; }
 
 /* Responsive */
 @media (max-width: 991px) {
@@ -172,8 +174,7 @@
           {%- for product in collection.products limit: 6 -%}
             <!-- 
                CLICKABLE CARD LOGIC:
-               onclick event poore card par laga diya hai.
-               Image, title ya white space par click karne se product page open hoga.
+               Card click -> Redirects to product page.
             -->
             <div class="mb-card cat-{{ block.id }} all-items" onclick="window.location.href='{{ product.url }}'">
               <div class="mb-img-box">
@@ -191,10 +192,11 @@
                 <div class="mb-price">From: {{ product.price | money }}</div>
                 
                 <!-- 
-                   STOP PROPAGATION:
-                   Add to cart button click karne par redirect RUK jayega aur form submit hoga.
+                   AJAX ADD TO CART:
+                   onclick="event.stopPropagation()" prevents card click redirect.
+                   onsubmit="addToCartMenuAjax..." handles the API call.
                 -->
-                <form method="post" action="/cart/add" onclick="event.stopPropagation()">
+                <form method="post" action="/cart/add" onclick="event.stopPropagation()" onsubmit="addToCartMenuAjax(event, this)">
                   <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
                   <button type="submit" class="mb-add-btn">Add To Cart</button>
                 </form>
@@ -231,6 +233,7 @@
 </section>
 
 <script>
+// Filter Tabs Logic
 function filterMenu(catId, btn, sectionId) {
   const section = btn.closest('section');
   section.querySelectorAll('.mb-tab-btn').forEach(b => b.classList.remove('active'));
@@ -243,6 +246,55 @@ function filterMenu(catId, btn, sectionId) {
     } else {
       card.style.display = 'none';
     }
+  });
+}
+
+// AJAX Add To Cart Logic
+function addToCartMenuAjax(e, form) {
+  e.preventDefault(); // Stop Page Redirect
+  e.stopPropagation(); // Stop bubbling
+
+  const btn = form.querySelector('button');
+  const originalText = btn.innerText;
+  
+  btn.innerText = "Adding...";
+  btn.classList.add('loading');
+
+  const formData = new FormData(form);
+
+  // 1. Add item to cart
+  fetch('/cart/add.js', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    // 2. Fetch updated cart count
+    return fetch('/cart.js');
+  })
+  .then(res => res.json())
+  .then(cart => {
+    // 3. Update Header Cart Count (Find elements with class .cart-count-pro)
+    const countBadges = document.querySelectorAll('.cart-count-pro');
+    countBadges.forEach(badge => {
+      badge.innerText = cart.item_count;
+      badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
+    });
+
+    // Reset Button
+    btn.innerText = "Added!";
+    setTimeout(() => {
+      btn.innerText = originalText;
+      btn.classList.remove('loading');
+    }, 2000);
+  })
+  .catch(err => {
+    console.error('Error adding to cart:', err);
+    btn.innerText = "Error";
+    setTimeout(() => {
+        btn.innerText = originalText;
+        btn.classList.remove('loading');
+    }, 2000);
   });
 }
 </script>

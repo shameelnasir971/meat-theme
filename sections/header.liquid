@@ -1,183 +1,60 @@
 {% schema %}
 {
-  "name": "Custom Header Pro",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Main Layout Settings"
-    },
-    {
-      "type": "link_list",
-      "id": "main_menu",
-      "label": "Select Menu"
-    },
-    {
-      "type": "range",
-      "id": "nav_font_size",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "label": "Nav Font Size",
-      "default": 15
-    },
-    {
-      "type": "header",
-      "content": "Logo Settings"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo_image",
-      "label": "Logo Image"
-    },
-    {
-      "type": "text",
-      "id": "logo_text",
-      "label": "Logo Text",
-      "default": "MEAT SHOP"
-    },
-    {
-      "type": "range",
-      "id": "logo_size",
-      "min": 30,
-      "max": 200,
-      "step": 5,
-      "unit": "px",
-      "label": "Logo Width (Top)",
-      "default": 60
-    },
-    {
-      "type": "range",
-      "id": "logo_size_scrolled",
-      "min": 20,
-      "max": 150,
-      "step": 5,
-      "unit": "px",
-      "label": "Logo Width (Scrolled)",
-      "default": 50
-    },
-    {
-      "type": "header",
-      "content": "Color Settings (Top/Static State)"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Nav Link Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "icon_color",
-      "label": "Icon Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "hover_color",
-      "label": "Global Hover Color",
-      "default": "#e21e1e"
-    },
-    {
-      "type": "header",
-      "content": "Color Settings (Scrolled State)"
-    },
-    {
-      "type": "color",
-      "id": "scrolled_bg",
-      "label": "Scrolled Background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "scrolled_text",
-      "label": "Scrolled Nav Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "color",
-      "id": "scrolled_icon_color",
-      "label": "Scrolled Icon Color",
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "range",
-      "id": "scrolled_padding",
-      "min": 5,
-      "max": 30,
-      "step": 1,
-      "unit": "px",
-      "label": "Scrolled Vertical Padding",
-      "default": 12
-    },
-    {
-      "type": "header",
-      "content": "Dropdown Customization"
-    },
-    {
-      "type": "color",
-      "id": "drop_bg",
-      "label": "Dropdown Background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "drop_text",
-      "label": "Dropdown Link Color",
-      "default": "#333333"
-    },
-    {
-      "type": "color",
-      "id": "drop_hover_bg",
-      "label": "Dropdown Link Hover BG",
-      "default": "#f8f8f8"
-    },
-    {
-      "type": "range",
-      "id": "drop_radius",
-      "min": 0,
-      "max": 20,
-      "step": 2,
-      "unit": "px",
-      "label": "Dropdown Corner Radius",
-      "default": 8
-    },
-    {
-      "type": "header",
-      "content": "Icon Settings"
-    },
-    {
-      "type": "range",
-      "id": "icon_size",
-      "min": 14,
-      "max": 30,
-      "step": 1,
-      "unit": "px",
-      "label": "Icon Size",
-      "default": 20
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_hover_anim",
-      "label": "Enable Icon Hover Animation",
-      "default": true
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Header Pro"
-    }
-  ]
+"name": "Custom Header Pro",
+"settings": [
+{ "type": "header", "content": "Main Layout Settings" },
+{ "type": "link_list", "id": "main_menu", "label": "Select Menu" },
+{ "type": "range", "id": "nav_font_size", "label": "Nav Font Size", "default": 15, "min": 12, "max": 20, "step": 1, "unit": "px" },
+{ "type": "header", "content": "Logo Settings" },
+{ "type": "image_picker", "id": "logo_image", "label": "Logo Image" },
+{ "type": "text", "id": "logo_text", "label": "Logo Text", "default": "MEAT SHOP" },
+{ "type": "range", "id": "logo_size", "label": "Logo Width (Top)", "default": 60, "min": 30, "max": 200, "step": 5, "unit": "px" },
+{ "type": "range", "id": "logo_size_scrolled", "label": "Logo Width (Scrolled)", "default": 50, "min": 20, "max": 150, "step": 5, "unit": "px" },
+{ "type": "header", "content": "Color Settings (Top/Static State)" },
+{ "type": "color", "id": "text_color", "label": "Nav Link Color", "default": "#ffffff" },
+{ "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#ffffff" },
+{ "type": "color", "id": "hover_color", "label": "Global Hover Color", "default": "#e21e1e" },
+{ "type": "header", "content": "Color Settings (Scrolled State)" },
+{ "type": "color", "id": "scrolled_bg", "label": "Scrolled Background", "default": "#ffffff" },
+{ "type": "color", "id": "scrolled_text", "label": "Scrolled Nav Color", "default": "#1a1a1a" },
+{ "type": "color", "id": "scrolled_icon_color", "label": "Scrolled Icon Color", "default": "#1a1a1a" },
+{ "type": "range", "id": "scrolled_padding", "label": "Scrolled Vertical Padding", "default": 12, "min": 5, "max": 30, "step": 1, "unit": "px" },
+{ "type": "header", "content": "Dropdown Customization" },
+{ "type": "color", "id": "drop_bg", "label": "Dropdown Background", "default": "#ffffff" },
+{ "type": "color", "id": "drop_text", "label": "Dropdown Link Color", "default": "#333333" },
+{ "type": "color", "id": "drop_hover_bg", "label": "Dropdown Link Hover BG", "default": "#f8f8f8" },
+{ "type": "range", "id": "drop_radius", "label": "Dropdown Corner Radius", "default": 8, "min": 0, "max": 20, "step": 2, "unit": "px" },
+{ "type": "header", "content": "Icon Settings" },
+{ "type": "range", "id": "icon_size", "label": "Icon Size", "default": 20, "min": 14, "max": 30, "step": 1, "unit": "px" },
+{ "type": "checkbox", "id": "enable_hover_anim", "label": "Enable Icon Hover Animation", "default": true }
+],
+"presets": [ { "name": "Custom Header Pro" } ]
 }
 {% endschema %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay-pro" id="searchOverlay">
+  <div class="search-container-pro">
+    <button class="search-close-btn" id="searchCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    <h3 class="search-title">Search Our Store</h3>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form-pro">
+      <div class="input-group-pro">
+        <input type="text" name="q" id="SearchInputPro" placeholder="What are you looking for?" class="search-input-field" autocomplete="off">
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="submit" class="search-submit-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="header-wrapper-pro {% unless template.name == 'index' %}header-static-white{% endunless %}">
   <header class="header-main-pro {% unless template.name == 'index' %}is-scrolled{% endunless %}" id="headerSticky">
     <div class="header-inner-wrap container-pro">
       
-      <!-- LOGO: Left -->
+      <!-- LOGO -->
       <div class="logo-section-pro">
         <a href="{{ routes.root_url }}" class="logo-box-pro">
           {% if section.settings.logo_image != blank %}
@@ -189,7 +66,7 @@
         </a>
       </div>
 
-      <!-- NAV: Center -->
+      <!-- NAV -->
       <nav class="nav-section-pro">
         <div class="mobile-menu-trigger" id="openMobileMenu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -217,8 +94,8 @@
             <li class="menu-item-pro has-dropdown-pro">
               <a href="#" class="main-link-pro">Category <i class="fa-solid fa-chevron-down drop-icon"></i></a>
               <ul class="dropdown-menu-pro">
-                <li><a href="/collections">All Collections</a></li>
-                <li><a href="/collections/beef">Fresh Beef</a></li>
+                <li><a href="/collections">Collections</a></li>
+                {% comment %} <li><a href="/collections/beef">Fresh Beef</a></li> {% endcomment %}
               </ul>
             </li>
             <li class="menu-item-pro"><a href="/pages/contact" class="main-link-pro">Contact</a></li>
@@ -226,19 +103,21 @@
         </ul>
       </nav>
 
-      <!-- ICONS: Right -->
+      <!-- ICONS -->
       <div class="icons-section-pro">
-        <a href="{{ routes.search_url }}" class="icon-link-pro"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <a href="{{ routes.search_url }}" class="icon-link-pro" id="searchTriggerBtn"><i class="fa-solid fa-magnifying-glass"></i></a>
+        
         {% if shop.customer_accounts_enabled %}
           <a href="{{ routes.account_url }}" class="icon-link-pro hide-mob"><i class="fa-regular fa-user"></i></a>
         {% endif %}
         
-        <!-- CART ICON (DESKTOP) - LINK TO CART PAGE -->
+        <!-- CART ICON: Ensure class 'cart-count-pro' exists for updates -->
         <a href="{{ routes.cart_url }}" class="icon-link-pro cart-btn-pro">
           <i class="fa-solid fa-bag-shopping"></i>
-          {% if cart.item_count > 0 %}
-            <span class="cart-count-pro">{{ cart.item_count }}</span>
-          {% endif %}
+          <!-- Badge logic -->
+          <span class="cart-count-pro" style="{% if cart.item_count == 0 %}display:none;{% else %}display:flex;{% endif %}">
+            {{ cart.item_count }}
+          </span>
         </a>
       </div>
 
@@ -246,7 +125,7 @@
   </header>
 </div>
 
-<!-- Professional Mobile Drawer -->
+<!-- Mobile Drawer -->
 <div class="mob-overlay-pro" id="mobOverlay"></div>
 <aside class="mob-drawer-pro" id="mobDrawer">
   <div class="mob-drawer-head">
@@ -286,7 +165,6 @@
           </div>
           <ul class="mob-sub-list">
             <li><a href="/collections">All Collections</a></li>
-            {% comment %} <li><a href="/collections/beef">Fresh Beef</a></li> {% endcomment %}
           </ul>
         </li>
         <li class="mob-item-pro"><a href="/pages/contact" class="mob-main-link">Contact</a></li>
@@ -299,7 +177,6 @@
       <a href="{{ routes.account_url }}" class="mob-footer-link"><i class="fa-regular fa-user"></i> My Account</a>
     {% endif %}
     
-    <!-- MOBILE CART LINK - LINK TO CART PAGE -->
     <a href="{{ routes.cart_url }}" class="mob-footer-link">
       <i class="fa-solid fa-bag-shopping"></i> Shopping Cart
     </a>
@@ -506,6 +383,44 @@
   .mob-footer-link { display: flex; align-items: center; gap: 12px; color: #1a1a1a; text-decoration: none; font-size: 15px; padding: 12px 0; font-weight: 500; }
   .mob-footer-link i { color: var(--hover-red); font-size: 18px; }
 
+  /* SEARCH OVERLAY CSS */
+  .search-overlay-pro {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .search-overlay-pro.active { opacity: 1; visibility: visible; }
+  
+  .search-container-pro {
+    width: 100%; max-width: 800px; padding: 0 20px; text-align: center; position: relative;
+    transform: translateY(20px); transition: 0.4s ease;
+  }
+  .search-overlay-pro.active .search-container-pro { transform: translateY(0); }
+  
+  .search-title { font-family: 'Oswald', sans-serif; font-size: 32px; color: #1a1a1a; margin-bottom: 30px; text-transform: uppercase; }
+  
+  .input-group-pro {
+    display: flex; border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;
+  }
+  .search-input-field {
+    width: 100%; border: none; background: transparent; font-size: 24px; color: #1a1a1a; font-family: 'Poppins', sans-serif;
+    outline: none; padding: 10px;
+  }
+  .search-input-field::placeholder { color: #999; }
+  
+  .search-submit-btn {
+    background: none; border: none; font-size: 24px; color: #1a1a1a; cursor: pointer; transition: 0.3s;
+  }
+  .search-submit-btn:hover { color: var(--hover-red); }
+  
+  .search-close-btn {
+    position: absolute; top: -80px; right: 0;
+    background: none; border: none; font-size: 30px; cursor: pointer; color: #1a1a1a;
+  }
+  .search-close-btn:hover { color: var(--hover-red); }
 </style>
 
 <script>
@@ -560,6 +475,30 @@
         }
       }
     });
+
+    // SEARCH OVERLAY LOGIC
+    const searchTrigger = document.getElementById('searchTriggerBtn');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchClose = document.getElementById('searchCloseBtn');
+    const searchInput = document.getElementById('SearchInputPro');
+
+    if(searchTrigger && searchOverlay && searchClose) {
+      searchTrigger.onclick = function(e) {
+        e.preventDefault(); 
+        searchOverlay.classList.add('active');
+        setTimeout(() => { searchInput.focus(); }, 100); 
+      };
+
+      searchClose.onclick = function() {
+        searchOverlay.classList.remove('active');
+      };
+
+      document.addEventListener('keydown', function(e) {
+        if(e.key === "Escape" && searchOverlay.classList.contains('active')) {
+          searchOverlay.classList.remove('active');
+        }
+      });
+    }
 
   })();
 </script>
