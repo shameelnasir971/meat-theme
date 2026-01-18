@@ -1,15 +1,16 @@
+
 {% style %}
-  /* Section level cleanup - Theme ki default gaps khatam karne ke liye */
+  /* Section level cleanup */
   #shopify-section-{{ section.id }} {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    margin-top: {{ section.settings.top_offset }}px !important;
+    margin-top: 0 !important; 
     margin-bottom: 0 !important;
   }
 
   .ms-hero-wrapper-{{ section.id }} {
     width: 100%;
-    line-height: 0; /* Tiny gaps khatam karne ke liye */
+    line-height: 0; 
     display: block;
   }
 
@@ -22,7 +23,7 @@
     background-position: center;
     display: flex;
     align-items: center;
-    line-height: normal; /* Restore for text */
+    line-height: normal; 
   }
 
   /* Overlay */
@@ -49,9 +50,6 @@
 
   /* Responsive Fix for Mobile */
   @media (max-width: 768px) {
-    #shopify-section-{{ section.id }} {
-      margin-top: {{ section.settings.top_offset_mobile }}px !important;
-    }
     .ms-hero-banner-{{ section.id }} {
       height: {{ section.settings.hero_height_mobile }}px;
       justify-content: center;
@@ -76,32 +74,6 @@
 {
   "name": "MS Hero Banner",
   "settings": [
-    {
-      "type": "header",
-      "content": "Attachment Control",
-      "info": "Banner ko header ke sath jodne ke liye 'Top Offset' ko use karein."
-    },
-    { 
-      "type": "range", 
-      "id": "top_offset", 
-      "label": "Top Offset (Adjust Gap)", 
-      "info": "Agar gap zyada hai to minus (-) ki taraf le jayen.",
-      "min": -100, 
-      "max": 100, 
-      "step": 2, 
-      "default": 0, 
-      "unit": "px" 
-    },
-    { 
-      "type": "range", 
-      "id": "top_offset_mobile", 
-      "label": "Mobile Top Offset", 
-      "min": -50, 
-      "max": 50, 
-      "step": 2, 
-      "default": 0, 
-      "unit": "px" 
-    },
     {
       "type": "header",
       "content": "Banner Content"

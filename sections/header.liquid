@@ -1,34 +1,41 @@
 {% schema %}
 {
-"name": "Custom Header Pro",
-"settings": [
-{ "type": "header", "content": "Main Layout Settings" },
-{ "type": "link_list", "id": "main_menu", "label": "Select Menu" },
-{ "type": "range", "id": "nav_font_size", "label": "Nav Font Size", "default": 15, "min": 12, "max": 20, "step": 1, "unit": "px" },
-{ "type": "header", "content": "Logo Settings" },
-{ "type": "image_picker", "id": "logo_image", "label": "Logo Image" },
-{ "type": "text", "id": "logo_text", "label": "Logo Text", "default": "MEAT SHOP" },
-{ "type": "range", "id": "logo_size", "label": "Logo Width (Top)", "default": 60, "min": 30, "max": 200, "step": 5, "unit": "px" },
-{ "type": "range", "id": "logo_size_scrolled", "label": "Logo Width (Scrolled)", "default": 50, "min": 20, "max": 150, "step": 5, "unit": "px" },
-{ "type": "header", "content": "Color Settings (Top/Static State)" },
-{ "type": "color", "id": "text_color", "label": "Nav Link Color", "default": "#ffffff" },
-{ "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#ffffff" },
-{ "type": "color", "id": "hover_color", "label": "Global Hover Color", "default": "#e21e1e" },
-{ "type": "header", "content": "Color Settings (Scrolled State)" },
-{ "type": "color", "id": "scrolled_bg", "label": "Scrolled Background", "default": "#ffffff" },
-{ "type": "color", "id": "scrolled_text", "label": "Scrolled Nav Color", "default": "#1a1a1a" },
-{ "type": "color", "id": "scrolled_icon_color", "label": "Scrolled Icon Color", "default": "#1a1a1a" },
-{ "type": "range", "id": "scrolled_padding", "label": "Scrolled Vertical Padding", "default": 12, "min": 5, "max": 30, "step": 1, "unit": "px" },
-{ "type": "header", "content": "Dropdown Customization" },
-{ "type": "color", "id": "drop_bg", "label": "Dropdown Background", "default": "#ffffff" },
-{ "type": "color", "id": "drop_text", "label": "Dropdown Link Color", "default": "#333333" },
-{ "type": "color", "id": "drop_hover_bg", "label": "Dropdown Link Hover BG", "default": "#f8f8f8" },
-{ "type": "range", "id": "drop_radius", "label": "Dropdown Corner Radius", "default": 8, "min": 0, "max": 20, "step": 2, "unit": "px" },
-{ "type": "header", "content": "Icon Settings" },
-{ "type": "range", "id": "icon_size", "label": "Icon Size", "default": 20, "min": 14, "max": 30, "step": 1, "unit": "px" },
-{ "type": "checkbox", "id": "enable_hover_anim", "label": "Enable Icon Hover Animation", "default": true }
-],
-"presets": [ { "name": "Custom Header Pro" } ]
+  "name": "Custom Header Pro",
+  "settings": [
+    { "type": "header", "content": "Main Layout Settings" },
+    { "type": "link_list", "id": "main_menu", "label": "Select Menu" },
+    { "type": "range", "id": "nav_font_size", "label": "Nav Font Size", "default": 15, "min": 12, "max": 20, "step": 1, "unit": "px" },
+    { "type": "header", "content": "Logo Settings" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo Image" },
+    { "type": "text", "id": "logo_text", "label": "Logo Text", "default": "MEAT SHOP" },
+    { "type": "range", "id": "logo_size", "label": "Logo Width (Top)", "default": 60, "min": 30, "max": 200, "step": 5, "unit": "px" },
+    { "type": "range", "id": "logo_size_scrolled", "label": "Logo Width (Scrolled)", "default": 50, "min": 20, "max": 150, "step": 5, "unit": "px" },
+    { "type": "header", "content": "Color Settings (Top/Static State)" },
+    { "type": "color", "id": "text_color", "label": "Nav Link Color", "default": "#ffffff" },
+    { "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#ffffff" },
+    { "type": "color", "id": "hover_color", "label": "Global Hover Color", "default": "#e21e1e" },
+    { "type": "header", "content": "Color Settings (Scrolled State)" },
+    { "type": "color", "id": "scrolled_bg", "label": "Scrolled Background", "default": "#ffffff" },
+    { "type": "color", "id": "scrolled_text", "label": "Scrolled Nav Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "scrolled_icon_color", "label": "Scrolled Icon Color", "default": "#1a1a1a" },
+    { "type": "range", "id": "scrolled_padding", "label": "Scrolled Vertical Padding", "default": 12, "min": 5, "max": 30, "step": 1, "unit": "px" },
+    { "type": "header", "content": "Dropdown Customization" },
+    { "type": "color", "id": "drop_bg", "label": "Dropdown Background", "default": "#ffffff" },
+    { "type": "color", "id": "drop_text", "label": "Dropdown Link Color", "default": "#333333" },
+    { "type": "color", "id": "drop_hover_bg", "label": "Dropdown Link Hover BG", "default": "#f8f8f8" },
+    { "type": "range", "id": "drop_radius", "label": "Dropdown Corner Radius", "default": 8, "min": 0, "max": 20, "step": 2, "unit": "px" },
+    { "type": "header", "content": "Icon Settings" },
+    { "type": "range", "id": "icon_size", "label": "Icon Size", "default": 20, "min": 14, "max": 30, "step": 1, "unit": "px" },
+    { "type": "checkbox", "id": "enable_hover_anim", "label": "Enable Icon Hover Animation", "default": true },
+    
+    { "type": "header", "content": "Mobile Sidebar Styling" },
+    { "type": "color", "id": "mob_bg_color", "label": "Drawer Background", "default": "#ffffff" },
+    { "type": "color", "id": "mob_text_color", "label": "Drawer Text Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "mob_border_color", "label": "Divider Color", "default": "#f0f0f0" },
+    { "type": "color", "id": "mob_icon_color", "label": "Drawer Icon Color", "default": "#555555" },
+    { "type": "range", "id": "mob_logo_width", "label": "Mobile Drawer Logo Width", "min": 50, "max": 200, "step": 5, "default": 100, "unit": "px" }
+  ],
+  "presets": [ { "name": "Custom Header Pro" } ]
 }
 {% endschema %}
 
@@ -90,12 +97,11 @@
             {% endfor %}
           {% else %}
             <li class="menu-item-pro"><a href="/" class="main-link-pro">Home</a></li>
-            <li class="menu-item-pro"><a href="/collections/all" class="main-link-pro">Shop</a></li>
+            <li class="menu-item-pro"><a href="/collections" class="main-link-pro">Shop</a></li>
             <li class="menu-item-pro has-dropdown-pro">
               <a href="#" class="main-link-pro">Category <i class="fa-solid fa-chevron-down drop-icon"></i></a>
               <ul class="dropdown-menu-pro">
-                <li><a href="/collections">Collections</a></li>
-                {% comment %} <li><a href="/collections/beef">Fresh Beef</a></li> {% endcomment %}
+                <li><a href="/collections"> Collections</a></li>
               </ul>
             </li>
             <li class="menu-item-pro"><a href="/pages/contact" class="main-link-pro">Contact</a></li>
@@ -111,10 +117,9 @@
           <a href="{{ routes.account_url }}" class="icon-link-pro hide-mob"><i class="fa-regular fa-user"></i></a>
         {% endif %}
         
-        <!-- CART ICON: Ensure class 'cart-count-pro' exists for updates -->
+        <!-- CART ICON -->
         <a href="{{ routes.cart_url }}" class="icon-link-pro cart-btn-pro">
           <i class="fa-solid fa-bag-shopping"></i>
-          <!-- Badge logic -->
           <span class="cart-count-pro" style="{% if cart.item_count == 0 %}display:none;{% else %}display:flex;{% endif %}">
             {{ cart.item_count }}
           </span>
@@ -125,14 +130,20 @@
   </header>
 </div>
 
-<!-- Mobile Drawer -->
+<!-- Mobile Drawer (Sidebar) -->
 <div class="mob-overlay-pro" id="mobOverlay"></div>
 <aside class="mob-drawer-pro" id="mobDrawer">
   <div class="mob-drawer-head">
     <div class="mob-drawer-logo">
-       <span class="logo-text-pro" style="color:#1a1a1a; font-size: 20px;">{{ section.settings.logo_text }}</span>
+       {% if section.settings.logo_image != blank %}
+          <img src="{{ section.settings.logo_image | image_url: width: 400 }}" alt="{{ shop.name }}" style="width: {{ section.settings.mob_logo_width }}px; height: auto;">
+       {% else %}
+          <span class="logo-text-pro" style="color:{{ section.settings.mob_text_color }}; font-size: 24px;">{{ section.settings.logo_text }}</span>
+       {% endif %}
     </div>
-    <i class="fa-solid fa-xmark" id="closeMobileMenu"></i>
+    <div class="mob-close-btn" id="closeMobileMenu">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
   </div>
   
   <div class="mob-drawer-body">
@@ -157,30 +168,22 @@
         {% endfor %}
       {% else %}
         <li class="mob-item-pro"><a href="/" class="mob-main-link">Home</a></li>
-        <li class="mob-item-pro"><a href="/collections/all" class="mob-main-link">Shop</a></li>
+        <li class="mob-item-pro"><a href="/collections" class="mob-main-link">Shop</a></li>
         <li class="mob-item-pro">
           <div class="mob-link-row">
             <span class="mob-main-link">Category</span>
             <span class="mob-drop-trigger"><i class="fa-solid fa-chevron-down"></i></span>
           </div>
           <ul class="mob-sub-list">
-            <li><a href="/collections">All Collections</a></li>
+            <li><a href="/collections">Collections</a></li>
           </ul>
         </li>
-        <li class="mob-item-pro"><a href="/pages/contact" class="mob-main-link">Contact</a></li>
+
+        <li class="mob-item-pro"><a href="/contact" class="mob-main-link">Contact</a></li>
       {% endif %}
     </ul>
   </div>
-
-  <div class="mob-drawer-footer">
-    {% if shop.customer_accounts_enabled %}
-      <a href="{{ routes.account_url }}" class="mob-footer-link"><i class="fa-regular fa-user"></i> My Account</a>
-    {% endif %}
-    
-    <a href="{{ routes.cart_url }}" class="mob-footer-link">
-      <i class="fa-solid fa-bag-shopping"></i> Shopping Cart
-    </a>
-  </div>
+  <!-- Footer Removed as requested -->
 </aside>
 
 <style>
@@ -204,6 +207,12 @@
     --logo-scrolled: {{ section.settings.logo_size_scrolled }}px;
     --icon-size: {{ section.settings.icon_size }}px;
     --scroll-pad: {{ section.settings.scrolled_padding }}px;
+
+    /* MOBILE DRAWER VARIABLES */
+    --mob-bg: {{ section.settings.mob_bg_color }};
+    --mob-text: {{ section.settings.mob_text_color }};
+    --mob-border: {{ section.settings.mob_border_color }};
+    --mob-icon: {{ section.settings.mob_icon_color }};
   }
 
   .header-wrapper-pro { width: 100%; position: relative; z-index: 1000; }
@@ -214,12 +223,24 @@
     padding: 25px 0; 
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
     font-family: 'Poppins', sans-serif;
+    position: relative; 
+    background-color: var(--scrolled-bg);
   }
 
-  {% if template.name == 'index' %}
-  .header-main-pro:not(.is-scrolled) { position: absolute; top: 0; width: 100%; }
-  {% endif %}
+  .header-main-pro.is-scrolled {
+    position: fixed; top: 0; left: 0;
+    padding: var(--scroll-pad) 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
 
+  .header-main-pro .logo-text-pro,
+  .header-main-pro .main-link-pro,
+  .header-main-pro .drop-icon,
+  .header-main-pro .mobile-menu-trigger,
+  .header-main-pro .icon-link-pro {
+    color: var(--scrolled-text) !important; 
+  }
+  
   .container-pro { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
 
   .header-inner-wrap { 
@@ -232,30 +253,10 @@
   .nav-section-pro { display: flex; justify-content: center; }
   .icons-section-pro { display: flex; justify-content: flex-end; gap: 25px; align-items: center; }
 
-  /* SCROLLED STATE */
-  .header-main-pro.is-scrolled {
-    position: fixed; top: 0; left: 0;
-    background: var(--scrolled-bg) !important;
-    padding: var(--scroll-pad) 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  }
-
-  .header-main-pro.is-scrolled .logo-text-pro,
-  .header-main-pro.is-scrolled .main-link-pro,
-  .header-main-pro.is-scrolled .drop-icon,
-  .header-main-pro.is-scrolled .mobile-menu-trigger {
-    color: var(--scrolled-text) !important;
-  }
-  
-  .header-main-pro.is-scrolled .icon-link-pro {
-    color: var(--scrolled-icon) !important;
-  }
-
-  .header-main-pro.is-scrolled .logo-img-pro { width: var(--logo-scrolled) !important; }
-
-  /* Logo */
   .logo-box-pro { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .logo-img-pro { width: var(--logo-top); transition: 0.4s; height: auto; object-fit: contain; }
+  .header-main-pro.is-scrolled .logo-img-pro { width: var(--logo-scrolled) !important; }
+
   .logo-text-pro { 
     font-family: 'Oswald', sans-serif; 
     color: var(--text-color); 
@@ -285,13 +286,13 @@
   }
   .main-link-pro:hover::after { width: 100%; }
 
-  /* Desktop Dropdown Styles */
   .has-dropdown-pro { position: relative; }
   .dropdown-menu-pro {
     position: absolute; top: 120%; left: 50%; transform: translateX(-50%) translateY(10px);
     background: var(--drop-bg); min-width: 220px; list-style: none; padding: 15px 0;
     border-radius: var(--drop-radius); box-shadow: 0 12px 35px rgba(0,0,0,0.1);
     opacity: 0; visibility: hidden; transition: 0.3s;
+    z-index: 1002;
   }
   .has-dropdown-pro:hover .dropdown-menu-pro { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
   .dropdown-menu-pro a { 
@@ -304,7 +305,6 @@
     padding-left: 32px; 
   }
 
-  /* Icon Styles */
   .icon-link-pro { 
     color: var(--icon-color); 
     font-size: var(--icon-size); 
@@ -327,7 +327,6 @@
     font-weight: 600;
   }
 
-  /* Responsive / Mobile Styles */
   .mobile-menu-trigger { display: none !important; font-size: 24px; color: var(--text-color); cursor: pointer; }
 
   @media (max-width: 1100px) {
@@ -341,47 +340,66 @@
     .container-pro { padding: 0 20px; }
   }
 
-  /* PROFESSIONAL SIDEBAR (DRAWER) STYLES */
+  /* --- STYLED MOBILE DRAWER --- */
   .mob-drawer-pro { 
     position: fixed; top: 0; left: -100%; width: 320px; height: 100vh; 
-    background: #ffffff; z-index: 1001; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    background: var(--mob-bg); z-index: 1001; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
     box-shadow: 10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column;
   }
   .mob-drawer-pro.active { left: 0; }
   .mob-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: none; backdrop-filter: blur(3px); }
   
   .mob-drawer-head { 
-    padding: 25px; border-bottom: 1px solid #f0f0f0; 
+    padding: 20px 25px; border-bottom: 1px solid var(--mob-border); 
     display: flex; justify-content: space-between; align-items: center;
   }
-  .mob-drawer-head i { font-size: 22px; color: #1a1a1a; cursor: pointer; }
+  .mob-close-btn { 
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; 
+    border-radius: 50%; background: rgba(0,0,0,0.03); cursor: pointer; transition: 0.3s;
+  }
+  .mob-close-btn i { font-size: 20px; color: var(--mob-text); }
+  .mob-close-btn:hover { background: var(--hover-red); }
+  .mob-close-btn:hover i { color: #fff; }
 
-  .mob-drawer-body { flex: 1; overflow-y: auto; padding: 20px 0; }
+  .mob-drawer-body { flex: 1; overflow-y: auto; padding: 10px 0; }
   
   .mob-nav-list { list-style: none; padding: 0; margin: 0; }
-  .mob-item-pro { border-bottom: 1px solid #f7f7f7; }
-  .mob-link-row { display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
+  .mob-item-pro { border-bottom: 1px solid var(--mob-border); }
+  
+  /* CENTER ALIGNED MENU ITEMS */
+  .mob-link-row { 
+    display: flex; justify-content: center; align-items: center; padding: 0 25px; 
+    transition: 0.2s; position: relative;
+  }
+  .mob-link-row:hover { background: rgba(0,0,0,0.02); }
   
   .mob-main-link { 
-    display: block; padding: 16px 0; color: #1a1a1a; 
-    text-decoration: none; font-weight: 500; font-size: 16px; flex: 1;
+    display: block; padding: 18px 0; color: var(--mob-text); 
+    text-decoration: none; font-weight: 600; font-size: 16px; flex: 1;
+    text-align: center; /* CENTER TEXT */
+    font-family: 'Oswald', sans-serif; letter-spacing: 0.5px;
+    transition: 0.2s;
   }
-  .mob-drop-trigger { padding: 16px 0 16px 20px; cursor: pointer; color: #999; transition: 0.3s; }
+  .mob-main-link:hover { color: var(--hover-red); }
+
+  .mob-drop-trigger { 
+    position: absolute; right: 15px; top: 0; bottom: 0; display: flex; align-items: center;
+    padding: 0 10px; cursor: pointer; color: var(--mob-icon); transition: 0.3s; 
+  }
   .mob-drop-trigger.is-open { transform: rotate(180deg); color: var(--hover-red); }
 
   .mob-sub-list { 
-    list-style: none; padding: 0; margin: 0; background: #fcfcfc; 
-    max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+    list-style: none; padding: 0; margin: 0; background: rgba(0,0,0,0.03); 
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
   }
-  .mob-sub-list.show { max-height: 1000px; }
+  .mob-sub-list.show { max-height: 500px; } /* Expand smoothly */
+  
   .mob-sub-list a { 
-    display: block; padding: 12px 25px 12px 40px; color: #555; 
-    text-decoration: none; font-size: 15px; border-bottom: 1px solid #f3f3f3;
+    display: block; padding: 14px 25px; color: var(--mob-text); opacity: 0.8;
+    text-decoration: none; font-size: 15px; border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 500; transition: 0.2s; text-align: center; /* CENTER SUB-ITEMS */
   }
-
-  .mob-drawer-footer { padding: 25px; border-top: 1px solid #f0f0f0; background: #fafafa; }
-  .mob-footer-link { display: flex; align-items: center; gap: 12px; color: #1a1a1a; text-decoration: none; font-size: 15px; padding: 12px 0; font-weight: 500; }
-  .mob-footer-link i { color: var(--hover-red); font-size: 18px; }
+  .mob-sub-list a:hover { color: var(--hover-red); opacity: 1; }
 
   /* SEARCH OVERLAY CSS */
   .search-overlay-pro {
@@ -433,7 +451,7 @@
       if(window.scrollY > 60) {
         if(header) header.classList.add('is-scrolled');
       } else {
-        if(isHome && header) header.classList.remove('is-scrolled');
+        if(header) header.classList.remove('is-scrolled');
       }
     });
 
