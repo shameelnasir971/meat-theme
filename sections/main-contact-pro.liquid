@@ -1,0 +1,366 @@
+{%- style -%}
+  /* Dynamic CSS Variables */
+  .section-{{ section.id }} {
+    --bg-color: {{ section.settings.bg_color }};
+    --card-bg: {{ section.settings.card_bg }};
+    --text-color: {{ section.settings.text_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --accent-color: {{ section.settings.accent_color }};
+    --input-border: {{ section.settings.input_border_color }};
+    
+    --heading-size: {{ section.settings.heading_size }}px;
+    --body-size: {{ section.settings.body_size }}px;
+    
+    background-color: var(--bg-color);
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Fonts */
+  .oswald-font { 
+    font-family: {% if section.settings.font_style == 'oswald' %}'Oswald', sans-serif{% else %}inherit{% endif %}; 
+    text-transform: uppercase; 
+  }
+
+  /* Layout */
+  .container-pro { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; }
+  
+  /* Contact Info Card */
+  .contact-info-card { 
+    background: var(--card-bg); 
+    padding: 40px; 
+    border-radius: 12px; 
+    border: 1px solid rgba(0,0,0,0.05); 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    height: fit-content;
+  }
+  
+  .contact-info-card h2 {
+    font-size: var(--heading-size);
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  .contact-info-card p {
+    font-size: var(--body-size);
+    color: var(--text-color);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .info-item { display: flex; gap: 20px; margin-top: 30px; align-items: flex-start; }
+  
+  .info-icon { 
+    width: 50px; height: 50px; 
+    background: #fff; 
+    border: 1px solid var(--accent-color); 
+    color: var(--accent-color); 
+    border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; 
+    font-size: 20px; flex-shrink: 0; 
+    transition: 0.3s;
+  }
+  .info-item:hover .info-icon {
+    background: var(--accent-color);
+    color: #fff;
+  }
+
+  .info-text h3 { font-size: 18px; margin: 0 0 5px; font-weight: 700; color: var(--heading-color); }
+  .info-text p { margin: 0; color: var(--text-color); font-size: var(--body-size); }
+
+  /* Contact Form Card */
+  .contact-form-card { padding: 10px 0; }
+  
+  /* Form Elements */
+  .form-block-row { display: flex; gap: 20px; width: 100%; margin-bottom: 20px; }
+  .form-field { width: 100%; margin-bottom: 20px; }
+  
+  .contact-form-card input, 
+  .contact-form-card textarea,
+  .contact-form-card select { 
+    width: 100%; 
+    padding: 15px; 
+    border: 1px solid var(--input-border); 
+    border-radius: 8px; 
+    font-family: inherit; 
+    outline: none; 
+    transition: 0.3s; 
+    background: #fff;
+    color: var(--text-color);
+    font-size: 16px;
+  }
+  
+  .contact-form-card input:focus, 
+  .contact-form-card textarea:focus { 
+    border-color: var(--accent-color); 
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); 
+  }
+  
+  .submit-btn-contact { 
+    background: var(--accent-color); 
+    color: #fff; 
+    border: none; 
+    padding: 18px 40px; 
+    border-radius: 8px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    width: 100%; 
+    transition: 0.3s; 
+    font-size: 16px;
+  }
+  
+  .submit-btn-contact:hover { 
+    opacity: 0.9; 
+    transform: translateY(-3px); 
+  }
+  
+  .success-msg { 
+    background: #e8f5e9; 
+    color: #2e7d32; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    font-weight: 600; 
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout { grid-template-columns: 1fr; }
+    .form-block-row { flex-direction: column; gap: 0; margin-bottom: 0; }
+    .form-block-row input { margin-bottom: 20px; }
+  }
+{%- endstyle -%}
+
+<!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="contact-page-pro section-{{ section.id }}">
+  <div class="container-pro content-section">
+    <div class="contact-layout">
+      
+      <!-- Left Side: Contact Info -->
+      <div class="contact-info-card">
+        <h2 class="oswald-font">{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.description }}</p>
+        
+        <!-- Address Block -->
+        {% if section.settings.show_address %}
+        <div class="info-item">
+          <div class="info-icon"><i class="{{ section.settings.icon_address }}"></i></div>
+          <div class="info-text">
+            <h3>{{ section.settings.label_address }}</h3>
+            <p>{{ section.settings.text_address }}</p>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Phone Block -->
+        {% if section.settings.show_phone %}
+        <div class="info-item">
+          <div class="info-icon"><i class="{{ section.settings.icon_phone }}"></i></div>
+          <div class="info-text">
+            <h3>{{ section.settings.label_phone }}</h3>
+            <p>{{ section.settings.text_phone }}</p>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Email Block -->
+        {% if section.settings.show_email %}
+        <div class="info-item">
+          <div class="info-icon"><i class="{{ section.settings.icon_email }}"></i></div>
+          <div class="info-text">
+            <h3>{{ section.settings.label_email }}</h3>
+            <p>{{ section.settings.text_email }}</p>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Right Side: Contact Form -->
+      <div class="contact-form-card">
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <p class="success-msg">Message sent successfully!</p>
+          {% elsif form.errors %}
+            <div class="success-msg" style="background:#ffebee; color:#c62828;">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+          
+          <div class="contact-form-blocks">
+            
+            {%- if section.blocks.size > 0 -%}
+              <!-- DYNAMIC FORM BLOCKS -->
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  
+                  {% when 'text_input' %}
+                    <div class="form-field">
+                      <input type="text" 
+                             name="contact[{{ block.settings.label | handleize }}]" 
+                             placeholder="{{ block.settings.placeholder }}" 
+                             {% if block.settings.required %}required{% endif %}>
+                    </div>
+
+                  {% when 'email_input' %}
+                    <div class="form-field">
+                      <input type="email" 
+                             name="contact[email]" 
+                             placeholder="{{ block.settings.placeholder }}" 
+                             required>
+                    </div>
+
+                  {% when 'phone_input' %}
+                    <div class="form-field">
+                      <input type="tel" 
+                             name="contact[phone]" 
+                             placeholder="{{ block.settings.placeholder }}" 
+                             {% if block.settings.required %}required{% endif %}>
+                    </div>
+
+                  {% when 'textarea' %}
+                    <div class="form-field">
+                      <textarea name="contact[body]" 
+                                rows="{{ block.settings.rows }}" 
+                                placeholder="{{ block.settings.placeholder }}" 
+                                {% if block.settings.required %}required{% endif %}></textarea>
+                    </div>
+
+                  {% when 'double_inputs' %}
+                    <div class="form-block-row">
+                      <input type="text" name="contact[name]" placeholder="Your Name" required>
+                      <input type="email" name="contact[email]" placeholder="Your Email" required>
+                    </div>
+
+                {% endcase %}
+              {% endfor %}
+
+            {%- else -%}
+              <!-- DEFAULT FALLBACK FORM (Matches Screenshot) -->
+              <div class="form-block-row">
+                <input type="text" name="contact[name]" placeholder="Your Name" required>
+                <input type="email" name="contact[email]" placeholder="Your Email" required>
+              </div>
+              <div class="form-field">
+                <input type="tel" name="contact[phone]" placeholder="Phone Number">
+              </div>
+              <div class="form-field">
+                <textarea name="contact[body]" rows="5" placeholder="How can we help you?" required></textarea>
+              </div>
+            {%- endif -%}
+
+          </div>
+
+          <button type="submit" class="submit-btn-contact">{{ section.settings.btn_text }}</button>
+        {% endform %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Us Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    { "type": "color", "id": "bg_color", "label": "Page Background", "default": "#ffffff" },
+    { "type": "color", "id": "card_bg", "label": "Card Background", "default": "#fdfdfd" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#555555" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#d32f2f" },
+    { "type": "color", "id": "input_border_color", "label": "Input Border Color", "default": "#dddddd" },
+    { "type": "select", "id": "font_style", "label": "Heading Font Style", "options": [
+      { "value": "oswald", "label": "Oswald (Bold)" },
+      { "value": "default", "label": "Theme Default" }
+    ], "default": "oswald" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size", "min": 20, "max": 60, "default": 32, "unit": "px" },
+    { "type": "range", "id": "body_size", "label": "Body Text Size", "min": 12, "max": 20, "default": 16, "unit": "px" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "default": 60, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "default": 60, "unit": "px" },
+
+    {
+      "type": "header",
+      "content": "Contact Info Section"
+    },
+    { "type": "text", "id": "heading", "label": "Main Heading", "default": "Get In Touch" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Have questions about our meat cuts or delivery? Feel free to reach out to us." },
+    
+    { "type": "header", "content": "Address Block" },
+    { "type": "checkbox", "id": "show_address", "label": "Show Address", "default": true },
+    { "type": "text", "id": "label_address", "label": "Label", "default": "Location" },
+    { "type": "text", "id": "text_address", "label": "Text", "default": "Dubai and Abu Dhabi, UAE" },
+    { "type": "text", "id": "icon_address", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-location-dot", "info": "e.g. fa-solid fa-map-pin" },
+
+    { "type": "header", "content": "Phone Block" },
+    { "type": "checkbox", "id": "show_phone", "label": "Show Phone", "default": true },
+    { "type": "text", "id": "label_phone", "label": "Label", "default": "Phone" },
+    { "type": "text", "id": "text_phone", "label": "Text", "default": "+92 300000000" },
+    { "type": "text", "id": "icon_phone", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-phone", "info": "e.g. fa-solid fa-mobile-screen" },
+
+    { "type": "header", "content": "Email Block" },
+    { "type": "checkbox", "id": "show_email", "label": "Show Email", "default": true },
+    { "type": "text", "id": "label_email", "label": "Label", "default": "Email" },
+    { "type": "text", "id": "text_email", "label": "Text", "default": "meetshop@gmail.com" },
+    { "type": "text", "id": "icon_email", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-envelope", "info": "e.g. fa-regular fa-paper-plane" },
+
+    { "type": "header", "content": "Form Settings" },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "Send Message" }
+  ],
+  "blocks": [
+    {
+      "type": "double_inputs",
+      "name": "Name & Email Row",
+      "limit": 1
+    },
+    {
+      "type": "text_input",
+      "name": "Text Input",
+      "settings": [
+        { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Subject" },
+        { "type": "text", "id": "label", "label": "Field Label (Internal)", "default": "Subject" },
+        { "type": "checkbox", "id": "required", "label": "Is Required?", "default": false }
+      ]
+    },
+    {
+      "type": "email_input",
+      "name": "Email Input",
+      "settings": [
+        { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Your Email" }
+      ]
+    },
+    {
+      "type": "phone_input",
+      "name": "Phone Input",
+      "settings": [
+        { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Phone Number" },
+        { "type": "checkbox", "id": "required", "label": "Is Required?", "default": false }
+      ]
+    },
+    {
+      "type": "textarea",
+      "name": "Message Area",
+      "settings": [
+        { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "How can we help you?" },
+        { "type": "range", "id": "rows", "label": "Rows", "min": 3, "max": 10, "default": 5 },
+        { "type": "checkbox", "id": "required", "label": "Is Required?", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us Page",
+      "blocks": [
+        { "type": "double_inputs" },
+        { "type": "phone_input" },
+        { "type": "textarea" }
+      ]
+    }
+  ]
+}
+{% endschema %}

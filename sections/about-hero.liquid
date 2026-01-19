@@ -1,0 +1,60 @@
+{% schema %}
+{
+  "name": "About Hero Banner",
+  "settings": [
+    { "type": "image_picker", "id": "hero_img", "label": "Banner Image" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Our Story" },
+    { "type": "range", "id": "height", "label": "Height", "min": 200, "max": 600, "step": 10, "default": 350, "unit": "px" },
+    { "type": "range", "id": "font_size", "label": "Font Size", "min": 30, "max": 80, "step": 1, "default": 55, "unit": "px" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" },
+    { "type": "select", "id": "overlay", "label": "Overlay Opacity", "options": [
+      { "value": "0", "label": "None" },
+      { "value": "0.3", "label": "Light" },
+      { "value": "0.5", "label": "Medium" },
+      { "value": "0.7", "label": "Dark" }
+    ], "default": "0.5" }
+  ],
+  "presets": [ { "name": "About Hero Banner" } ]
+}
+{% endschema %}
+
+{% style %}
+  .about-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.height }}px;
+    background-image: url('{{ section.settings.hero_img | image_url: width: 2000 }}');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .about-hero-overlay {
+    position: absolute; inset: 0; background: rgba(0,0,0, {{ section.settings.overlay }}); z-index: 1;
+  }
+  .about-hero-content {
+    position: relative; z-index: 2;
+  }
+  .about-hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: {{ section.settings.font_size }}px;
+    color: {{ section.settings.text_color }};
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+  @media(max-width: 768px) {
+    .about-hero-{{ section.id }} { height: 250px; }
+    .about-hero-title { font-size: 32px; }
+  }
+{% endstyle %}
+
+<div class="about-hero-{{ section.id }}">
+  <div class="about-hero-overlay"></div>
+  <div class="about-hero-content">
+    <h1 class="about-hero-title">{{ section.settings.title }}</h1>
+  </div>
+</div>

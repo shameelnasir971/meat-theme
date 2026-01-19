@@ -64,6 +64,7 @@
   .social-wrapper {
     display: flex;
     gap: 12px;
+    flex-wrap: wrap;
   }
 
   .social-box {
@@ -167,11 +168,13 @@
     display: flex;
     gap: 12px;
     align-items: center;
+    flex-wrap: wrap;
   }
   
   .payment-icons-wrap img {
     height: 20px;
     width: auto;
+    display: block;
   }
 
   /* --- Responsive --- */
@@ -236,11 +239,31 @@
         <p class="footer-desc">{{ section.settings.description }}</p>
 
         <div class="social-wrapper">
-          <a href="{{ section.settings.social_facebook | default: '#' }}" class="social-box"><i class="fab fa-facebook-f"></i></a>
-          <a href="{{ section.settings.social_twitter | default: '#' }}" class="social-box"><i class="fab fa-twitter"></i></a>
-          <a href="{{ section.settings.social_instagram | default: '#' }}" class="social-box"><i class="fab fa-instagram"></i></a>
-          <a href="{{ section.settings.social_linkedin | default: '#' }}" class="social-box"><i class="fab fa-linkedin-in"></i></a>
-          <a href="{{ section.settings.social_youtube | default: '#' }}" class="social-box"><i class="fab fa-youtube"></i></a>
+          <!-- Default Settings Social Icons -->
+          {% if section.settings.social_facebook != blank %}
+            <a href="{{ section.settings.social_facebook }}" class="social-box"><i class="fab fa-facebook-f"></i></a>
+          {% endif %}
+          {% if section.settings.social_twitter != blank %}
+            <a href="{{ section.settings.social_twitter }}" class="social-box"><i class="fab fa-twitter"></i></a>
+          {% endif %}
+          {% if section.settings.social_instagram != blank %}
+            <a href="{{ section.settings.social_instagram }}" class="social-box"><i class="fab fa-instagram"></i></a>
+          {% endif %}
+          {% if section.settings.social_linkedin != blank %}
+            <a href="{{ section.settings.social_linkedin }}" class="social-box"><i class="fab fa-linkedin-in"></i></a>
+          {% endif %}
+          {% if section.settings.social_youtube != blank %}
+            <a href="{{ section.settings.social_youtube }}" class="social-box"><i class="fab fa-youtube"></i></a>
+          {% endif %}
+
+          <!-- Customizable Social Blocks (Add via Theme Editor) -->
+          {% for block in section.blocks %}
+            {% if block.type == 'social_icon' %}
+              <a href="{{ block.settings.link }}" class="social-box" {{ block.shopify_attributes }}>
+                <i class="{{ block.settings.icon_class }}"></i>
+              </a>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
 
@@ -323,10 +346,30 @@
 
       {%- if section.settings.show_payment_icons -%}
         <div class="payment-icons-wrap">
-          <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard" width="38" height="24" loading="lazy" />
-          <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa" width="38" height="24" loading="lazy" />
-          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay" width="38" height="24" loading="lazy" />
-          <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay" width="38" height="24" loading="lazy" />
+          {%- assign has_payment_blocks = false -%}
+          {% for block in section.blocks %}
+            {% if block.type == 'payment_image' %}
+              {%- assign has_payment_blocks = true -%}
+              {% if block.settings.image != blank %}
+                <img 
+                  src="{{ block.settings.image | image_url: width: 100 }}" 
+                  alt="{{ block.settings.image.alt }}" 
+                  width="{{ block.settings.icon_width }}"
+                  height="auto"
+                  loading="lazy"
+                  {{ block.shopify_attributes }}
+                />
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          <!-- Fallback: Show Default Icons if NO blocks are added -->
+          {% unless has_payment_blocks %}
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196010.png" alt="mastercard" width="38" height="24" loading="lazy" />
+            <img src="https://cdn-icons-png.flaticon.com/512/196/196001.png" alt="visa" width="38" height="24" loading="lazy" />
+            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968412.png" alt="apple-pay" width="38" height="24" loading="lazy" />
+            <img src="https://cdn-icons-png.flaticon.com/512/6124/6124998.png" alt="google-pay" width="38" height="24" loading="lazy" />
+          {% endunless %}
         </div>
       {%- endif -%}
     </div>
@@ -358,8 +401,9 @@
     
     {
       "type": "header",
-      "content": "Social Media"
+      "content": "Social Media (Default)"
     },
+    { "type": "paragraph", "content": "You can add more social icons using 'Social Icon' blocks." },
     { "type": "url", "id": "social_facebook", "label": "Facebook" },
     { "type": "url", "id": "social_twitter", "label": "Twitter" },
     { "type": "url", "id": "social_instagram", "label": "Instagram" },
@@ -402,6 +446,47 @@
     },
     { "type": "text", "id": "copyright_text", "label": "Copyright Text", "default": "Meat Shop | All Rights Reserved" },
     { "type": "checkbox", "id": "show_payment_icons", "label": "Show Payment Icons", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "social_icon",
+      "name": "Social Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "FontAwesome Class",
+          "default": "fab fa-tiktok",
+          "info": "Example: fab fa-tiktok, fab fa-snapchat, fab fa-pinterest"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "payment_image",
+      "name": "Payment Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Payment Image"
+        },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "label": "Icon Width",
+          "min": 20,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "default": 38
+        }
+      ]
+    }
   ],
   "presets": [
     {

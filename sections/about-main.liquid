@@ -1,0 +1,145 @@
+{% schema %}
+{
+  "name": "About Main Content",
+  "settings": [
+    { "type": "header", "content": "Story Section" },
+    { "type": "text", "id": "sub_heading", "label": "Sub Heading", "default": "Welcome to Meat Shop" },
+    { "type": "text", "id": "main_heading", "label": "Main Heading", "default": "We Provide The Freshest Meat" },
+    { "type": "textarea", "id": "content", "label": "Description", "default": "Established in 1995, we have been serving premium quality cuts to our community. Our commitment to hygiene and taste is unmatched." },
+    { "type": "image_picker", "id": "about_image", "label": "Main Image" },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "Shop Now" },
+    { "type": "url", "id": "btn_link", "label": "Button Link" },
+    
+    { "type": "header", "content": "Features Area" },
+    { "type": "checkbox", "id": "show_features", "label": "Show Features Row", "default": true },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#e21e1e" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Box",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "icon_class", "label": "FontAwesome Class", "default": "fa-solid fa-drumstick-bite" },
+        { "type": "text", "id": "title", "label": "Title", "default": "100% Halal" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Quality you can trust." }
+      ]
+    }
+  ],
+  "presets": [ { "name": "About Main Content" } ]
+}
+{% endschema %}
+
+{% style %}
+  .sec-about-{{ section.id }} {
+    padding: 80px 0;
+    background-color: {{ section.settings.bg_color }};
+    font-family: 'Poppins', sans-serif;
+  }
+  .ab-container {
+    max-width: 1200px; margin: 0 auto; padding: 0 20px;
+  }
+  
+  /* Story Row */
+  .ab-story-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 80px;
+  }
+  .ab-img-box {
+    position: relative;
+    border-radius: 15px; overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  }
+  .ab-img-box img { width: 100%; height: auto; display: block; transition: 0.5s; }
+  .ab-img-box:hover img { transform: scale(1.03); }
+  
+  .ab-text-box h4 {
+    color: {{ section.settings.accent_color }};
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .ab-text-box h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 42px; color: #1a1a1a; line-height: 1.2; margin-bottom: 25px;
+    text-transform: uppercase;
+  }
+  .ab-text-box p {
+    font-size: 16px; color: #555; line-height: 1.7; margin-bottom: 30px;
+  }
+  .ab-btn {
+    display: inline-block; padding: 15px 35px;
+    background: {{ section.settings.accent_color }};
+    color: #fff; text-decoration: none; font-weight: 600;
+    text-transform: uppercase; border-radius: 5px; transition: 0.3s;
+    font-family: 'Oswald', sans-serif; letter-spacing: 0.5px;
+  }
+  .ab-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(226,30,30,0.3); }
+
+  /* Features Row */
+  .ab-features-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+  }
+  .ab-feat-item {
+    background: #fdfdfd; padding: 30px 20px; border: 1px solid #eee;
+    text-align: center; border-radius: 10px; transition: 0.3s;
+  }
+  .ab-feat-item:hover {
+    border-color: {{ section.settings.accent_color }};
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+  .ab-icon {
+    font-size: 40px; color: {{ section.settings.accent_color }}; margin-bottom: 20px;
+  }
+  .ab-feat-title {
+    font-family: 'Oswald', sans-serif; font-size: 20px; margin-bottom: 10px; color: #1a1a1a;
+  }
+  .ab-feat-desc { font-size: 14px; color: #666; line-height: 1.5; }
+
+  @media(max-width: 990px) {
+    .ab-story-row { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .ab-features-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media(max-width: 500px) {
+    .ab-text-box h2 { font-size: 30px; }
+    .ab-features-grid { grid-template-columns: 1fr; }
+  }
+{% endstyle %}
+
+<section class="sec-about-{{ section.id }}">
+  <div class="ab-container">
+    
+    <!-- Story Section -->
+    <div class="ab-story-row">
+      <div class="ab-img-box">
+        {% if section.settings.about_image != blank %}
+          <img src="{{ section.settings.about_image | image_url: width: 800 }}" alt="About Us">
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+      <div class="ab-text-box">
+        <h4>{{ section.settings.sub_heading }}</h4>
+        <h2>{{ section.settings.main_heading }}</h2>
+        <p>{{ section.settings.content }}</p>
+        {% if section.settings.btn_link != blank %}
+          <a href="{{ section.settings.btn_link }}" class="ab-btn">{{ section.settings.btn_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    {% if section.settings.show_features %}
+      <div class="ab-features-grid">
+        {% for block in section.blocks %}
+          <div class="ab-feat-item">
+            <div class="ab-icon"><i class="{{ block.settings.icon_class }}"></i></div>
+            <h3 class="ab-feat-title">{{ block.settings.title }}</h3>
+            <p class="ab-feat-desc">{{ block.settings.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
