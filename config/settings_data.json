@@ -58,7 +58,7 @@
           "logo_size_scrolled": 50,
           "text_color": "#ffffff",
           "icon_color": "#ffffff",
-          "hover_color": "#ffcc00",
+          "hover_color": "#ed5353",
           "scrolled_bg": "#ffffff",
           "scrolled_text": "#000000",
           "scrolled_icon_color": "#1a1a1a",
@@ -68,7 +68,12 @@
           "drop_hover_bg": "#f8f8f8",
           "drop_radius": 8,
           "icon_size": 20,
-          "enable_hover_anim": true
+          "enable_hover_anim": true,
+          "mob_bg_color": "#ffffff",
+          "mob_text_color": "#1a1a1a",
+          "mob_border_color": "#f0f0f0",
+          "mob_icon_color": "#555555",
+          "mob_logo_width": 100
         }
       },
       "hero-banner": {
@@ -430,8 +435,6 @@
       "ms-hero": {
         "type": "ms-hero",
         "settings": {
-          "top_offset": 0,
-          "top_offset_mobile": 0,
           "hero_img": "shopify://shop_images/955f04766e0e9065a11cbfdc90d7de88821d16de.png",
           "hero_title": "Our Collection",
           "hero_height": 350,
