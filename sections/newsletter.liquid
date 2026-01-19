@@ -1,11 +1,46 @@
+{% comment %}
+  Custom Dynamic Newsletter Section - Fixed Schema
+{% endcomment %}
+
 {%- style -%}
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
+
   .section-{{ section.id }} {
-    padding: 60px 0;
-    background-color: {{ section.settings.section_bg }};
+    /* --- Dynamic Variables --- */
+    --section-bg: {{ section.settings.section_bg }};
+    --overlay-color: {{ section.settings.overlay_color }};
+    /* Fixed: Changed ID to bypass schema error */
+    --overlay-opacity: {{ section.settings.overlay_opacity_pct | divided_by: 100.0 }};
+    
+    --h-color: {{ section.settings.heading_color }};
+    --t-color: {{ section.settings.text_color }};
+    
+    --h-font: {{ section.settings.heading_font_family }};
+    --b-font: {{ section.settings.body_font_family }};
+    
+    --h-size: {{ section.settings.heading_size }}px;
+    --h-size-mob: {{ section.settings.heading_size_mob }}px;
+    --desc-size: {{ section.settings.desc_size }}px;
+    --desc-size-mob: {{ section.settings.desc_size_mob }}px;
+    
+    --input-bg: {{ section.settings.input_bg_color }};
+    --input-text: {{ section.settings.input_text_color }};
+    --input-border: {{ section.settings.input_border_color }};
+    
+    --btn-bg: {{ section.settings.btn_bg_color }};
+    --btn-text: {{ section.settings.btn_text_color }};
+    --btn-hover-bg: {{ section.settings.btn_hover_bg_color }};
+    --btn-hover-text: {{ section.settings.btn_hover_text_color }};
+    
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: var(--section-bg);
+    font-family: var(--b-font);
   }
 
   .news-container-{{ section.id }} {
-    max-width: 1200px;
+    max-width: {{ section.settings.container_width }}px;
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -13,87 +48,130 @@
   .newsletter-box-{{ section.id }} {
     position: relative;
     width: 100%;
-    min-height: 400px;
+    min-height: 450px;
     border-radius: 30px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    
     {% if section.settings.bg_image != blank %}
-      background: linear-gradient(rgba(0, 0, 0, {{ section.settings.overlay_opacity }}), rgba(0, 0, 0, {{ section.settings.overlay_opacity }})), 
-                  url('{{ section.settings.bg_image | image_url: width: 1600 }}');
+      background-image: url('{{ section.settings.bg_image | image_url: width: 1600 }}');
     {% else %}
-      background: linear-gradient(rgba(0, 0, 0, {{ section.settings.overlay_opacity }}), rgba(0, 0, 0, {{ section.settings.overlay_opacity }})), 
-                  url('https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=1600&auto=format&fit=crop');
+      background-image: url('https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=1600&auto=format&fit=crop');
     {% endif %}
+    
     background-size: cover;
     background-position: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  }
+
+  /* Overlay */
+  .newsletter-box-{{ section.id }}::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--overlay-color);
+    opacity: var(--overlay-opacity);
+    z-index: 1;
   }
 
   .news-content-{{ section.id }} {
     width: 100%;
-    max-width: 650px;
+    max-width: 700px;
     padding: 40px 20px;
     z-index: 2;
-    color: {{ section.settings.text_color }};
+    position: relative;
+    
+    /* Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+    {% endif %}
   }
 
   .news-title-{{ section.id }} {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(32px, 5vw, 54px);
+    font-family: var(--h-font);
+    font-size: var(--h-size);
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-transform: uppercase;
-    color: inherit;
+    color: var(--h-color);
     line-height: 1.1;
+    letter-spacing: 1px;
   }
 
   .news-desc-{{ section.id }} {
-    font-size: 16px;
-    margin-bottom: 30px;
-    opacity: 0.9;
-    color: inherit;
-    line-height: 1.5;
+    font-family: var(--b-font);
+    font-size: var(--desc-size);
+    margin-bottom: 35px;
+    opacity: 0.95;
+    color: var(--t-color);
+    line-height: 1.6;
   }
 
   /* Form Styling */
   .news-form-{{ section.id }} {
     display: flex;
     gap: 15px;
-    max-width: 500px;
+    max-width: 550px;
     margin: 0 auto;
   }
 
   .news-input-{{ section.id }} {
     flex: 1;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
-    padding: 12px 20px;
-    color: #fff;
+    padding: 14px 20px;
+    color: var(--input-text);
+    font-family: var(--b-font);
     font-size: 16px;
     outline: none;
+    transition: 0.3s;
+  }
+  
+  .news-input-{{ section.id }}:focus {
+    border-color: var(--btn-bg);
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  }
+  
+  .news-input-{{ section.id }}::placeholder {
+    color: var(--input-text);
+    opacity: 0.7;
   }
 
   .news-btn-{{ section.id }} {
-    background-color: {{ section.settings.accent_color }};
-    color: #fff;
-    border: none;
-    padding: 12px 30px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1px solid var(--btn-bg);
+    padding: 14px 35px;
     border-radius: 8px;
+    font-family: var(--h-font);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .news-btn-{{ section.id }}:hover {
-    filter: brightness(1.2);
-    transform: translateY(-2px);
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+    border-color: var(--btn-hover-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
+
+  /* Animations */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
   @media (max-width: 768px) {
     .news-form-{{ section.id }} {
@@ -103,6 +181,9 @@
       min-height: auto;
       border-radius: 20px;
     }
+    .news-title-{{ section.id }} { font-size: var(--h-size-mob); }
+    .news-desc-{{ section.id }} { font-size: var(--desc-size-mob); }
+    .news-btn-{{ section.id }} { width: 100%; }
   }
 {%- endstyle -%}
 
@@ -132,7 +213,7 @@
           </div>
           
           {%- if form.posted_successfully? -%}
-            <p style="color: #fff; margin-top: 15px;">Thanks for subscribing!</p>
+            <p style="color: #fff; margin-top: 15px; font-weight: 500;">Thanks for subscribing!</p>
           {%- endif -%}
         {% endform %}
 
@@ -143,72 +224,83 @@
 
 {% schema %}
 {
-  "name": "Custom Newsletter",
+  "name": "Custom Newsletter Pro",
   "settings": [
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Our Newsletter"
+      "type": "header",
+      "content": "Content Settings"
     },
-    {
-      "type": "richtext",
-      "id": "subheading",
-      "label": "Sub-heading",
-      "default": "<p>Every cut of meat is carefully selected, hygienically processed.</p>"
-    },
-    {
-      "type": "image_picker",
-      "id": "bg_image",
-      "label": "Background Image"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 0.9,
-      "step": 0.1,
-      "label": "Overlay Darkness",
-      "default": 0.6
-    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Newsletter" },
+    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>" },
+    { "type": "text", "id": "input_placeholder", "label": "Input Placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "button_text", "label": "Button Text", "default": "Subscribe" },
+
     {
       "type": "header",
-      "content": "Colors & Text"
+      "content": "Typography Settings"
     },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+      { "value": "serif", "label": "System Serif" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 24, "max": 80, "step": 1, "default": 48, "unit": "px" },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 50, "step": 1, "default": 32, "unit": "px" },
+    
+    { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial" },
+      { "value": "sans-serif", "label": "System Sans" }
+    ], "default": "'Poppins', sans-serif" },
+    { "type": "range", "id": "desc_size", "label": "Description Size (Desktop)", "min": 12, "max": 24, "default": 16, "unit": "px" },
+    { "type": "range", "id": "desc_size_mob", "label": "Description Size (Mobile)", "min": 12, "max": 20, "default": 14, "unit": "px" },
+
     {
-      "type": "color",
-      "id": "section_bg",
-      "label": "Section Outer Background",
-      "default": "#ffffff"
+      "type": "header",
+      "content": "Background Settings"
     },
+    { "type": "image_picker", "id": "bg_image", "label": "Background Image" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay Color", "default": "#000000" },
+    
+    { "type": "range", "id": "overlay_opacity_pct", "min": 0, "max": 100, "step": 5, "label": "Overlay Opacity", "default": 60, "unit": "%" },
+    
+    { "type": "color", "id": "section_bg", "label": "Section Outer Background", "default": "#ffffff" },
+
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#ffffff"
+      "type": "header",
+      "content": "Color Settings"
     },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Description Color", "default": "#ffffff" },
+    
+    { "type": "header", "content": "Form Colors" },
+    { "type": "color", "id": "input_bg_color", "label": "Input Background", "default": "rgba(255,255,255,0.1)" },
+    { "type": "color", "id": "input_border_color", "label": "Input Border", "default": "rgba(255,255,255,0.5)" },
+    { "type": "color", "id": "input_text_color", "label": "Input Text", "default": "#ffffff" },
+    
+    { "type": "color", "id": "btn_bg_color", "label": "Button Background", "default": "#d32f2f" },
+    { "type": "color", "id": "btn_text_color", "label": "Button Text", "default": "#ffffff" },
+    { "type": "color", "id": "btn_hover_bg_color", "label": "Button Hover Background", "default": "#ffffff" },
+    { "type": "color", "id": "btn_hover_text_color", "label": "Button Hover Text", "default": "#d32f2f" },
+
     {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Button Color",
-      "default": "#d32f2f"
+      "type": "header",
+      "content": "Animations & Layout"
     },
-    {
-      "type": "text",
-      "id": "input_placeholder",
-      "label": "Input Placeholder",
-      "default": "Enter Email"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Subscribe"
-    }
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" },
+    
+    { "type": "range", "id": "container_width", "label": "Container Width", "min": 800, "max": 1600, "step": 50, "default": 1200, "unit": "px" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "default": 60, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "default": 60, "unit": "px" }
   ],
   "presets": [
     {
-      "name": "Custom Newsletter"
+      "name": "Custom Newsletter Pro"
     }
   ]
 }

@@ -1,123 +1,230 @@
 {%- style -%}
-.bs-{{ section.id }} {
-padding-top: {{ section.settings.p_top }}px;
-padding-bottom: {{ section.settings.p_bottom }}px;
-background-color: {{ section.settings.bg_color }};
-font-family: {{ section.settings.font_family }};
-}
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-.bs-container {
-max-width: {{ section.settings.container_width }}px;
-margin: 0 auto;
-padding: 0 20px;
-position: relative;
-}
+  .bs-{{ section.id }} {
+    /* --- CSS Variables based on Settings --- */
+    --bg-color: {{ section.settings.bg_color }};
+    --card-bg: {{ section.settings.card_bg_color }};
+    --heading-color: {{ section.settings.h_color }};
+    --text-color: {{ section.settings.text_color }};
+    --accent-color: {{ section.settings.acc_color }};
+    --price-color: {{ section.settings.price_color }};
+    --badge-bg: {{ section.settings.badge_bg_color }};
+    --badge-text: {{ section.settings.badge_text_color }};
+    
+    --icon-bg: {{ section.settings.icon_bg_color }};
+    --icon-color: {{ section.settings.icon_text_color }};
+    
+    --h-font: {{ section.settings.heading_font_family }};
+    --b-font: {{ section.settings.body_font_family }};
+    
+    --h-size: {{ section.settings.h_size }}px;
+    --h-size-mob: {{ section.settings.h_size_mob }}px;
+    --prod-title-size: {{ section.settings.prod_title_size }}px;
+    --price-size: {{ section.settings.price_size }}px;
 
-.bs-header h2 {
-text-align: center;
-font-size: {{ section.settings.h_size }}px;
-font-weight: 700;
-color: {{ section.settings.h_color }};
-margin-bottom: 40px;
-}
+    padding-top: {{ section.settings.p_top }}px;
+    padding-bottom: {{ section.settings.p_bottom }}px;
+    background-color: var(--bg-color);
+    font-family: var(--b-font);
+  }
 
-/* Slider Layout */
-.bs-wrapper { position: relative; display: flex; align-items: center; }
-.bs-track {
-display: flex;
-overflow-x: auto;
-scroll-behavior: smooth;
-gap: 20px;
-scrollbar-width: none;
-width: 100%;
-padding: 10px 0;
-}
-.bs-track::-webkit-scrollbar { display: none; }
+  .bs-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
 
-/* Product Card */
-.bs-card {
-flex: 0 0 calc(25% - 15px);
-min-width: 270px;
-transition: 0.3s;
-}
+  .bs-header h2 {
+    text-align: center;
+    font-family: var(--h-font);
+    font-size: var(--h-size);
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    /* Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+    {% endif %}
+  }
 
-.bs-img-box {
-position: relative;
-border-radius: 12px;
-overflow: hidden;
-aspect-ratio: 1/1;
-background: #f7f7f7;
-}
+  /* Slider Layout */
+  .bs-wrapper { position: relative; display: flex; align-items: center; }
+  .bs-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    scrollbar-width: none;
+    width: 100%;
+    padding: 15px 5px; /* Added padding for shadow/hover space */
+  }
+  .bs-track::-webkit-scrollbar { display: none; }
 
-.bs-img-box img {
-width: 100%; height: 100%; object-fit: cover;
-transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+  /* Product Card */
+  .bs-card {
+    flex: 0 0 calc(25% - 15px);
+    min-width: 270px;
+    transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    
+    /* Card Animation Stagger */
+    {% if section.settings.animation_type != 'none' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.2s;
+    {% endif %}
+  }
+  
+  /* Hover Lift Effect */
+  {% if section.settings.enable_hover_lift %}
+  .bs-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+  {% endif %}
 
-/* Hover Overlay & UI */
-.bs-img-box::after {
-content: ""; position: absolute; inset: 0;
-background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s; z-index: 2;
-pointer-events: none;
-}
+  .bs-img-box {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    background: #f7f7f7;
+  }
 
-.bs-badge {
-position: absolute; top: 0; left: 0;
-background: {{ section.settings.acc_color }};
-color: #fff; padding: 8px 15px; font-size: 12px; font-weight: 700;
-border-bottom-right-radius: 10px; z-index: 5;
-}
+  .bs-img-box img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
 
-.bs-actions {
-position: absolute; top: 15px; right: 15px;
-display: flex; flex-direction: column; gap: 10px;
-z-index: 10; opacity: 0; transform: translateX(30px);
-transition: 0.4s ease;
-}
+  /* Hover Overlay & UI */
+  .bs-img-box::after {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(0,0,0,0.3); opacity: 0; transition: 0.3s; z-index: 2;
+    pointer-events: none;
+  }
 
-.bs-icon {
-width: 40px; height: 40px; background: #fff; border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-color: {{ section.settings.acc_color }}; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
+  .bs-badge {
+    position: absolute; top: 0; left: 0;
+    background: var(--badge-bg);
+    color: var(--badge-text); 
+    padding: 8px 15px; font-size: 12px; font-weight: 700;
+    border-bottom-right-radius: 10px; z-index: 5;
+    font-family: var(--h-font);
+  }
 
-.bs-add-cart {
-position: absolute; bottom: 15px; left: 15px; right: 15px;
-background: {{ section.settings.acc_color }}; color: #fff;
-padding: 12px; border-radius: 8px; font-weight: 600; text-align: center;
-z-index: 10; transform: translateY(80px); opacity: 0; transition: 0.4s ease;
-border: none; cursor: pointer;
-}
-/* Loading State for Button */
-.bs-add-cart.loading { opacity: 0.7; pointer-events: none; }
-.bs-add-cart.loading::after { content: '...'; }
+  .bs-actions {
+    position: absolute; top: 15px; right: 15px;
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 10; opacity: 0; transform: translateX(30px);
+    transition: 0.4s ease;
+  }
 
-/* Hover Trigger */
-.bs-card:hover .bs-img-box::after { opacity: 1; }
-.bs-card:hover img { transform: scale(1.1); }
-.bs-card:hover .bs-actions { opacity: 1; transform: translateX(0); }
-.bs-card:hover .bs-add-cart { opacity: 1; transform: translateY(0); }
+  .bs-icon {
+    width: 40px; height: 40px; 
+    background: var(--icon-bg); 
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--icon-color); 
+    text-decoration: none; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+  }
+  
+  .bs-icon:hover {
+    background: var(--accent-color);
+    color: #fff;
+  }
+  
+  .bs-icon img {
+    width: 20px; height: 20px; object-fit: contain;
+  }
 
-/* Info Area */
-.bs-info { text-align: center; padding: 15px 0; }
-.bs-info h3 { font-size: 18px; margin: 0 0 5px; font-weight: 700; color: #111; }
-.bs-stars { color: #FFB400; font-size: 13px; margin-bottom: 8px; }
-.bs-price { color: {{ section.settings.acc_color }}; font-weight: 700; font-size: 18px; }
+  .bs-add-cart {
+    position: absolute; bottom: 15px; left: 15px; right: 15px;
+    background: var(--accent-color); color: #fff;
+    padding: 12px; border-radius: 8px; font-weight: 600; text-align: center;
+    z-index: 10; transform: translateY(80px); opacity: 0; transition: 0.4s ease;
+    border: none; cursor: pointer;
+    font-family: var(--h-font);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .bs-add-cart:hover {
+    background: #000;
+  }
+  
+  /* Loading State for Button */
+  .bs-add-cart.loading { opacity: 0.7; pointer-events: none; }
+  .bs-add-cart.loading::after { content: '...'; }
 
-/* Navigation Arrows */
-.bs-arrow {
-position: absolute; top: 40%; width: 48px; height: 48px;
-background: #9d0a0a; color: #fff; border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-.bs-prev { left: -24px; }
-.bs-next { right: -24px; }
+  /* Hover Trigger */
+  .bs-card:hover .bs-img-box::after { opacity: 1; }
+  {% if section.settings.enable_img_zoom %}
+    .bs-card:hover .bs-img-box img { transform: scale(1.1); }
+  {% endif %}
+  .bs-card:hover .bs-actions { opacity: 1; transform: translateX(0); }
+  .bs-card:hover .bs-add-cart { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 1024px) {
-.bs-card { flex: 0 0 calc(50% - 15px); }
-.bs-arrow { display: none; }
-}
+  /* Info Area */
+  .bs-info { text-align: center; padding: 20px 15px; }
+  
+  .bs-info h3 { 
+    font-family: var(--h-font);
+    font-size: var(--prod-title-size); 
+    margin: 0 0 8px; 
+    font-weight: 700; 
+  }
+  
+  .bs-info h3 a { text-decoration: none; color: var(--text-color); transition: 0.2s; }
+  .bs-info h3 a:hover { color: var(--accent-color); }
+
+  .bs-stars { color: #FFB400; font-size: 13px; margin-bottom: 8px; }
+  
+  .bs-price { 
+    color: var(--price-color); 
+    font-weight: 700; 
+    font-size: var(--price-size); 
+    font-family: var(--h-font);
+  }
+
+  /* Navigation Arrows */
+  .bs-arrow {
+    position: absolute; top: 40%; width: 48px; height: 48px;
+    background: var(--accent-color); 
+    color: #fff; 
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 20; border: none; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: 0.3s;
+  }
+  .bs-arrow:hover { background: #000; transform: scale(1.1); }
+  .bs-arrow img { width: 20px; height: 20px; object-fit: contain; filter: brightness(0) invert(1); }
+  
+  .bs-prev { left: -24px; }
+  .bs-next { right: -24px; }
+
+  /* Animations */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+  @media (max-width: 1024px) {
+    .bs-card { flex: 0 0 calc(50% - 15px); }
+    .bs-arrow { display: none; }
+    .bs-header h2 { font-size: var(--h-size-mob); }
+  }
 {%- endstyle -%}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -129,7 +236,14 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
     </div>
 
     <div class="bs-wrapper">
-      <button class="bs-arrow bs-prev" onclick="scrollBS{{ section.id | replace: '-', '' }}(-1)"><i class="fas fa-chevron-left"></i></button>
+      <!-- Custom Prev Arrow -->
+      <button class="bs-arrow bs-prev" onclick="scrollBS{{ section.id | replace: '-', '' }}(-1)">
+        {% if section.settings.custom_icon_left != blank %}
+          <img src="{{ section.settings.custom_icon_left | image_url: width: 40 }}" alt="Prev">
+        {% else %}
+          <i class="fas fa-chevron-left"></i>
+        {% endif %}
+      </button>
 
       <div class="bs-track" id="track-{{ section.id }}">
         {%- assign collection = collections[section.settings.collection] -%}
@@ -143,13 +257,26 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
                 {% endif %}
 
                 <div class="bs-actions">
+                  <!-- Custom Eye Icon -->
                   <a href="{{ product.url | within: collection }}" class="bs-icon">
-                    <i class="far fa-eye"></i>
-                  </a>                  
-                  <a href="#" class="bs-icon"><i class="far fa-heart"></i></a>
+                    {% if section.settings.custom_icon_view != blank %}
+                      <img src="{{ section.settings.custom_icon_view | image_url: width: 40 }}" alt="View">
+                    {% else %}
+                      <i class="far fa-eye"></i>
+                    {% endif %}
+                  </a>   
+                  
+                  <!-- Custom Heart Icon -->
+                  <a href="#" class="bs-icon">
+                    {% if section.settings.custom_icon_heart != blank %}
+                      <img src="{{ section.settings.custom_icon_heart | image_url: width: 40 }}" alt="Wishlist">
+                    {% else %}
+                      <i class="far fa-heart"></i>
+                    {% endif %}
+                  </a>
                 </div>
 
-                <!-- UPDATED: Image clickable Link -->
+                <!-- Image clickable Link -->
                 <a href="{{ product.url | within: collection }}" style="display: block; width: 100%; height: 100%;">
                   <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}">
                 </a>
@@ -163,7 +290,7 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
 
               <div class="bs-info">
                 <h3>
-                  <a href="{{ product.url | within: collection }}" style="text-decoration: none; color: inherit;">
+                  <a href="{{ product.url | within: collection }}">
                     {{ product.title }}
                   </a>
                 </h3>
@@ -177,7 +304,6 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
                   {%- endif -%}
                 </div>
                 
-                <!-- PRICE FIX: Standard 'money' filter uses Backend Currency Symbol settings -->
                 <div class="bs-price">
                   {{ product.price | money }}
                 </div>
@@ -199,7 +325,14 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
         {%- endif -%}
       </div>
 
-      <button class="bs-arrow bs-next" onclick="scrollBS{{ section.id | replace: '-', '' }}(1)"><i class="fas fa-chevron-right"></i></button>
+      <!-- Custom Next Arrow -->
+      <button class="bs-arrow bs-next" onclick="scrollBS{{ section.id | replace: '-', '' }}(1)">
+        {% if section.settings.custom_icon_right != blank %}
+          <img src="{{ section.settings.custom_icon_right | image_url: width: 40 }}" alt="Next">
+        {% else %}
+          <i class="fas fa-chevron-right"></i>
+        {% endif %}
+      </button>
     </div>
   </div>
 </section>
@@ -212,8 +345,7 @@ function scrollBS{{ section.id | replace: '-', '' }}(dir) {
 
 // --- AJAX ADD TO CART FUNCTION ---
 function addToCartAjax(e, form) {
-  e.preventDefault(); // Stop redirection
-
+  e.preventDefault(); 
   const btn = form.querySelector('button');
   const originalText = btn.innerText;
   
@@ -222,26 +354,18 @@ function addToCartAjax(e, form) {
 
   const formData = new FormData(form);
 
-  // 1. Add item to cart
-  fetch('/cart/add.js', {
-    method: 'POST',
-    body: formData
-  })
+  fetch('/cart/add.js', { method: 'POST', body: formData })
   .then(response => response.json())
   .then(data => {
-    // 2. Fetch updated cart count
     return fetch('/cart.js');
   })
   .then(res => res.json())
   .then(cart => {
-    // 3. Update Header Cart Count (Find elements with class .cart-count-pro)
     const countBadges = document.querySelectorAll('.cart-count-pro');
     countBadges.forEach(badge => {
       badge.innerText = cart.item_count;
       badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
     });
-
-    // Reset Button
     btn.innerText = "Added!";
     setTimeout(() => {
       btn.innerText = originalText;
@@ -264,22 +388,60 @@ function addToCartAjax(e, form) {
 {
 "name": "Pro Dynamic Best Sellers",
 "settings": [
-{ "type": "text", "id": "heading", "label": "Heading", "default": "Best Sellers" },
-{ "type": "collection", "id": "collection", "label": "Select Collection" },
-{ "type": "header", "content": "Colors & Style" },
-{ "type": "color", "id": "acc_color", "label": "Accent Color (Red)", "default": "#d32f2f" },
-{ "type": "color", "id": "h_color", "label": "Heading Color", "default": "#1a1a1a" },
-{ "type": "color", "id": "bg_color", "label": "Section Background", "default": "#ffffff" },
-{ "type": "select", "id": "font_family", "label": "Typography", "options": [
-{ "value": "'Poppins', sans-serif", "label": "Poppins" },
-{ "value": "'Roboto', sans-serif", "label": "Roboto" },
-{ "value": "sans-serif", "label": "System UI" }
-], "default": "'Poppins', sans-serif" },
-{ "type": "range", "id": "h_size", "label": "Heading Size", "min": 20, "max": 60, "default": 42 },
-{ "type": "header", "content": "Layout" },
-{ "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1250 },
-{ "type": "range", "id": "p_top", "label": "Padding Top", "default": 60, "min": 0, "max": 100 },
-{ "type": "range", "id": "p_bottom", "label": "Padding Bottom", "default": 60, "min": 0, "max": 100 }
+  { "type": "text", "id": "heading", "label": "Heading", "default": "Best Sellers" },
+  { "type": "collection", "id": "collection", "label": "Select Collection" },
+  
+  { "type": "header", "content": "Typography Settings" },
+  { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+    { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+    { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+    { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+    { "value": "serif", "label": "Standard Serif" }
+  ], "default": "'Oswald', sans-serif" },
+  { "type": "range", "id": "h_size", "label": "Heading Size (Desktop)", "min": 24, "max": 80, "default": 42, "unit": "px" },
+  { "type": "range", "id": "h_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 50, "default": 28, "unit": "px" },
+
+  { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+    { "value": "'Poppins', sans-serif", "label": "Poppins" },
+    { "value": "'Questrial', sans-serif", "label": "Questrial" },
+    { "value": "sans-serif", "label": "System Sans" }
+  ], "default": "'Poppins', sans-serif" },
+  { "type": "range", "id": "prod_title_size", "label": "Product Title Size", "min": 14, "max": 24, "default": 18, "unit": "px" },
+  { "type": "range", "id": "price_size", "label": "Price Size", "min": 14, "max": 24, "default": 18, "unit": "px" },
+
+  { "type": "header", "content": "Colors & Style" },
+  { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#ffffff" },
+  { "type": "color", "id": "card_bg_color", "label": "Card Background", "default": "#ffffff" },
+  { "type": "color", "id": "h_color", "label": "Heading Color", "default": "#1a1a1a" },
+  { "type": "color", "id": "text_color", "label": "Product Title Color", "default": "#1a1a1a" },
+  { "type": "color", "id": "acc_color", "label": "Accent Color (Buttons/Arrows)", "default": "#d32f2f" },
+  { "type": "color", "id": "price_color", "label": "Price Color", "default": "#d32f2f" },
+  
+  { "type": "color", "id": "badge_bg_color", "label": "Badge Background", "default": "#d32f2f" },
+  { "type": "color", "id": "badge_text_color", "label": "Badge Text", "default": "#ffffff" },
+  
+  { "type": "color", "id": "icon_bg_color", "label": "Icon Button Background", "default": "#ffffff" },
+  { "type": "color", "id": "icon_text_color", "label": "Icon Button Color", "default": "#d32f2f" },
+
+  { "type": "header", "content": "Custom Icons (Upload)" },
+  { "type": "image_picker", "id": "custom_icon_view", "label": "Quick View Icon" },
+  { "type": "image_picker", "id": "custom_icon_heart", "label": "Wishlist Icon" },
+  { "type": "image_picker", "id": "custom_icon_left", "label": "Left Arrow Icon" },
+  { "type": "image_picker", "id": "custom_icon_right", "label": "Right Arrow Icon" },
+
+  { "type": "header", "content": "Animations & Interactions" },
+  { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+    { "value": "none", "label": "None" },
+    { "value": "fade-up", "label": "Fade Up" },
+    { "value": "zoom-in", "label": "Zoom In" }
+  ], "default": "fade-up" },
+  { "type": "checkbox", "id": "enable_hover_lift", "label": "Enable Card Lift on Hover", "default": true },
+  { "type": "checkbox", "id": "enable_img_zoom", "label": "Enable Image Zoom on Hover", "default": true },
+
+  { "type": "header", "content": "Layout Spacing" },
+  { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1250 },
+  { "type": "range", "id": "p_top", "label": "Padding Top", "default": 60, "min": 0, "max": 100 },
+  { "type": "range", "id": "p_bottom", "label": "Padding Bottom", "default": 60, "min": 0, "max": 100 }
 ],
 "presets": [ { "name": "Pro Dynamic Best Sellers" } ]
 }

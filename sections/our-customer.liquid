@@ -1,12 +1,36 @@
 {%- style -%}
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
+
   .section-{{ section.id }} {
-    --primary-red: {{ section.settings.accent_color }};
+    /* --- Dynamic Variables --- */
+    --bg-color: {{ section.settings.bg_color }};
     --card-bg: {{ section.settings.card_bg_color }};
-    --text-dark: {{ section.settings.text_color_heading }};
-    --text-muted: {{ section.settings.text_color_sub }};
-    background-color: {{ section.settings.bg_color }};
-    padding: 60px 0 80px;
-    font-family: 'Inter', sans-serif;
+    --card-shadow: {{ section.settings.card_shadow_color | color_modify: 'alpha', 0.05 }};
+    
+    --accent-color: {{ section.settings.accent_color }};
+    --heading-color: {{ section.settings.text_color_heading }};
+    --subheading-color: {{ section.settings.text_color_sub }};
+    --quote-color: {{ section.settings.text_color_quote }};
+    --author-color: {{ section.settings.text_color_author }};
+    
+    --nav-btn-color: {{ section.settings.nav_btn_color }};
+    --nav-btn-bg: {{ section.settings.nav_btn_bg }};
+    --nav-hover-color: {{ section.settings.nav_hover_color }};
+    --nav-hover-bg: {{ section.settings.nav_hover_bg }};
+
+    /* Typography */
+    --h-font: {{ section.settings.heading_font_family }};
+    --b-font: {{ section.settings.body_font_family }};
+    
+    --h-size: {{ section.settings.heading_size }}px;
+    --h-size-mob: {{ section.settings.heading_size_mob }}px;
+    --quote-size: {{ section.settings.quote_size }}px;
+    
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: var(--bg-color);
+    font-family: var(--b-font);
     overflow: hidden;
   }
 
@@ -18,24 +42,32 @@
 
   .testimonial-header { 
     text-align: center;
-    margin-bottom: 40px; 
+    margin-bottom: 50px; 
+    
+    /* Animation */
+    {% if section.settings.animation_type != 'none' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% endif %}
   }
 
   .testimonial-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(28px, 4vw, 40px);
+    font-family: var(--h-font);
+    font-size: var(--h-size);
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--heading-color);
     margin-bottom: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    line-height: 1.2;
   }
 
   .testimonial-subtitle {
+    font-family: var(--b-font);
     font-size: 16px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    max-width: 500px;
+    color: var(--subheading-color);
+    line-height: 1.6;
+    max-width: 600px;
     margin: 0 auto;
   }
 
@@ -48,12 +80,12 @@
   .testimonial-slider-wrapper {
     overflow: hidden;
     cursor: grab;
-    padding: 10px 0;
+    padding: 20px 0; /* Extra padding for shadow/hover space */
   }
 
   .testimonial-track {
     display: flex;
-    transition: transform 0.5s ease-out;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
   }
 
@@ -62,6 +94,17 @@
     padding: 0 10px;
     box-sizing: border-box;
     display: flex;
+    
+    /* Card Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.2s;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.2s;
+    {% endif %}
   }
 
   .card-inner {
@@ -73,13 +116,24 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 15px var(--card-shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.03);
   }
 
+  /* Hover Lift Effect */
+  {% if section.settings.enable_card_hover %}
+  .testimonial-card:hover .card-inner {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px var(--card-shadow);
+  }
+  {% endif %}
+
   .quote-text {
-    font-size: 15px;
+    font-family: var(--b-font);
+    font-size: var(--quote-size);
     line-height: 1.7;
-    color: #333;
+    color: var(--quote-color);
     margin-bottom: 25px;
     font-style: italic;
   }
@@ -87,28 +141,33 @@
   .author-box { 
     display: flex; 
     align-items: center; 
-    gap: 12px; 
+    gap: 15px; 
+    margin-top: auto;
   }
 
   .avatar {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    background: #eee;
+    background: #f0f0f0;
+    border: 2px solid var(--accent-color);
   }
 
   .author-info h4 {
-    font-size: 16px;
+    font-family: var(--h-font);
+    font-size: 17px;
     font-weight: 700;
-    color: var(--primary-red);
+    color: var(--author-color);
     margin: 0;
   }
 
   .author-info p {
+    font-family: var(--b-font);
     font-size: 13px;
-    color: #777;
+    color: var(--subheading-color);
     margin: 0;
+    opacity: 0.8;
   }
 
   .slider-dots {
@@ -120,8 +179,8 @@
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background-color: #ddd;
     border-radius: 50%;
     cursor: pointer;
@@ -129,8 +188,8 @@
   }
 
   .dot.active { 
-    background-color: var(--primary-red); 
-    width: 20px; 
+    background-color: var(--accent-color); 
+    width: 30px; 
     border-radius: 10px; 
   }
 
@@ -138,36 +197,46 @@
     display: flex;
     justify-content: center;
     gap: 15px;
+    margin-top: 10px;
   }
 
   .nav-btn {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    border: 2px solid var(--primary-red);
-    color: var(--primary-red);
+    background-color: var(--nav-btn-bg);
+    border: 1px solid var(--nav-btn-color);
+    color: var(--nav-btn-color);
     transition: 0.3s ease;
   }
 
   .nav-btn:hover {
-    background-color: var(--primary-red);
-    color: #fff;
+    background-color: var(--nav-hover-bg);
+    border-color: var(--nav-hover-bg);
+    color: var(--nav-hover-color);
+    transform: scale(1.05);
   }
 
-  .nav-btn svg { width: 20px; height: 20px; }
+  .nav-btn svg { width: 22px; height: 22px; }
+
+  /* Keyframes */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
   @media (max-width: 1024px) {
     .testimonial-card { flex: 0 0 50%; }
+    .testimonial-title { font-size: 32px; }
   }
 
   @media (max-width: 767px) {
     .testimonial-card { flex: 0 0 100%; }
-    .section-{{ section.id }} { padding: 40px 0; }
+    .testimonial-title { font-size: var(--h-size-mob); }
+    .card-inner { padding: 25px 20px; }
+    .nav-btn { width: 40px; height: 40px; }
   }
 {%- endstyle -%}
 
@@ -220,7 +289,7 @@
             {%- for i in (1..3) -%}
               <div class="testimonial-card">
                 <div class="card-inner">
-                  <p class="quote-text">"Please add testimonials from your Shopify theme editor to see them here. This is a placeholder text."</p>
+                  <p class="quote-text">"Please add testimonials from your Shopify theme editor to see them here. This is a placeholder text demonstrating the layout."</p>
                   <div class="author-box">
                     <img 
                       src="https://i.pravatar.cc/100?u={{ i }}" 
@@ -230,7 +299,7 @@
                       height="48" 
                       loading="lazy"
                     >
-                    <div class="author-info"><h4>John Doe</h4><p>Location</p></div>
+                    <div class="author-info"><h4>John Doe</h4><p>Happy Customer</p></div>
                   </div>
                 </div>
               </div>
@@ -319,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.slider_{{ section.id | replace: '-', '_' }} = new TestimonialSlider('{{ section.id }}');
 });
 
-// Shopify 
+// Shopify Design Mode Support
 document.addEventListener('shopify:section:load', (e) => {
   if (e.detail.sectionId === '{{ section.id }}') {
     window.slider_{{ section.id | replace: '-', '_' }} = new TestimonialSlider('{{ section.id }}');
@@ -329,32 +398,72 @@ document.addEventListener('shopify:section:load', (e) => {
 
 {% schema %}
 {
-  "name": "Testimonials Slider",
+  "name": "Testimonials Slider Pro",
   "settings": [
+    { "type": "header", "content": "Text Content" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "What Our Customer Say" },
-    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Every cut of meat is carefully selected, hygienically processed.</p>" },
-    { "type": "header", "content": "Colors" },
+    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Real feedback from our valued customers.</p>" },
+
+    { "type": "header", "content": "Typography Settings" },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+      { "value": "serif", "label": "System Serif" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 24, "max": 60, "step": 1, "unit": "px", "default": 40 },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 40, "step": 1, "unit": "px", "default": 28 },
+    
+    { "type": "select", "id": "body_font_family", "label": "Body/Quote Font", "options": [
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial" },
+      { "value": "sans-serif", "label": "System Sans" }
+    ], "default": "'Poppins', sans-serif" },
+    { "type": "range", "id": "quote_size", "label": "Quote Text Size", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 15 },
+
+    { "type": "header", "content": "Color Settings" },
     { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg_color", "label": "Card Background", "default": "#fdf0f0" },
-    { "type": "color", "id": "accent_color", "label": "Accent Color (Red)", "default": "#d32f2f" },
-    { "type": "color", "id": "text_color_heading", "label": "Heading Text Color", "default": "#1a1a1a" },
-    { "type": "color", "id": "text_color_sub", "label": "Sub-heading Text Color", "default": "#555555" }
+    { "type": "color", "id": "card_shadow_color", "label": "Card Shadow Color", "default": "#000000" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color (Dots/Border)", "default": "#d32f2f" },
+    { "type": "color", "id": "text_color_heading", "label": "Heading Text", "default": "#1a1a1a" },
+    { "type": "color", "id": "text_color_sub", "label": "Sub-heading Text", "default": "#555555" },
+    { "type": "color", "id": "text_color_quote", "label": "Quote Text", "default": "#333333" },
+    { "type": "color", "id": "text_color_author", "label": "Author Name", "default": "#d32f2f" },
+    
+    { "type": "header", "content": "Navigation Colors" },
+    { "type": "color", "id": "nav_btn_color", "label": "Arrow Color", "default": "#d32f2f" },
+    { "type": "color", "id": "nav_btn_bg", "label": "Arrow Background", "default": "#ffffff" },
+    { "type": "color", "id": "nav_hover_color", "label": "Arrow Hover Color", "default": "#ffffff" },
+    { "type": "color", "id": "nav_hover_bg", "label": "Arrow Hover Background", "default": "#d32f2f" },
+
+    { "type": "header", "content": "Animations & Interactions" },
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" },
+    { "type": "checkbox", "id": "enable_card_hover", "label": "Enable Card Hover Lift", "default": true },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top Padding", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom Padding", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 80 }
   ],
   "blocks": [
     {
       "type": "testimonial",
       "name": "Testimonial",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "A visual guide could be a wireframe, creative composition, or information architecture." },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The quality of meat is unmatched! Absolutely fresh and delicious." },
         { "type": "image_picker", "id": "image", "label": "Author Image" },
         { "type": "text", "id": "name", "label": "Author Name", "default": "John Carter" },
-        { "type": "text", "id": "location", "label": "Location", "default": "Pakistan" }
+        { "type": "text", "id": "location", "label": "Location", "default": "Dubai, UAE" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Testimonials Slider",
+      "name": "Testimonials Slider Pro",
       "blocks": [
         { "type": "testimonial" },
         { "type": "testimonial" },

@@ -1,130 +1,208 @@
 {% style %}
-/* --- MAIN LAYOUT & GRID CSS --- */
-.ms-main-wrapper {
-background-color: {{ section.settings.bg_color }};
-padding: 50px 0;
-font-family: 'Inter', sans-serif;
-}
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-.ms-container {
-max-width: {{ section.settings.container_width }}px;
-margin: 0 auto;
-padding: 0 {{ section.settings.side_padding }}px;
-}
+  .ms-main-wrapper {
+    /* --- Dynamic Variables --- */
+    --bg-color: {{ section.settings.bg_color }};
+    --primary-color: {{ section.settings.primary_color }};
+    --text-color: {{ section.settings.text_color }};
+    --star-color: {{ section.settings.star_color }};
+    --price-color: {{ section.settings.price_color }};
+    
+    --h-font: {{ section.settings.heading_font_family }};
+    --b-font: {{ section.settings.body_font_family }};
+    
+    --toolbar-title-size: {{ section.settings.toolbar_title_size }}px;
+    --card-title-size: {{ section.settings.card_title_size }}px;
+    --price-size: {{ section.settings.price_size }}px;
+    
+    --btn-bg: {{ section.settings.btn_bg_color }};
+    --btn-text: {{ section.settings.btn_text_color }};
+    --btn-hover-bg: {{ section.settings.btn_hover_bg_color }};
+    --btn-radius: {{ section.settings.btn_radius }}px;
+    
+    background-color: var(--bg-color);
+    padding: 50px 0;
+    font-family: var(--b-font);
+  }
 
-/* --- TOOLBAR --- */
-.ms-toolbar {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 25px 0;
-border-top: 1px solid #f0f0f0;
-border-bottom: 1px solid #f0f0f0;
-margin-bottom: 40px;
-}
-.ms-toolbar-title { font-family: 'Oswald'; font-size: 38px; margin: 0; color: {{ section.settings.text_color }}; }
-.ms-tool-item { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: {{ section.settings.text_color }}; }
+  .ms-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ section.settings.side_padding }}px;
+  }
 
-/* --- MAIN LAYOUT --- */
-.ms-main-layout { display: flex; gap: 50px; }
+  /* --- TOOLBAR --- */
+  .ms-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 40px;
+  }
+  .ms-toolbar-title { 
+    font-family: var(--h-font); 
+    font-size: var(--toolbar-title-size); 
+    margin: 0; 
+    color: var(--text-color);
+    text-transform: uppercase; 
+  }
+  .ms-tool-item { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; color: var(--text-color); }
+  
+  .ms-tool-item img { width: 20px; height: 20px; object-fit: contain; }
 
-/* --- SIDEBAR / FILTER SECTION --- */
-.ms-sidebar { width: 280px; flex-shrink: 0; transition: 0.3s ease; }
-.ms-sidebar.is-hidden { width: 0; opacity: 0; overflow: hidden; margin-right: -50px; }
+  /* --- MAIN LAYOUT --- */
+  .ms-main-layout { display: flex; gap: 50px; }
 
-.filter-group { margin-bottom: 35px; }
-.filter-h {
-font-family: 'Oswald'; font-size: 30px; font-weight: 500;
-display: flex; justify-content: space-between; align-items: center;
-margin-bottom: 20px; cursor: pointer; color: {{ section.settings.text_color }};
-}
-.tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.ms-tag {
-border: 1px solid {{ section.settings.primary_color }};
-color: {{ section.settings.primary_color }};
-padding: 10px 5px; border-radius: 8px;
-font-size: 14px; text-align: center; text-decoration: none;
-transition: 0.3s;
-cursor: pointer;
-}
-.ms-tag.active, .ms-tag:hover { background: {{ section.settings.primary_color }}; color: #fff; }
-.tag-long { grid-column: span 1; }
+  /* --- SIDEBAR / FILTER SECTION --- */
+  .ms-sidebar { width: 280px; flex-shrink: 0; transition: 0.3s ease; }
+  .ms-sidebar.is-hidden { width: 0; opacity: 0; overflow: hidden; margin-right: -50px; }
 
-/* Price Range Visuals */
-.price-slider { height: 4px; background: {{ section.settings.primary_color }}; position: relative; margin: 25px 0; }
-.knob { width: 16px; height: 16px; background: #8e1a1a; border-radius: 50%; position: absolute; top: -6px; }
-.price-row { display: flex; gap: 10px; }
-.p-input {
-flex: 1; border: 1px solid {{ section.settings.primary_color }}; padding: 10px;
-border-radius: 5px; color: {{ section.settings.primary_color }}; display: flex; justify-content: space-between;
-}
+  .filter-group { margin-bottom: 35px; }
+  .filter-h {
+    font-family: var(--h-font); 
+    font-size: 24px; 
+    font-weight: 500;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; cursor: pointer; color: var(--text-color);
+  }
+  .tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ms-tag {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px 5px; border-radius: 8px;
+    font-size: 14px; text-align: center; text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  .ms-tag.active, .ms-tag:hover { background: var(--primary-color); color: #fff; }
+  .tag-long { grid-column: span 1; }
 
-/* --- PRODUCT GRID / CARDS --- */
-.ms-grid-area { flex-grow: 1; }
-.ms-product-flex {
-display: grid;
-grid-template-columns: repeat({{ section.settings.grid_desktop }}, 1fr);
-gap: 20px;
-}
-/* Expand grid when sidebar is hidden */
-.ms-sidebar.is-hidden + .ms-grid-area .ms-product-flex {
-grid-template-columns: repeat({{ section.settings.grid_desktop | plus: 1 }}, 1fr);
-}
+  /* Price Range Visuals */
+  .price-slider { height: 4px; background: var(--primary-color); position: relative; margin: 25px 0; }
+  .knob { width: 16px; height: 16px; background: #8e1a1a; border-radius: 50%; position: absolute; top: -6px; }
+  .price-row { display: flex; gap: 10px; }
+  .p-input {
+    flex: 1; border: 1px solid var(--primary-color); padding: 10px;
+    border-radius: 5px; color: var(--primary-color); display: flex; justify-content: space-between;
+  }
 
-.ms-card { text-align: center; margin-bottom: 25px; position: relative; background: #fff; }
-.ms-img-wrap {
-height: {{ section.settings.card_height }}px;
-background: #f4f4f4; border-radius: 8px; overflow: hidden; position: relative;
-}
-.ms-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
-.ms-card:hover img { transform: scale(1.08); }
+  /* --- PRODUCT GRID / CARDS --- */
+  .ms-grid-area { flex-grow: 1; }
+  .ms-product-flex {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.grid_desktop }}, 1fr);
+    gap: 20px;
+  }
+  /* Expand grid when sidebar is hidden */
+  .ms-sidebar.is-hidden + .ms-grid-area .ms-product-flex {
+    grid-template-columns: repeat({{ section.settings.grid_desktop | plus: 1 }}, 1fr);
+  }
 
-/* --- NEW HOVER ICONS STYLES (Eye & Heart) --- */
-.ms-actions {
-position: absolute; top: 15px; right: 15px;
-display: flex; flex-direction: column; gap: 10px;
-z-index: 10; opacity: 0; transform: translateX(20px);
-transition: 0.4s ease;
-}
+  .ms-card { 
+    text-align: center; margin-bottom: 25px; position: relative; background: #fff; 
+    transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Card Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+    {% endif %}
+  }
+  
+  /* Hover Lift */
+  {% if section.settings.enable_hover_lift %}
+  .ms-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+  {% endif %}
 
-.ms-icon {
-width: 40px; height: 40px; background: #fff; border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-color: {{ section.settings.primary_color }}; text-decoration: none; 
-box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px;
-transition: 0.3s;
-}
-.ms-icon:hover { background: {{ section.settings.primary_color }}; color: #fff; }
+  .ms-img-wrap {
+    height: {{ section.settings.card_height }}px;
+    background: #f4f4f4; border-radius: 8px; overflow: hidden; position: relative;
+  }
+  .ms-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
+  
+  {% if section.settings.enable_img_zoom %}
+  .ms-card:hover img { transform: scale(1.08); }
+  {% endif %}
 
-.ms-card:hover .ms-actions { opacity: 1; transform: translateX(0); }
-/* ------------------------------------------- */
+  /* --- HOVER ICONS STYLES --- */
+  .ms-actions {
+    position: absolute; top: 15px; right: 15px;
+    display: flex; flex-direction: column; gap: 10px;
+    z-index: 10; opacity: 0; transform: translateX(20px);
+    transition: 0.4s ease;
+  }
 
-.ms-badge {
-position: absolute; top: 0; left: 0;
-background: {{ section.settings.primary_color }}; color: #fff;
-padding: 5px 12px; font-size: 12px; font-weight: 700; border-radius: 0 0 8px 0; z-index: 2;
-}
+  .ms-icon {
+    width: 40px; height: 40px; background: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary-color); text-decoration: none; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px;
+    transition: 0.3s;
+  }
+  .ms-icon:hover { background: var(--primary-color); color: #fff; }
+  
+  .ms-icon img { width: 20px; height: 20px; object-fit: contain; }
 
-.ms-card-info { padding: 15px 5px; }
-.ms-p-title { font-family: 'Oswald'; font-size: 22px; margin: 0 0 8px; color: {{ section.settings.text_color }}; font-weight: 500; }
-.ms-stars { color: {{ section.settings.star_color }}; font-size: 14px; margin-bottom: 10px; }
-.ms-price { color: {{ section.settings.primary_color }}; font-weight: 700; font-size: 20px; margin-bottom: 15px; }
-.ms-add-btn {
-width: 100%; background: {{ section.settings.primary_color }}; color: #fff;
-border: none; padding: 14px; border-radius: {{ section.settings.btn_radius }}px;
-font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
-}
-.ms-add-btn:hover { opacity: 0.9; transform: translateY(-2px); }
-.ms-add-btn.loading { opacity: 0.7; pointer-events: none; }
+  .ms-card:hover .ms-actions { opacity: 1; transform: translateX(0); }
+  /* ------------------------------------------- */
 
-@media (max-width: 1024px) {
-.ms-sidebar { display: none; }
-.ms-product-flex { grid-template-columns: repeat(2, 1fr) !important; }
-.ms-toolbar-title { font-size: 28px; }
-}
-@media (max-width: 600px) {
-.ms-product-flex { grid-template-columns: 1fr !important; }
-}
+  .ms-badge {
+    position: absolute; top: 0; left: 0;
+    background: {{ section.settings.badge_bg_color }}; 
+    color: {{ section.settings.badge_text_color }};
+    padding: 5px 12px; font-size: 12px; font-weight: 700; border-radius: 0 0 8px 0; z-index: 2;
+    font-family: var(--h-font);
+  }
+
+  .ms-card-info { padding: 15px 5px; }
+  .ms-p-title { 
+    font-family: var(--h-font); 
+    font-size: var(--card-title-size); 
+    margin: 0 0 8px; 
+    color: var(--text-color); 
+    font-weight: 500; 
+  }
+  .ms-stars { color: var(--star-color); font-size: 14px; margin-bottom: 10px; }
+  
+  .ms-price { 
+    color: var(--price-color); 
+    font-weight: 700; 
+    font-size: var(--price-size); 
+    margin-bottom: 15px; 
+    font-family: var(--h-font);
+  }
+  
+  .ms-add-btn {
+    width: 100%; background: var(--btn-bg); color: var(--btn-text);
+    border: none; padding: 14px; border-radius: var(--btn-radius);
+    font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+    font-family: var(--h-font);
+  }
+  .ms-add-btn:hover { 
+    background: var(--btn-hover-bg); 
+    opacity: 0.9; transform: translateY(-2px); 
+  }
+  .ms-add-btn.loading { opacity: 0.7; pointer-events: none; }
+
+  /* Keyframes */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+  @media (max-width: 1024px) {
+    .ms-sidebar { display: none; }
+    .ms-product-flex { grid-template-columns: repeat(2, 1fr) !important; }
+    .ms-toolbar-title { font-size: 28px; }
+  }
+  @media (max-width: 600px) {
+    .ms-product-flex { grid-template-columns: 1fr !important; }
+  }
 {% endstyle %}
 
 <!-- Added FontAwesome for Icons -->
@@ -136,12 +214,23 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
     <!-- TOOLBAR SECTION -->
     <div class="ms-toolbar">
       <div class="ms-tool-item" id="filterToggleBtn" onclick="toggleMsSidebar()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+        {% if section.settings.icon_filter != blank %}
+          <img src="{{ section.settings.icon_filter | image_url: width: 40 }}" alt="Filter">
+        {% else %}
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+        {% endif %}
         <span>Filter</span>
       </div>
+      
       <h2 class="ms-toolbar-title" id="ms-grid-title">{{ section.settings.title }}</h2>
+      
       <div class="ms-tool-item" onclick="resetMeatFilter()">
-        Reset View <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        Reset View 
+        {% if section.settings.icon_reset != blank %}
+          <img src="{{ section.settings.icon_reset | image_url: width: 30 }}" alt="Reset" style="width:12px;">
+        {% else %}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        {% endif %}
       </div>
     </div>
 
@@ -195,22 +284,35 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
              {%- assign main_coll = collections.all -%}
           {%- endif -%}
 
-          {% for product in main_coll.products limit: section.settings.products_to_show %}
+          {% comment %} Remove Limit loop or set high limit {% endcomment %}
+          {% for product in main_coll.products %}
             <!-- Added Data Attributes for Filtering -->
             <div class="ms-card product-item-card" 
                  data-meat-type="{{ product.title | downcase }} {{ product.type | downcase }} {{ product.tags | join: ' ' | downcase }}">
               
               <div class="ms-img-wrap">
                 {% if section.settings.show_badge %}
-                  <span class="ms-badge">20% Off</span>
+                  {% if product.compare_at_price > product.price %}
+                    <span class="ms-badge">{{ section.settings.badge_text }}</span>
+                  {% endif %}
                 {% endif %}
                 
-                <!-- NEW: Hover Actions (Eye & Heart) -->
+                <!-- NEW: Hover Actions (Custom Icons) -->
                 <div class="ms-actions">
                   <a href="{{ product.url }}" class="ms-icon">
-                    <i class="far fa-eye"></i>
+                    {% if section.settings.icon_view != blank %}
+                      <img src="{{ section.settings.icon_view | image_url: width: 30 }}" alt="View">
+                    {% else %}
+                      <i class="far fa-eye"></i>
+                    {% endif %}
                   </a>                  
-                  <a href="#" class="ms-icon"><i class="far fa-heart"></i></a>
+                  <a href="#" class="ms-icon">
+                    {% if section.settings.icon_heart != blank %}
+                      <img src="{{ section.settings.icon_heart | image_url: width: 30 }}" alt="Wishlist">
+                    {% else %}
+                      <i class="far fa-heart"></i>
+                    {% endif %}
+                  </a>
                 </div>
 
                 <a href="{{ product.url }}">
@@ -251,12 +353,8 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
   }
 
   // --- FILTER LOGIC START ---
-  
-  // 1. Function called by Circle Nav & Sidebar Tags
   window.filterMeatProducts = function(categoryName) {
-    if (!categoryName) return; // safety check
-    
-    // Convert to lowercase for matching
+    if (!categoryName) return; 
     const filterValue = categoryName.toLowerCase();
     
     // Scroll smoothly to the product grid
@@ -273,11 +371,8 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
     const cards = document.querySelectorAll('.product-item-card');
     let hasVisible = false;
 
-    // Loop through cards and Show/Hide based on match
     cards.forEach(card => {
       const productData = card.getAttribute('data-meat-type');
-      
-      // Check if product title/type/tags contains the category name
       if (productData.includes(filterValue)) {
         card.style.display = 'block';
         hasVisible = true;
@@ -286,14 +381,13 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
       }
     });
 
-    // Handle "No Results" message
     const noResultMsg = document.getElementById('ms-no-results');
     if(noResultMsg) {
       noResultMsg.style.display = hasVisible ? 'none' : 'block';
     }
   };
 
-  // 2. Reset Filter Function
+  // Reset Filter Function
   window.resetMeatFilter = function() {
     const cards = document.querySelectorAll('.product-item-card');
     cards.forEach(card => card.style.display = 'block');
@@ -304,31 +398,27 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
     const noResultMsg = document.getElementById('ms-no-results');
     if(noResultMsg) noResultMsg.style.display = 'none';
     
-    // Remove query param from URL without refresh (optional clean up)
     const url = new URL(window.location);
     url.searchParams.delete('category');
     window.history.pushState({}, '', url);
   };
 
-  // 3. AUTO FILTER ON PAGE LOAD
+  // AUTO FILTER ON PAGE LOAD
   document.addEventListener("DOMContentLoaded", function() {
     const params = new URLSearchParams(window.location.search);
     const categoryParam = params.get('category');
     
     if (categoryParam) {
-      // Decode URI component handle spaces/special chars
       const decodedCat = decodeURIComponent(categoryParam);
-      
-      // Slight delay to ensure DOM is ready
       setTimeout(() => {
         filterMeatProducts(decodedCat);
       }, 100);
     }
   });
 
-  // 4. AJAX ADD TO CART LOGIC (Copied from previous sections)
+  // AJAX ADD TO CART LOGIC
   function addToCartGridAjax(e, form) {
-    e.preventDefault(); // Stop redirection
+    e.preventDefault(); 
 
     const btn = form.querySelector('button');
     const originalText = btn.innerText;
@@ -338,26 +428,18 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
 
     const formData = new FormData(form);
 
-    // Add item to cart
-    fetch('/cart/add.js', {
-      method: 'POST',
-      body: formData
-    })
+    fetch('/cart/add.js', { method: 'POST', body: formData })
     .then(response => response.json())
     .then(data => {
-      // Fetch updated cart count
       return fetch('/cart.js');
     })
     .then(res => res.json())
     .then(cart => {
-      // Update Header Cart Count
       const countBadges = document.querySelectorAll('.cart-count-pro');
       countBadges.forEach(badge => {
         badge.innerText = cart.item_count;
         badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
       });
-
-      // Reset Button
       btn.innerText = "Added!";
       setTimeout(() => {
         btn.innerText = originalText;
@@ -383,7 +465,7 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
 "settings": [
 { "type": "header", "content": "Data Settings" },
 { "type": "collection", "id": "collection", "label": "Select Collection" },
-{ "type": "range", "id": "products_to_show", "label": "Products Limit", "min": 4, "max": 50, "step": 1, "default": 24 },
+
 { "type": "header", "content": "Layout Settings" },
 { "type": "text", "id": "title", "label": "Section Title", "default": "Products" },
 { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1400, "unit": "px" },
@@ -391,13 +473,55 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
 { "type": "range", "id": "grid_desktop", "label": "Products per row (Desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
 { "type": "range", "id": "card_height", "label": "Image Height", "min": 200, "max": 500, "step": 10, "default": 320, "unit": "px" },
 
+{ "type": "header", "content": "Typography Settings" },
+{ "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+  { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+  { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+  { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+  { "value": "serif", "label": "System Serif" }
+], "default": "'Oswald', sans-serif" },
+{ "type": "range", "id": "toolbar_title_size", "label": "Toolbar Title Size", "min": 20, "max": 50, "default": 38, "unit": "px" },
+{ "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+  { "value": "'Poppins', sans-serif", "label": "Poppins" },
+  { "value": "'Questrial', sans-serif", "label": "Questrial" },
+  { "value": "sans-serif", "label": "System Sans" }
+], "default": "'Poppins', sans-serif" },
+{ "type": "range", "id": "card_title_size", "label": "Product Title Size", "min": 16, "max": 24, "default": 22, "unit": "px" },
+{ "type": "range", "id": "price_size", "label": "Price Size", "min": 16, "max": 24, "default": 20, "unit": "px" },
+
 { "type": "header", "content": "Colors & Style" },
 { "type": "color", "id": "primary_color", "label": "Primary Red", "default": "#d32f2f" },
 { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" },
 { "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
 { "type": "color", "id": "star_color", "label": "Star Color", "default": "#ffb400" },
+{ "type": "color", "id": "price_color", "label": "Price Color", "default": "#d32f2f" },
+
+{ "type": "header", "content": "Button Style" },
+{ "type": "color", "id": "btn_bg_color", "label": "Button Background", "default": "#d32f2f" },
+{ "type": "color", "id": "btn_text_color", "label": "Button Text", "default": "#ffffff" },
+{ "type": "color", "id": "btn_hover_bg_color", "label": "Button Hover BG", "default": "#b71c1c" },
 { "type": "range", "id": "btn_radius", "label": "Button Roundness", "min": 0, "max": 50, "step": 2, "default": 6, "unit": "px" },
-{ "type": "checkbox", "id": "show_badge", "label": "Show Discount Badge", "default": true }
+
+{ "type": "header", "content": "Discount Badge" },
+{ "type": "checkbox", "id": "show_badge", "label": "Show Badge", "default": true },
+{ "type": "text", "id": "badge_text", "label": "Badge Text", "default": "20% Off" },
+{ "type": "color", "id": "badge_bg_color", "label": "Badge Background", "default": "#d32f2f" },
+{ "type": "color", "id": "badge_text_color", "label": "Badge Text Color", "default": "#ffffff" },
+
+{ "type": "header", "content": "Custom Icons (Upload)" },
+{ "type": "image_picker", "id": "icon_filter", "label": "Filter Icon" },
+{ "type": "image_picker", "id": "icon_reset", "label": "Reset Icon" },
+{ "type": "image_picker", "id": "icon_view", "label": "Eye Icon" },
+{ "type": "image_picker", "id": "icon_heart", "label": "Heart Icon" },
+
+{ "type": "header", "content": "Animations & Hover" },
+{ "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+  { "value": "none", "label": "None" },
+  { "value": "fade-up", "label": "Fade Up" },
+  { "value": "zoom-in", "label": "Zoom In" }
+], "default": "fade-up" },
+{ "type": "checkbox", "id": "enable_hover_lift", "label": "Enable Card Lift on Hover", "default": true },
+{ "type": "checkbox", "id": "enable_img_zoom", "label": "Enable Image Zoom on Hover", "default": true }
 
 ],
 "presets": [

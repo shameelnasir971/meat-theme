@@ -1,5 +1,7 @@
-
 {% style %}
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@500;700&family=Poppins:wght@300;400;600&display=swap');
+
   /* Section level cleanup */
   #shopify-section-{{ section.id }} {
     padding-top: 0 !important;
@@ -12,6 +14,7 @@
     width: 100%;
     line-height: 0; 
     display: block;
+    overflow: hidden; /* For Image Zoom Effect */
   }
 
   .ms-hero-banner-{{ section.id }} {
@@ -22,15 +25,26 @@
     background-size: cover;
     background-position: center;
     display: flex;
-    align-items: center;
+    align-items: center; /* Vertical Center */
+    /* Dynamic Horizontal Alignment */
+    justify-content: {{ section.settings.text_alignment }}; 
     line-height: normal; 
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
+
+  /* Hover Effect: Zoom Background */
+  {% if section.settings.enable_zoom %}
+  .ms-hero-wrapper-{{ section.id }}:hover .ms-hero-banner-{{ section.id }} {
+    transform: scale(1.05);
+  }
+  {% endif %}
 
   /* Overlay */
   .ms-hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0, {{ section.settings.overlay_opacity }});
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     z-index: 1;
   }
 
@@ -38,21 +52,47 @@
   .ms-hero-title {
     position: relative;
     z-index: 2;
-    color: #ffffff;
-    font-family: 'Oswald', sans-serif;
+    color: {{ section.settings.text_color }};
+    font-family: {{ section.settings.font_family }};
     font-size: {{ section.settings.hero_font_size }}px;
-    font-weight: 700;
+    font-weight: {{ section.settings.font_weight }};
     margin: 0;
-    padding-left: 60px;
-    text-transform: uppercase;
+    /* Dynamic Padding based on Alignment */
+    {% if section.settings.text_alignment == 'center' %}
+      padding-left: 0; padding-right: 0; text-align: center;
+    {% elsif section.settings.text_alignment == 'flex-end' %}
+      padding-right: 60px; text-align: right;
+    {% else %}
+      padding-left: 60px; text-align: left;
+    {% endif %}
+    
+    text-transform: {{ section.settings.text_transform }};
     line-height: 1.1;
+    letter-spacing: {{ section.settings.letter_spacing }}px;
+    
+    /* Animation Logic */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1.2s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'slide-right' %}
+      animation: slideRight 1s ease-out forwards;
+      opacity: 0;
+    {% endif %}
   }
+
+  /* Keyframes for Animations */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  @keyframes slideRight { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
 
   /* Responsive Fix for Mobile */
   @media (max-width: 768px) {
     .ms-hero-banner-{{ section.id }} {
       height: {{ section.settings.hero_height_mobile }}px;
-      justify-content: center;
+      justify-content: center; /* Always center on mobile usually looks best */
     }
     .ms-hero-title {
       font-size: {{ section.settings.hero_font_size_mobile }}px;
@@ -72,45 +112,104 @@
 
 {% schema %}
 {
-  "name": "MS Hero Banner",
+  "name": "MS Hero Banner Pro",
   "settings": [
     {
       "type": "header",
       "content": "Banner Content"
     },
     { "type": "image_picker", "id": "hero_img", "label": "Banner Image" },
-    { "type": "text", "id": "hero_title", "label": "Banner Title", "default": "Heading" },
+    { "type": "text", "id": "hero_title", "label": "Banner Title", "default": "Get In Touch" },
+    
     {
       "type": "header",
-      "content": "Desktop Settings"
+      "content": "Layout & Dimensions"
     },
-    { "type": "range", "id": "hero_height", "label": "Desktop Height", "min": 200, "max": 700, "step": 10, "default": 350, "unit": "px" },
-    { "type": "range", "id": "hero_font_size", "label": "Desktop Font Size", "min": 30, "max": 100, "step": 1, "default": 60, "unit": "px" },
-    {
-      "type": "header",
-      "content": "Mobile Settings"
+    { "type": "range", "id": "hero_height", "label": "Desktop Height", "min": 200, "max": 800, "step": 10, "default": 350, "unit": "px" },
+    { "type": "range", "id": "hero_height_mobile", "label": "Mobile Height", "min": 150, "max": 600, "step": 10, "default": 250, "unit": "px" },
+    { 
+      "type": "select", 
+      "id": "text_alignment", 
+      "label": "Text Alignment (Desktop)", 
+      "options": [
+        {"value":"flex-start","label":"Left"},
+        {"value":"center","label":"Center"},
+        {"value":"flex-end","label":"Right"}
+      ], 
+      "default": "flex-start" 
     },
-    { "type": "range", "id": "hero_height_mobile", "label": "Mobile Height", "min": 150, "max": 500, "step": 10, "default": 250, "unit": "px" },
-    { "type": "range", "id": "hero_font_size_mobile", "label": "Mobile Font Size", "min": 20, "max": 60, "step": 1, "default": 40, "unit": "px" },
+
     {
       "type": "header",
-      "content": "Overlay"
+      "content": "Typography & Colors"
     },
     { 
       "type": "select", 
-      "id": "overlay_opacity", 
-      "label": "Darkness Intensity", 
+      "id": "font_family", 
+      "label": "Font Family", 
       "options": [
-        {"value":"0.2","label":"Light"},
-        {"value":"0.4","label":"Medium"},
-        {"value":"0.6","label":"Dark"}
+        {"value":"'Oswald', sans-serif","label":"Oswald (Bold)"},
+        {"value":"'Questrial', sans-serif","label":"Questrial (Clean)"},
+        {"value":"'Poppins', sans-serif","label":"Poppins (Modern)"},
+        {"value":"serif","label":"System Serif"}
       ], 
-      "default": "0.4" 
-    }
+      "default": "'Oswald', sans-serif" 
+    },
+    { "type": "range", "id": "hero_font_size", "label": "Desktop Font Size", "min": 20, "max": 120, "step": 1, "default": 60, "unit": "px" },
+    { "type": "range", "id": "hero_font_size_mobile", "label": "Mobile Font Size", "min": 18, "max": 60, "step": 1, "default": 40, "unit": "px" },
+    { "type": "color", "id": "text_color", "label": "Title Color", "default": "#ffffff" },
+    { 
+      "type": "select", 
+      "id": "font_weight", 
+      "label": "Font Weight", 
+      "options": [
+        {"value":"300","label":"Light"},
+        {"value":"400","label":"Regular"},
+        {"value":"700","label":"Bold"}
+      ], 
+      "default": "700" 
+    },
+    { 
+      "type": "select", 
+      "id": "text_transform", 
+      "label": "Text Case", 
+      "options": [
+        {"value":"uppercase","label":"Uppercase"},
+        {"value":"capitalize","label":"Capitalize"},
+        {"value":"none","label":"Normal"}
+      ], 
+      "default": "uppercase" 
+    },
+    { "type": "range", "id": "letter_spacing", "label": "Letter Spacing", "min": 0, "max": 10, "step": 0.5, "default": 0, "unit": "px" },
+
+    {
+      "type": "header",
+      "content": "Overlay Settings"
+    },
+    { "type": "color", "id": "overlay_color", "label": "Overlay Color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay Opacity", "min": 0, "max": 100, "step": 5, "default": 40, "unit": "%" },
+
+    {
+      "type": "header",
+      "content": "Animations & Effects"
+    },
+    { 
+      "type": "select", 
+      "id": "animation_type", 
+      "label": "Title Animation", 
+      "options": [
+        {"value":"none","label":"None"},
+        {"value":"fade-up","label":"Fade Up"},
+        {"value":"zoom-in","label":"Zoom In"},
+        {"value":"slide-right","label":"Slide Right"}
+      ], 
+      "default": "fade-up" 
+    },
+    { "type": "checkbox", "id": "enable_zoom", "label": "Enable Background Zoom on Hover", "default": false }
   ],
   "presets": [
     {
-      "name": "Contact Hero Banner"
+      "name": "MS Hero Banner Pro"
     }
   ]
 }

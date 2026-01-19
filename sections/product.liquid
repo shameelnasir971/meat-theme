@@ -1,19 +1,36 @@
 {%- style -%}
-  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@300;400;600&display=swap');
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
 
   :root {
+    /* --- Dynamic Colors --- */
     --accent-color: {{ section.settings.acc_color }};
+    --accent-hover: {{ section.settings.acc_hover_color }};
     --bg-color: {{ section.settings.bg_color }};
     --card-bg: {{ section.settings.img_card_bg }};
+    --text-color: {{ section.settings.text_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    
+    --btn-text-color: {{ section.settings.btn_text_color }};
+    --btn-buy-bg: {{ section.settings.btn_buy_bg }};
+    --btn-buy-text: {{ section.settings.btn_buy_text }};
+
+    /* --- Dynamic Fonts --- */
     --heading-font: {{ section.settings.heading_font_family }};
     --body-font: {{ section.settings.body_font_family }};
-    --text-color: #1a1a1a;
+    
+    /* --- Dynamic Sizes --- */
+    --title-size: {{ section.settings.title_size }}px;
+    --title-size-mob: {{ section.settings.title_size_mob }}px;
+    --price-size: {{ section.settings.price_size }}px;
+    --body-size: {{ section.settings.body_size }}px;
   }
 
   .ms-product-detail-{{ section.id }} {
-    padding: 60px 0;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
     background: var(--bg-color);
-    font-family: var(--body-font), sans-serif;
+    font-family: var(--body-font);
+    color: var(--text-color);
   }
 
   .ms-container {
@@ -32,6 +49,13 @@
     gap: 20px;
     position: sticky;
     top: 20px;
+    
+    /* Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+    {% endif %}
   }
 
   .ms-thumbnails {
@@ -62,59 +86,78 @@
   /* Main Image Box (Card Style) */
   .ms-main-image-container {
     flex: 1;
-    background: var(--card-bg); /* Screenshot jaisa light background */
+    background: var(--card-bg);
     border-radius: 20px;
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0; /* FIX: Padding removed taake image full box par aaye */
+    padding: 0;
     min-height: 550px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.03);
   }
 
   .ms-main-image-container img {
     width: 100%;
-    height: 100%; /* FIX: Height full ki */
-    object-fit: cover; /* FIX: Image ko pure box par faila diya */
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1)); 
   }
 
-  .ms-main-image-container:hover img {
-    transform: scale(1.05);
-  }
+  /* Dynamic Hover Zoom */
+  {% if section.settings.enable_img_zoom %}
+    .ms-main-image-container:hover img {
+      transform: scale(1.08);
+    }
+  {% endif %}
 
   /* --- PRODUCT INFO --- */
-  .ms-info-pane { flex: 1; }
+  .ms-info-pane { 
+    flex: 1; 
+    /* Staggered Animation for Info */
+    {% if section.settings.animation_type != 'none' %}
+      opacity: 0;
+      animation: fadeInUp 1s ease-out forwards;
+      animation-delay: 0.3s;
+    {% endif %}
+  }
 
   .ms-p-title {
     font-family: var(--heading-font);
-    font-size: {{ section.settings.title_size }}px;
+    font-size: var(--title-size);
     margin: 0 0 15px;
     text-transform: uppercase;
-    color: #111;
+    color: var(--heading-color);
     line-height: 1.1;
+    font-weight: 700;
   }
 
-  .ms-p-short-desc { font-size: 16px; color: #555; line-height: 1.7; margin-bottom: 25px; }
+  .ms-p-short-desc { 
+    font-size: var(--body-size); 
+    color: var(--text-color); 
+    line-height: 1.7; 
+    margin-bottom: 25px; 
+    opacity: 0.9;
+  }
 
   .ms-p-price-tag {
     color: var(--accent-color);
     font-weight: 700;
-    font-size: 26px;
+    font-size: var(--price-size);
     margin-bottom: 25px;
     display: block;
+    font-family: var(--heading-font);
   }
 
   /* Checkpoints */
   .ms-checkpoints { margin-bottom: 35px; display: flex; flex-direction: column; gap: 12px; }
-  .ms-check-item { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; color: #333; }
+  .ms-check-item { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; color: var(--text-color); }
   .ms-check-item i { color: var(--accent-color); font-size: 18px; }
 
   /* QTY & BUTTONS */
-  .ms-qty-label { font-weight: 700; font-size: 14px; margin-bottom: 10px; display: block; }
+  .ms-qty-label { font-weight: 700; font-size: 14px; margin-bottom: 10px; display: block; color: var(--heading-color); }
   .ms-qty-wrap {
     display: flex; align-items: center; background: #F6F6F6;
     border-radius: 10px; width: fit-content; margin-bottom: 30px; padding: 5px;
@@ -130,31 +173,57 @@
   }
 
   .ms-btn-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 35px; }
+  
   .ms-btn {
     padding: 18px; border-radius: 10px; font-weight: 700; font-size: 16px;
-    text-align: center; cursor: pointer; transition: 0.4s; text-decoration: none; border: none;
+    text-align: center; cursor: pointer; transition: 0.3s; text-decoration: none; border: none;
     text-transform: uppercase; letter-spacing: 0.5px;
+    font-family: var(--heading-font);
   }
-  .ms-add-cart-btn { background: #fdf1f1; color: var(--accent-color); }
-  .ms-buy-now-btn { background: var(--accent-color); color: #fff; }
-  .ms-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); opacity: 0.95; }
+  
+  .ms-add-cart-btn { 
+    background: #fdf1f1; 
+    color: var(--accent-color); 
+    border: 1px solid transparent;
+  }
+  .ms-add-cart-btn:hover {
+    border-color: var(--accent-color);
+    background: #fff;
+  }
+
+  .ms-buy-now-btn { 
+    background: var(--btn-buy-bg); 
+    color: var(--btn-buy-text); 
+  }
+  
+  .ms-btn:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    opacity: 0.95; 
+  }
+  
   /* Loading State */
   .ms-add-cart-btn.loading { opacity: 0.7; pointer-events: none; }
 
   /* SOCIAL LINKS */
   .ms-social-actions { display: flex; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; margin-bottom: 20px; }
-  .ms-social-link { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; font-weight: 600; color: #444; }
-  .ms-social-link:hover { color: var(--accent-color); }
+  .ms-social-link { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; font-weight: 600; color: #444; transition: 0.3s; }
+  .ms-social-link:hover { color: var(--accent-color); transform: translateX(5px); }
 
   /* ACCORDION */
   .ms-acc-item { border-bottom: 1px solid #eee; }
   .ms-acc-header {
     width: 100%; padding: 18px 0; display: flex; justify-content: space-between;
     align-items: center; background: none; border: none; cursor: pointer;
-    font-weight: 600; font-size: 16px; color: #1a1a1a;
+    font-weight: 600; font-size: 16px; color: var(--heading-color);
+    font-family: var(--heading-font);
   }
-  .ms-acc-content { max-height: 0; overflow: hidden; transition: 0.3s ease; font-size: 14px; color: #666; line-height: 1.6; }
+  .ms-acc-content { max-height: 0; overflow: hidden; transition: 0.3s ease; font-size: 14px; color: var(--text-color); line-height: 1.6; }
   .ms-acc-item.active .ms-acc-content { max-height: 500px; padding-bottom: 20px; }
+
+  /* Keyframes */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
   @media (max-width: 990px) {
     .ms-container { flex-direction: column; }
@@ -162,6 +231,8 @@
     .ms-thumbnails { flex-direction: row; width: 100%; overflow-x: auto; }
     .ms-thumb-item { width: 80px; flex-shrink: 0; }
     .ms-main-image-container { min-height: auto; }
+    
+    .ms-p-title { font-size: var(--title-size-mob); }
   }
 {%- endstyle -%}
 
@@ -342,16 +413,46 @@
 {
   "name": "Meat Shop Product Detail",
   "settings": [
-    { "type": "color", "id": "acc_color", "label": "Accent Color (Red)", "default": "#E21E1E" },
-    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" },
-    { "type": "color", "id": "img_card_bg", "label": "Image Card Background", "default": "#F7DBDB" },
+    { "type": "header", "content": "Typography Settings" },
     { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
-        { "value": "'Oswald'", "label": "Oswald" }, { "value": "'Poppins'", "label": "Poppins" }
-      ], "default": "'Oswald'" },
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+      { "value": "serif", "label": "System Serif" }
+    ], "default": "'Oswald', sans-serif" },
     { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
-        { "value": "'Poppins'", "label": "Poppins" }, { "value": "sans-serif", "label": "System" }
-      ], "default": "'Poppins'" },
-    { "type": "range", "id": "title_size", "label": "Title Font Size", "min": 24, "max": 60, "default": 45 },
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial" },
+      { "value": "sans-serif", "label": "System Sans" }
+    ], "default": "'Poppins', sans-serif" },
+    
+    { "type": "range", "id": "title_size", "label": "Title Size (Desktop)", "min": 24, "max": 80, "default": 45, "unit": "px" },
+    { "type": "range", "id": "title_size_mob", "label": "Title Size (Mobile)", "min": 20, "max": 50, "default": 32, "unit": "px" },
+    { "type": "range", "id": "price_size", "label": "Price Font Size", "min": 18, "max": 40, "default": 26, "unit": "px" },
+    { "type": "range", "id": "body_size", "label": "Body Font Size", "min": 12, "max": 20, "default": 16, "unit": "px" },
+
+    { "type": "header", "content": "Color Settings" },
+    { "type": "color", "id": "bg_color", "label": "Page Background", "default": "#ffffff" },
+    { "type": "color", "id": "img_card_bg", "label": "Image Card Background", "default": "#F7DBDB" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#111111" },
+    { "type": "color", "id": "text_color", "label": "Body Text Color", "default": "#555555" },
+    { "type": "color", "id": "acc_color", "label": "Accent Color (Red)", "default": "#E21E1E" },
+    { "type": "color", "id": "acc_hover_color", "label": "Accent Hover Color", "default": "#b71c1c" },
+    
+    { "type": "header", "content": "Button Colors" },
+    { "type": "color", "id": "btn_buy_bg", "label": "Buy Now Button BG", "default": "#E21E1E" },
+    { "type": "color", "id": "btn_buy_text", "label": "Buy Now Button Text", "default": "#ffffff" },
+
+    { "type": "header", "content": "Animations & Layout" },
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" },
+    { "type": "checkbox", "id": "enable_img_zoom", "label": "Enable Image Zoom on Hover", "default": true },
+    { "type": "range", "id": "padding_top", "label": "Top Padding", "min": 0, "max": 100, "default": 60, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom Padding", "min": 0, "max": 100, "default": 60, "unit": "px" },
+
     { "type": "header", "content": "Checkpoints" },
     { "type": "text", "id": "check_1", "label": "Point 1", "default": "100% Halal Certified" },
     { "type": "text", "id": "check_2", "label": "Point 2", "default": "Fresh, Never Frozen" },

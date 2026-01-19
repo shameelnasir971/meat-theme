@@ -1,30 +1,43 @@
 {%- style -%}
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
+
   /* Dynamic CSS Variables */
   .section-{{ section.id }} {
+    /* Colors */
     --bg-color: {{ section.settings.bg_color }};
     --card-bg: {{ section.settings.card_bg }};
     --text-color: {{ section.settings.text_color }};
     --heading-color: {{ section.settings.heading_color }};
     --accent-color: {{ section.settings.accent_color }};
+    --accent-hover: {{ section.settings.accent_hover_color }};
+    --input-bg: {{ section.settings.input_bg_color }};
     --input-border: {{ section.settings.input_border_color }};
+    --icon-color: {{ section.settings.icon_color }};
+    --icon-bg: {{ section.settings.icon_bg_color }};
     
-    --heading-size: {{ section.settings.heading_size }}px;
-    --body-size: {{ section.settings.body_size }}px;
+    /* Typography */
+    --h-font: {{ section.settings.heading_font_family }};
+    --b-font: {{ section.settings.body_font_family }};
+    
+    --h-size: {{ section.settings.heading_size }}px;
+    --h-size-mob: {{ section.settings.heading_size_mob }}px;
+    --b-size: {{ section.settings.body_size }}px;
+    --b-size-mob: {{ section.settings.body_size_mob }}px;
     
     background-color: var(--bg-color);
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
-  }
-
-  /* Fonts */
-  .oswald-font { 
-    font-family: {% if section.settings.font_style == 'oswald' %}'Oswald', sans-serif{% else %}inherit{% endif %}; 
-    text-transform: uppercase; 
+    font-family: var(--b-font);
   }
 
   /* Layout */
   .container-pro { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
   .contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; }
   
+  /* Animation Keyframes */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
   /* Contact Info Card */
   .contact-info-card { 
     background: var(--card-bg); 
@@ -33,17 +46,26 @@
     border: 1px solid rgba(0,0,0,0.05); 
     box-shadow: 0 5px 20px rgba(0,0,0,0.03);
     height: fit-content;
+    
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 0.8s ease-out forwards;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+    {% endif %}
   }
   
   .contact-info-card h2 {
-    font-size: var(--heading-size);
+    font-family: var(--h-font);
+    font-size: var(--h-size);
     color: var(--heading-color);
     margin-bottom: 15px;
     font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.2;
   }
   
   .contact-info-card p {
-    font-size: var(--body-size);
+    font-size: var(--b-size);
     color: var(--text-color);
     margin-bottom: 20px;
     line-height: 1.6;
@@ -53,24 +75,45 @@
   
   .info-icon { 
     width: 50px; height: 50px; 
-    background: #fff; 
+    background: var(--icon-bg); 
     border: 1px solid var(--accent-color); 
-    color: var(--accent-color); 
+    color: var(--icon-color); 
     border-radius: 50%; 
     display: flex; align-items: center; justify-content: center; 
     font-size: 20px; flex-shrink: 0; 
-    transition: 0.3s;
+    transition: all 0.3s ease;
   }
+  
+  /* Hover Effect on Icon */
   .info-item:hover .info-icon {
-    background: var(--accent-color);
-    color: #fff;
+    {% if section.settings.enable_hover %}
+      background: var(--accent-color);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    {% endif %}
   }
 
-  .info-text h3 { font-size: 18px; margin: 0 0 5px; font-weight: 700; color: var(--heading-color); }
-  .info-text p { margin: 0; color: var(--text-color); font-size: var(--body-size); }
+  .info-text h3 { 
+    font-family: var(--h-font);
+    font-size: 18px; margin: 0 0 5px; 
+    font-weight: 700; color: var(--heading-color); 
+  }
+  .info-text p { margin: 0; color: var(--text-color); font-size: var(--b-size); }
 
   /* Contact Form Card */
-  .contact-form-card { padding: 10px 0; }
+  .contact-form-card { 
+    padding: 10px 0; 
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 1s ease-out forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+    {% endif %}
+  }
   
   /* Form Elements */
   .form-block-row { display: flex; gap: 20px; width: 100%; margin-bottom: 20px; }
@@ -83,10 +126,10 @@
     padding: 15px; 
     border: 1px solid var(--input-border); 
     border-radius: 8px; 
-    font-family: inherit; 
+    font-family: var(--b-font); 
     outline: none; 
     transition: 0.3s; 
-    background: #fff;
+    background: var(--input-bg);
     color: var(--text-color);
     font-size: 16px;
   }
@@ -103,17 +146,20 @@
     border: none; 
     padding: 18px 40px; 
     border-radius: 8px; 
+    font-family: var(--h-font);
     font-weight: 700; 
     cursor: pointer; 
     text-transform: uppercase; 
     width: 100%; 
     transition: 0.3s; 
     font-size: 16px;
+    letter-spacing: 1px;
   }
   
   .submit-btn-contact:hover { 
-    opacity: 0.9; 
+    background: var(--accent-hover);
     transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
   }
   
   .success-msg { 
@@ -129,6 +175,9 @@
     .contact-layout { grid-template-columns: 1fr; }
     .form-block-row { flex-direction: column; gap: 0; margin-bottom: 0; }
     .form-block-row input { margin-bottom: 20px; }
+    
+    .contact-info-card h2 { font-size: var(--h-size-mob); }
+    .contact-info-card p, .info-text p { font-size: var(--b-size-mob); }
   }
 {%- endstyle -%}
 
@@ -141,7 +190,7 @@
       
       <!-- Left Side: Contact Info -->
       <div class="contact-info-card">
-        <h2 class="oswald-font">{{ section.settings.heading }}</h2>
+        <h2>{{ section.settings.heading }}</h2>
         <p>{{ section.settings.description }}</p>
         
         <!-- Address Block -->
@@ -263,30 +312,57 @@
 
 {% schema %}
 {
-  "name": "Contact Us Page",
+  "name": "Contact Us Pro",
   "settings": [
-    {
-      "type": "header",
-      "content": "Style Settings"
-    },
+    { "type": "header", "content": "Typography Settings" },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+      { "value": "serif", "label": "System Serif" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 24, "max": 60, "default": 32, "unit": "px" },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 40, "default": 26, "unit": "px" },
+    
+    { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial" },
+      { "value": "sans-serif", "label": "System Sans" }
+    ], "default": "'Poppins', sans-serif" },
+    { "type": "range", "id": "body_size", "label": "Body Text Size (Desktop)", "min": 12, "max": 20, "default": 16, "unit": "px" },
+    { "type": "range", "id": "body_size_mob", "label": "Body Text Size (Mobile)", "min": 12, "max": 18, "default": 14, "unit": "px" },
+
+    { "type": "header", "content": "Color Settings" },
     { "type": "color", "id": "bg_color", "label": "Page Background", "default": "#ffffff" },
-    { "type": "color", "id": "card_bg", "label": "Card Background", "default": "#fdfdfd" },
-    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#1a1a1a" },
-    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#555555" },
-    { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#d32f2f" },
+    { "type": "color", "id": "card_bg", "label": "Info Card Background", "default": "#fdfdfd" },
+    { "type": "color", "id": "heading_color", "label": "Headings", "default": "#1a1a1a" },
+    { "type": "color", "id": "text_color", "label": "Body Text", "default": "#555555" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color (Button/Icons)", "default": "#d32f2f" },
+    { "type": "color", "id": "accent_hover_color", "label": "Accent Hover Color", "default": "#b71c1c" },
+    
+    { "type": "header", "content": "Icon Style" },
+    { "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#d32f2f" },
+    { "type": "color", "id": "icon_bg_color", "label": "Icon Background", "default": "#ffffff" },
+    { "type": "checkbox", "id": "enable_hover", "label": "Enable Icon Hover Effect", "default": true },
+    
+    { "type": "header", "content": "Form Style" },
+    { "type": "color", "id": "input_bg_color", "label": "Input Background", "default": "#ffffff" },
     { "type": "color", "id": "input_border_color", "label": "Input Border Color", "default": "#dddddd" },
-    { "type": "select", "id": "font_style", "label": "Heading Font Style", "options": [
-      { "value": "oswald", "label": "Oswald (Bold)" },
-      { "value": "default", "label": "Theme Default" }
-    ], "default": "oswald" },
-    { "type": "range", "id": "heading_size", "label": "Heading Size", "min": 20, "max": 60, "default": 32, "unit": "px" },
-    { "type": "range", "id": "body_size", "label": "Body Text Size", "min": 12, "max": 20, "default": 16, "unit": "px" },
+
+    { "type": "header", "content": "Animations" },
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" },
+
+    { "type": "header", "content": "Section Padding" },
     { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "default": 60, "unit": "px" },
     { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "default": 60, "unit": "px" },
 
     {
       "type": "header",
-      "content": "Contact Info Section"
+      "content": "Contact Info Content"
     },
     { "type": "text", "id": "heading", "label": "Main Heading", "default": "Get In Touch" },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Have questions about our meat cuts or delivery? Feel free to reach out to us." },
@@ -295,21 +371,21 @@
     { "type": "checkbox", "id": "show_address", "label": "Show Address", "default": true },
     { "type": "text", "id": "label_address", "label": "Label", "default": "Location" },
     { "type": "text", "id": "text_address", "label": "Text", "default": "Dubai and Abu Dhabi, UAE" },
-    { "type": "text", "id": "icon_address", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-location-dot", "info": "e.g. fa-solid fa-map-pin" },
+    { "type": "text", "id": "icon_address", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-location-dot" },
 
     { "type": "header", "content": "Phone Block" },
     { "type": "checkbox", "id": "show_phone", "label": "Show Phone", "default": true },
     { "type": "text", "id": "label_phone", "label": "Label", "default": "Phone" },
     { "type": "text", "id": "text_phone", "label": "Text", "default": "+92 300000000" },
-    { "type": "text", "id": "icon_phone", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-phone", "info": "e.g. fa-solid fa-mobile-screen" },
+    { "type": "text", "id": "icon_phone", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-phone" },
 
     { "type": "header", "content": "Email Block" },
     { "type": "checkbox", "id": "show_email", "label": "Show Email", "default": true },
     { "type": "text", "id": "label_email", "label": "Label", "default": "Email" },
     { "type": "text", "id": "text_email", "label": "Text", "default": "meetshop@gmail.com" },
-    { "type": "text", "id": "icon_email", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-envelope", "info": "e.g. fa-regular fa-paper-plane" },
+    { "type": "text", "id": "icon_email", "label": "Icon Class (FontAwesome)", "default": "fa-solid fa-envelope" },
 
-    { "type": "header", "content": "Form Settings" },
+    { "type": "header", "content": "Form Text" },
     { "type": "text", "id": "btn_text", "label": "Button Text", "default": "Send Message" }
   ],
   "blocks": [
@@ -354,7 +430,7 @@
   ],
   "presets": [
     {
-      "name": "Contact Us Page",
+      "name": "Contact Us Pro",
       "blocks": [
         { "type": "double_inputs" },
         { "type": "phone_input" },
