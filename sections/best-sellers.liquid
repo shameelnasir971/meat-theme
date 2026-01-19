@@ -176,7 +176,11 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
                     <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                   {%- endif -%}
                 </div>
-                <div class="bs-price">{{ product.price | money }}</div>
+                
+                <!-- PRICE FIX: Standard 'money' filter uses Backend Currency Symbol settings -->
+                <div class="bs-price">
+                  {{ product.price | money }}
+                </div>
               </div>
             </div>
           {%- endfor -%}
@@ -189,7 +193,7 @@ cursor: pointer; z-index: 20; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.
                 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800">
                 <div class="bs-add-cart">Add To Cart</div>
               </div>
-              <div class="bs-info"><h3>Dynamic Product {{ i }}</h3><div class="bs-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="bs-price">$29.00</div></div>
+              <div class="bs-info"><h3>Dynamic Product {{ i }}</h3><div class="bs-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="bs-price">{{ 2900 | money }}</div></div>
             </div>
           {% endfor %}
         {%- endif -%}

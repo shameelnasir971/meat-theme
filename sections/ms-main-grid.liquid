@@ -79,6 +79,26 @@ background: #f4f4f4; border-radius: 8px; overflow: hidden; position: relative;
 .ms-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
 .ms-card:hover img { transform: scale(1.08); }
 
+/* --- NEW HOVER ICONS STYLES (Eye & Heart) --- */
+.ms-actions {
+position: absolute; top: 15px; right: 15px;
+display: flex; flex-direction: column; gap: 10px;
+z-index: 10; opacity: 0; transform: translateX(20px);
+transition: 0.4s ease;
+}
+
+.ms-icon {
+width: 40px; height: 40px; background: #fff; border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+color: {{ section.settings.primary_color }}; text-decoration: none; 
+box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px;
+transition: 0.3s;
+}
+.ms-icon:hover { background: {{ section.settings.primary_color }}; color: #fff; }
+
+.ms-card:hover .ms-actions { opacity: 1; transform: translateX(0); }
+/* ------------------------------------------- */
+
 .ms-badge {
 position: absolute; top: 0; left: 0;
 background: {{ section.settings.primary_color }}; color: #fff;
@@ -95,6 +115,7 @@ border: none; padding: 14px; border-radius: {{ section.settings.btn_radius }}px;
 font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
 }
 .ms-add-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+.ms-add-btn.loading { opacity: 0.7; pointer-events: none; }
 
 @media (max-width: 1024px) {
 .ms-sidebar { display: none; }
@@ -106,7 +127,8 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
 }
 {% endstyle %}
 
-<!-- Added ID to wrapper for scrolling -->
+<!-- Added FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <div class="ms-main-wrapper" id="ms-products-anchor">
   <div class="ms-container">
@@ -182,6 +204,15 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
                 {% if section.settings.show_badge %}
                   <span class="ms-badge">20% Off</span>
                 {% endif %}
+                
+                <!-- NEW: Hover Actions (Eye & Heart) -->
+                <div class="ms-actions">
+                  <a href="{{ product.url }}" class="ms-icon">
+                    <i class="far fa-eye"></i>
+                  </a>                  
+                  <a href="#" class="ms-icon"><i class="far fa-heart"></i></a>
+                </div>
+
                 <a href="{{ product.url }}">
                   <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.title }}" loading="lazy">
                 </a>
@@ -190,7 +221,9 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
                 <h4 class="ms-p-title">{{ product.title }}</h4>
                 <div class="ms-stars">★★★★★</div>
                 <div class="ms-price">{{ product.price | money }}</div>
-                <form method="post" action="/cart/add">
+                
+                <!-- AJAX ADD TO CART FORM -->
+                <form method="post" action="/cart/add" onsubmit="addToCartGridAjax(event, this)">
                   <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
                   <button type="submit" class="ms-add-btn">Add To Cart</button>
                 </form>
@@ -277,7 +310,7 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
     window.history.pushState({}, '', url);
   };
 
-  // 3. AUTO FILTER ON PAGE LOAD (NEW CODE ADDED HERE)
+  // 3. AUTO FILTER ON PAGE LOAD
   document.addEventListener("DOMContentLoaded", function() {
     const params = new URLSearchParams(window.location.search);
     const categoryParam = params.get('category');
@@ -292,6 +325,54 @@ font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s;
       }, 100);
     }
   });
+
+  // 4. AJAX ADD TO CART LOGIC (Copied from previous sections)
+  function addToCartGridAjax(e, form) {
+    e.preventDefault(); // Stop redirection
+
+    const btn = form.querySelector('button');
+    const originalText = btn.innerText;
+    
+    btn.innerText = "Adding...";
+    btn.classList.add('loading');
+
+    const formData = new FormData(form);
+
+    // Add item to cart
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Fetch updated cart count
+      return fetch('/cart.js');
+    })
+    .then(res => res.json())
+    .then(cart => {
+      // Update Header Cart Count
+      const countBadges = document.querySelectorAll('.cart-count-pro');
+      countBadges.forEach(badge => {
+        badge.innerText = cart.item_count;
+        badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
+      });
+
+      // Reset Button
+      btn.innerText = "Added!";
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.classList.remove('loading');
+      }, 2000);
+    })
+    .catch(err => {
+      console.error('Error adding to cart:', err);
+      btn.innerText = "Error";
+      setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove('loading');
+      }, 2000);
+    });
+  }
   
 </script>
 

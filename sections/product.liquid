@@ -69,17 +69,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    padding: 0; /* FIX: Padding removed taake image full box par aaye */
     min-height: 550px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.03);
   }
 
   .ms-main-image-container img {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%; /* FIX: Height full ki */
+    object-fit: cover; /* FIX: Image ko pure box par faila diya */
     transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1)); /* Meat ko depth dene ke liye */
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1)); 
   }
 
   .ms-main-image-container:hover img {
@@ -138,6 +138,8 @@
   .ms-add-cart-btn { background: #fdf1f1; color: var(--accent-color); }
   .ms-buy-now-btn { background: var(--accent-color); color: #fff; }
   .ms-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); opacity: 0.95; }
+  /* Loading State */
+  .ms-add-cart-btn.loading { opacity: 0.7; pointer-events: none; }
 
   /* SOCIAL LINKS */
   .ms-social-actions { display: flex; gap: 30px; padding-bottom: 30px; border-bottom: 1px solid #eee; margin-bottom: 20px; }
@@ -207,7 +209,8 @@
         {% endif %}
       </div>
 
-      {% form 'product', product %}
+      <!-- AJAX FORM: onsubmit function added -->
+      <form action="/cart/add" method="post" enctype="multipart/form-data" onsubmit="addToCartDetailAjax(event, this)">
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
         {% unless product.has_only_default_variant %}
@@ -232,7 +235,7 @@
           <button type="submit" name="add" class="ms-btn ms-add-cart-btn">Add To Cart</button>
           <button type="button" class="ms-btn ms-buy-now-btn" onclick="directBuy()">Buy Now</button>
         </div>
-      {% endform %}
+      </form>
 
       <div class="ms-social-actions">
         <div class="ms-social-link"><i class="fa-solid fa-share-nodes"></i> Share</div>
@@ -283,6 +286,53 @@
     const input = document.createElement('input');
     input.type = 'hidden'; input.name = 'return_to'; input.value = '/checkout';
     f.appendChild(input); f.submit();
+  }
+
+  function addToCartDetailAjax(e, form) {
+    e.preventDefault(); // Stop Page Refresh
+
+    const btn = form.querySelector('.ms-add-cart-btn');
+    const originalText = btn.innerText;
+    
+    btn.innerText = "Adding...";
+    btn.classList.add('loading');
+
+    const formData = new FormData(form);
+
+    // 1. Add item to cart
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      // 2. Fetch updated cart count
+      return fetch('/cart.js');
+    })
+    .then(res => res.json())
+    .then(cart => {
+      // 3. Update Header Cart Count
+      const countBadges = document.querySelectorAll('.cart-count-pro');
+      countBadges.forEach(badge => {
+        badge.innerText = cart.item_count;
+        badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
+      });
+
+      // Reset Button
+      btn.innerText = "Added!";
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.classList.remove('loading');
+      }, 2000);
+    })
+    .catch(err => {
+      console.error('Error adding to cart:', err);
+      btn.innerText = "Error";
+      setTimeout(() => {
+          btn.innerText = originalText;
+          btn.classList.remove('loading');
+      }, 2000);
+    });
   }
 </script>
 
