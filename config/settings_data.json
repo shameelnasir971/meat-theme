@@ -35,25 +35,36 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
+          "font_family": "'Poppins', sans-serif",
+          "font_size": 13,
+          "font_weight": 400,
+          "letter_spacing": 0,
+          "text_transform": "none",
           "bg_color": "#a10c0e",
           "text_color": "#ffffff",
-          "font_size": 13,
-          "text_transform": "none",
-          "icon_text_gap": 30,
+          "hover_color": "#ffd700",
           "padding_v": 10,
-          "show_arrows": true,
+          "icon_text_gap": 30,
           "autoplay": true,
           "autoplay_speed": 5,
+          "anim_speed": "0.5",
+          "enable_fade": true,
+          "show_arrows": true,
           "icon_size": 12
         }
       },
       "header": {
         "type": "header",
         "settings": {
+          "font_family_main": "'Poppins', sans-serif",
+          "font_family_headings": "'Oswald', sans-serif",
           "main_menu": "",
           "nav_font_size": 15,
+          "nav_font_weight": 500,
+          "header_padding_top": 25,
           "logo_image": "shopify://shop_images/Group.png",
           "logo_text": "MEAT SHOP",
+          "logo_text_size": 24,
           "logo_size": 80,
           "logo_size_scrolled": 50,
           "text_color": "#ffffff",
@@ -69,6 +80,7 @@
           "drop_radius": 8,
           "icon_size": 20,
           "enable_hover_anim": true,
+          "anim_speed": "0.4s",
           "mob_bg_color": "#ffffff",
           "mob_text_color": "#1a1a1a",
           "mob_border_color": "#f0f0f0",
@@ -80,12 +92,48 @@
         "type": "hero-banner",
         "settings": {
           "background_image": "shopify://shop_images/Rectangle_61.png",
+          "bg_position": "center center",
+          "bg_behavior": "fixed",
+          "hero_height": 100,
+          "overlay_color": "#000000",
+          "overlay_opacity": 0.3,
           "main_title": "Fresh Halal Meat, Cut to Perfection",
+          "icon_size": 60,
+          "heading_font_family": "'Oswald', sans-serif",
+          "title_size": 80,
+          "heading_color": "#ffffff",
+          "heading_weight": 700,
+          "heading_transform": "capitalize",
+          "heading_line_height": 1.1,
+          "heading_spacing": 0,
           "sub_text": "Sourced from trusted farms, expertly cut, and delivered fresh to your doorstep.",
+          "body_font_family": "'Inter', sans-serif",
+          "subtext_size": 18,
+          "text_color": "#ffffff",
+          "content_alignment_flex": "flex-end",
+          "text_align": "left",
+          "content_max_width": 640,
+          "container_width": 1300,
           "btn1_text": "Shop Now",
           "btn1_link": "",
+          "btn1_bg": "#d32f2f",
+          "btn1_text_color": "#ffffff",
+          "btn1_hover_bg": "#b71c1c",
+          "btn1_hover_text": "#ffffff",
           "btn2_text": "Today's Deals",
-          "btn2_link": ""
+          "btn2_link": "",
+          "btn2_bg": "#ffffff",
+          "btn2_text_color": "#d32f2f",
+          "btn2_border": "#ffffff",
+          "btn2_hover_bg": "#f1f1f1",
+          "btn2_hover_text": "#b71c1c",
+          "enable_animation": true,
+          "animation_style": "fadeInUp",
+          "btn_radius": 8,
+          "btn_padding_v": 18,
+          "btn_padding_h": 44,
+          "padding_top": 140,
+          "padding_bottom": 80
         }
       },
       "icon-features-bar": {
@@ -125,16 +173,22 @@
           "feature_P9a7it"
         ],
         "settings": {
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 18,
+          "heading_size_mob": 18,
+          "body_font_family": "'Poppins', sans-serif",
+          "text_size": 14,
+          "text_size_mob": 14,
           "background_color": "#fdf0f0",
           "icon_color": "#d32f2f",
           "heading_color": "#1a1a1a",
           "text_color": "#666666",
+          "animation_type": "fade-up",
+          "enable_hover": true,
+          "icon_size": 45,
           "container_width": 1200,
           "padding_top": 40,
-          "padding_bottom": 40,
-          "icon_size": 45,
-          "heading_size": 18,
-          "text_size": 14
+          "padding_bottom": 40
         }
       },
       "categories": {
@@ -142,29 +196,57 @@
         "settings": {
           "heading": "Shop By Category",
           "collection": "shop-by-category",
-          "limit": 4,
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 42,
+          "heading_size_mob": 30,
+          "card_font_family": "'Oswald', sans-serif",
+          "card_title_size": 30,
+          "card_title_size_mob": 24,
           "container_width": 1300,
+          "card_height": 300,
           "padding_top": 60,
           "padding_bottom": 60,
           "bg_color": "#ffffff",
-          "heading_color": "#1a1a1a"
+          "heading_color": "#1a1a1a",
+          "card_text_color": "#ffffff",
+          "overlay_color": "#000000",
+          "overlay_opacity": 85,
+          "animation_type": "fade-up",
+          "enable_hover": true
         }
       },
       "about-us": {
         "type": "about-us",
         "settings": {
           "image": "shopify://shop_images/13dee0d198ebd247e779f1e0a8ac2b248f50309f.png",
+          "img_radius": 24,
+          "enable_img_hover": true,
+          "heading_font_family": "'Oswald', sans-serif",
+          "body_font_family": "'Poppins', sans-serif",
+          "heading_weight": 700,
+          "heading_transform": "capitalize",
           "title": "Trusted Meat Shop",
           "content": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction. Every cut of meat is carefully selected, hygienically processed, and prepared by skilled butchers who understand quality and precision. We follow strict halal standards and maintain proper temperature control from sourcing to delivery. Whether you are shopping for daily meals, family gatherings, or special occasions, we ensure that every order meets the highest standards of taste and freshness. With reliable delivery.</p>",
+          "text_align": "left",
+          "bg_color": "#fff0f0",
+          "heading_color": "#111111",
+          "desc_color": "#555555",
+          "btn_color": "#c62828",
+          "btn_hover_color": "#8e0000",
+          "btn_text_color": "#ffffff",
           "btn_label": "Learn More",
           "btn_link": "",
-          "bg_color": "#fff0f0",
-          "text_color": "#111111",
-          "btn_color": "#c62828",
-          "btn_text_color": "#ffffff",
+          "btn_radius": 8,
+          "btn_padding_v": 14,
+          "btn_padding_h": 35,
+          "enable_animation": true,
+          "animation_style": "fadeUp",
           "container_width": 1200,
+          "grid_gap": 60,
           "title_size": 42,
           "desc_size": 15,
+          "icon_width": 20,
+          "heading_spacing": 0,
           "padding_top": 80,
           "padding_bottom": 80
         }
@@ -174,11 +256,25 @@
         "settings": {
           "heading": "Best Sellers",
           "collection": "shop-by-category",
-          "acc_color": "#d32f2f",
-          "h_color": "#1a1a1a",
-          "bg_color": "#ffffff",
-          "font_family": "'Poppins', sans-serif",
+          "heading_font_family": "'Oswald', sans-serif",
           "h_size": 42,
+          "h_size_mob": 28,
+          "body_font_family": "'Poppins', sans-serif",
+          "prod_title_size": 18,
+          "price_size": 18,
+          "bg_color": "#ffffff",
+          "card_bg_color": "#ffffff",
+          "h_color": "#1a1a1a",
+          "text_color": "#1a1a1a",
+          "acc_color": "#d32f2f",
+          "price_color": "#d32f2f",
+          "badge_bg_color": "#d32f2f",
+          "badge_text_color": "#ffffff",
+          "icon_bg_color": "#ffffff",
+          "icon_text_color": "#d32f2f",
+          "animation_type": "fade-up",
+          "enable_hover_lift": true,
+          "enable_img_zoom": true,
           "container_width": 1250,
           "p_top": 60,
           "p_bottom": 60
@@ -223,12 +319,39 @@
           "collection_group_FDeKRj"
         ],
         "settings": {
+          "heading_font": "'Oswald', sans-serif",
+          "body_font": "'Poppins', sans-serif",
           "heading": "Menu Board",
           "title_size": 45,
-          "bg_color": "#111111",
-          "card_bg": "#1a1a1a",
-          "accent_color": "#d32f2f",
           "title_color": "#ffffff",
+          "heading_align": "center",
+          "heading_weight": 800,
+          "heading_spacing": 1,
+          "heading_margin": 40,
+          "bg_color": "#111111",
+          "text_color": "#ffffff",
+          "accent_color": "#d32f2f",
+          "tab_font_size": 14,
+          "tab_text_color": "#ffffff",
+          "tab_border_color": "#333333",
+          "tab_radius": 8,
+          "tab_gap": 12,
+          "icon_size": 20,
+          "card_bg": "#1a1a1a",
+          "card_border_color": "#1a1a1a",
+          "card_radius": 12,
+          "card_shadow": "0 10px 30px rgba(0,0,0,0.3)",
+          "hover_lift": 8,
+          "grid_gap": 25,
+          "prod_title_color": "#ffffff",
+          "prod_title_size": 22,
+          "prod_desc_color": "#bbbbbb",
+          "prod_desc_size": 13,
+          "price_color": "#ffffff",
+          "price_size": 18,
+          "btn_radius": 6,
+          "btn_hover_bg": "#a01a1a",
+          "animation_type": "fade",
           "container_width": 1200,
           "padding_top": 60,
           "padding_bottom": 60
@@ -240,40 +363,73 @@
           "title": "Fresh Halal Meat Delivered",
           "desc": "Premium quality beef, mutton, and chicken sourced from trusted farms. Freshly cut on order, hygienically packed, and delivered in temperature-controlled packaging across the UAE to ensure taste, safety, and freshness in every order.",
           "text_alignment": "left",
+          "heading_font_family": "'Oswald', sans-serif",
+          "title_size": 60,
+          "title_size_mob": 36,
+          "heading_weight": "700",
+          "heading_line_height": 1.1,
+          "heading_spacing": -1,
+          "body_font_family": "'Poppins', sans-serif",
+          "desc_size": 16,
+          "desc_size_mob": 14,
           "image_main": "shopify://shop_images/1021812f35b541d231bb82706720589462a9c41a.png",
           "image_left": "shopify://shop_images/54fbae1eecfcf1283827ab8f3f0e1ddbf425fd5a.png",
           "image_right": "shopify://shop_images/21cc343e1157c6014e4356cdbbc93f43ad029c03.png",
-          "btn1_text": "Start Shopping",
-          "btn1_link": "shopify://collections",
-          "btn2_text": "Learn More",
-          "btn2_link": "",
+          "collage_height": 550,
+          "img_border_width": 4,
           "bg_color": "#ffffff",
           "shape_color": "#b30000",
+          "shape_radius": 30,
           "heading_color": "#1a1a1a",
           "text_color": "#555555",
+          "btn1_text": "Start Shopping",
+          "btn1_link": "shopify://collections",
           "btn_primary_bg": "#b30000",
           "btn_primary_text": "#ffffff",
+          "btn_primary_hover_bg": "#b71c1c",
+          "btn_primary_hover_text": "#ffffff",
+          "btn2_text": "Learn More",
+          "btn2_link": "",
           "btn_secondary_color": "#b30000",
           "btn_secondary_border": "#dddddd",
+          "btn_secondary_hover_bg": "#1a1a1a",
+          "btn_secondary_hover_text": "#ffffff",
           "container_width": 1250,
-          "title_size": 60,
-          "desc_size": 16,
+          "content_gap": 80,
           "padding_top": 100,
-          "padding_bottom": 100
+          "padding_bottom": 100,
+          "section_margin": 0,
+          "btn_radius": 8,
+          "btn_padding_v": 15,
+          "btn_padding_h": 40,
+          "animation_type": "fade-up",
+          "enable_hover_zoom": true
         }
       },
       "weekly-deals": {
         "type": "weekly-deals",
         "settings": {
           "bg_image": "shopify://shop_images/8e539a08d6f3d4f35fc22ed24384ca76e002e224.png",
+          "section_height": 500,
           "overlay_color": "#000000",
+          "overlay_opacity": 70,
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 64,
+          "heading_size_mob": 36,
+          "heading_color": "#ffffff",
+          "body_font_family": "'Poppins', sans-serif",
+          "body_size": 18,
+          "body_size_mob": 16,
+          "body_color": "#ffffff",
           "title": "Weekly Fresh Deals",
           "description": "Enjoy exclusive discounts on selected meat cuts every week. Quality meat at prices you will love.",
-          "text_color": "#ffffff",
           "btn_label": "View Offers",
           "btn_link": "",
           "btn_bg_color": "#d32f2f",
-          "btn_text_color": "#ffffff"
+          "btn_text_color": "#ffffff",
+          "btn_hover_bg_color": "#ffffff",
+          "btn_hover_text_color": "#e32c2b",
+          "animation_type": "fade-right"
         }
       },
       "our-customer": {
@@ -282,6 +438,7 @@
           "testimonial_nyrCYC": {
             "type": "testimonial",
             "settings": {
+              "badge_text": "Verified",
               "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
@@ -290,6 +447,7 @@
           "testimonial_fbHPcR": {
             "type": "testimonial",
             "settings": {
+              "badge_text": "Verified",
               "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
@@ -298,6 +456,7 @@
           "testimonial_cTRy6n": {
             "type": "testimonial",
             "settings": {
+              "badge_text": "Verified",
               "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
@@ -306,6 +465,7 @@
           "testimonial_L6hpQb": {
             "type": "testimonial",
             "settings": {
+              "badge_text": "Verified",
               "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
@@ -314,6 +474,7 @@
           "testimonial_UzJNcc": {
             "type": "testimonial",
             "settings": {
+              "badge_text": "Verified",
               "quote": "A visual guide could be a wireframe, creative composition, or information architecture. A device that enables collaboration will lessen the chance of work having to be completely redone.",
               "name": "John Carter",
               "location": "Pakistan"
@@ -330,11 +491,26 @@
         "settings": {
           "heading": "What Our Customer Say",
           "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
+          "heading_font_family": "'Oswald', sans-serif",
+          "body_font_family": "'Poppins', sans-serif",
+          "heading_size": 42,
+          "heading_size_mob": 28,
+          "quote_size": 16,
           "bg_color": "#ffffff",
           "card_bg_color": "#fdf0f0",
           "accent_color": "#d32f2f",
           "text_color_heading": "#1a1a1a",
-          "text_color_sub": "#555555"
+          "text_color_sub": "#555555",
+          "text_color_quote": "#333333",
+          "text_color_author": "#d32f2f",
+          "badge_bg": "#d32f2f",
+          "badge_text_color": "#ffffff",
+          "animation_type": "fade-up",
+          "enable_card_hover": true,
+          "container_width": 1240,
+          "card_radius": 20,
+          "padding_top": 80,
+          "padding_bottom": 80
         }
       },
       "team-members": {
@@ -343,19 +519,34 @@
           "member_b9eCjG": {
             "type": "member",
             "settings": {
-              "image": "shopify://shop_images/7dee53ee4705fac01ac3c5236731e28cbae31019.png"
+              "image": "shopify://shop_images/7dee53ee4705fac01ac3c5236731e28cbae31019.png",
+              "name": "Team Member Name",
+              "role": "Meat Specialist",
+              "li_link": "",
+              "ig_link": "",
+              "tw_link": ""
             }
           },
           "member_9qtEcG": {
             "type": "member",
             "settings": {
-              "image": "shopify://shop_images/cf3b51cc3dfbc1b1734d1c3fea17ca06fdddfebf.png"
+              "image": "shopify://shop_images/cf3b51cc3dfbc1b1734d1c3fea17ca06fdddfebf.png",
+              "name": "Team Member Name",
+              "role": "Meat Specialist",
+              "li_link": "",
+              "ig_link": "",
+              "tw_link": ""
             }
           },
           "member_N746g6": {
             "type": "member",
             "settings": {
-              "image": "shopify://shop_images/8f1403a454bc43a1e9e639d568c964ef57ee0615.png"
+              "image": "shopify://shop_images/8f1403a454bc43a1e9e639d568c964ef57ee0615.png",
+              "name": "Team Member Name",
+              "role": "Meat Specialist",
+              "li_link": "",
+              "ig_link": "",
+              "tw_link": ""
             }
           }
         },
@@ -367,10 +558,31 @@
         "settings": {
           "heading": "Meet Our Team Members",
           "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
+          "heading_font_family": "'Oswald', sans-serif",
+          "body_font_family": "'Poppins', sans-serif",
+          "h_size": 50,
+          "h_size_mob": 32,
+          "name_size": 22,
+          "role_size": 14,
           "bg_color": "#ffffff",
+          "card_bg": "#ffffff",
           "accent_color": "#d32f2f",
+          "accent_hover_color": "#b71c1c",
           "text_color_heading": "#1a1a1a",
-          "text_color_sub": "#555555"
+          "text_color_sub": "#555555",
+          "cols_desktop": 3,
+          "img_height": 450,
+          "img_height_mob": 350,
+          "card_radius": 15,
+          "autoplay": true,
+          "autoplay_speed": 5,
+          "show_nav": true,
+          "animation_type": "fade-up",
+          "hover_effect": "lift",
+          "enable_zoom": true,
+          "container_width": 1240,
+          "p_top": 80,
+          "p_bottom": 80
         }
       },
       "faq": {
@@ -378,13 +590,30 @@
         "settings": {
           "heading": "Frequently Asked Questions",
           "subheading": "<p>Everything you need to know about our premium meat cuts, delivery process, and quality standards.</p>",
-          "bg_color": "#ffffff",
+          "header_alignment": "center",
+          "open_first": true,
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 48,
+          "heading_size_mob": 32,
+          "body_font_family": "'Poppins', sans-serif",
+          "question_size": 18,
+          "question_size_mob": 16,
           "active_bg": "#d32f2f",
           "active_text": "#ffffff",
           "inactive_bg": "#fdf2f2",
           "inactive_text": "#1a1a1a",
+          "enable_hover": true,
+          "hover_bg": "#fde8e8",
+          "hover_text": "#d32f2f",
+          "bg_color": "#ffffff",
           "text_color_heading": "#1a1a1a",
-          "text_color_sub": "#666666"
+          "text_color_sub": "#666666",
+          "icon_bg": "#ffffff",
+          "icon_color": "#d32f2f",
+          "animation_type": "fade-up",
+          "container_width": 850,
+          "padding_top": 80,
+          "padding_bottom": 80
         }
       },
       "newsletter": {
@@ -392,13 +621,31 @@
         "settings": {
           "heading": "Our Newsletter",
           "subheading": "<p>Every cut of meat is carefully selected, hygienically processed.</p>",
-          "bg_image": "shopify://shop_images/7fdeb9df99ca2303dd3aa096b74f1e0d08bab887.png",
-          "overlay_opacity": 0.6,
-          "section_bg": "#ffffff",
-          "text_color": "#ffffff",
-          "accent_color": "#d32f2f",
           "input_placeholder": "Enter Email",
-          "button_text": "Subscribe"
+          "button_text": "Subscribe",
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 48,
+          "heading_size_mob": 32,
+          "body_font_family": "'Poppins', sans-serif",
+          "desc_size": 16,
+          "desc_size_mob": 14,
+          "bg_image": "shopify://shop_images/7fdeb9df99ca2303dd3aa096b74f1e0d08bab887.png",
+          "overlay_color": "#000000",
+          "overlay_opacity_pct": 60,
+          "section_bg": "#ffffff",
+          "heading_color": "#ffffff",
+          "text_color": "#ffffff",
+          "input_bg_color": "#ffffff1a",
+          "input_border_color": "#ffffff80",
+          "input_text_color": "#ffffff",
+          "btn_bg_color": "#d32f2f",
+          "btn_text_color": "#ffffff",
+          "btn_hover_bg_color": "#ffffff",
+          "btn_hover_text_color": "#d32f2f",
+          "animation_type": "fade-up",
+          "container_width": 1200,
+          "padding_top": 60,
+          "padding_bottom": 60
         }
       },
       "footer": {
@@ -432,23 +679,10 @@
           "show_payment_icons": true
         }
       },
-      "ms-hero": {
-        "type": "ms-hero",
-        "settings": {
-          "hero_img": "shopify://shop_images/955f04766e0e9065a11cbfdc90d7de88821d16de.png",
-          "hero_title": "Our Collection",
-          "hero_height": 350,
-          "hero_font_size": 60,
-          "hero_height_mobile": 250,
-          "hero_font_size_mobile": 40,
-          "overlay_opacity": "0.4"
-        }
-      },
       "ms-circle-nav": {
         "type": "ms-circle-nav",
         "settings": {
           "collection": "shop-by-category",
-          "limit": 5,
           "bg_color": "#ffffff",
           "primary_color": "#b91c1c",
           "inner_bg_color": "#fff5f5",
@@ -460,7 +694,6 @@
         "type": "ms-main-grid",
         "settings": {
           "collection": "",
-          "products_to_show": 24,
           "title": "Products",
           "container_width": 1400,
           "side_padding": 60,
@@ -477,12 +710,12 @@
       "product": {
         "type": "product",
         "settings": {
-          "acc_color": "#e21e1e",
-          "bg_color": "#ffffff",
-          "img_card_bg": "#f7dbdb",
           "heading_font_family": "'Oswald'",
           "body_font_family": "'Poppins'",
           "title_size": 45,
+          "bg_color": "#ffffff",
+          "img_card_bg": "#f7dbdb",
+          "acc_color": "#e21e1e",
           "check_1": "100% Halal Certified",
           "check_2": "Fresh, Never Frozen",
           "check_3": "Hygienically Prepared",
@@ -544,6 +777,104 @@
           "icon_color": "#d32f2f",
           "heading_color": "#111111",
           "text_color": "#555555",
+          "padding_top": 60,
+          "padding_bottom": 80
+        }
+      },
+      "about-hero": {
+        "type": "about-hero",
+        "settings": {
+          "hero_img": "shopify://shop_images/0f1aec3611a16d6a133a61519ee0e92af8dfe787.jpg",
+          "hero_title": "About",
+          "hero_height": 350,
+          "hero_height_mobile": 250,
+          "text_alignment": "flex-start",
+          "font_family": "'Oswald', sans-serif",
+          "hero_font_size": 60,
+          "hero_font_size_mobile": 40,
+          "text_color": "#ffffff",
+          "font_weight": "700",
+          "text_transform": "uppercase",
+          "letter_spacing": 0,
+          "overlay_color": "#000000",
+          "overlay_opacity": 40,
+          "animation_type": "fade-up",
+          "enable_zoom": false
+        }
+      },
+      "our-story": {
+        "type": "our-story",
+        "settings": {
+          "bg_color": "#ffffff",
+          "padding_top": 60,
+          "padding_bottom": 80,
+          "top_heading": "World's Best Meat Shop",
+          "heading_color": "#1a1a1a",
+          "top_font_size": 42,
+          "heading_font": "'Oswald', sans-serif",
+          "heading_gap": 60,
+          "img_radius": 15,
+          "enable_zoom": true,
+          "shadow_opacity": 10,
+          "sub_heading": "Our Story",
+          "accent_color": "#be1622",
+          "sub_font_size": 32,
+          "sub_heading_font": "'Oswald', sans-serif",
+          "story_text": "<p>We are a UAE-based halal meat store committed to delivering fresh, high-quality meat you can trust.</p>",
+          "text_color": "#555555",
+          "body_font_size": 15,
+          "body_font": "'Poppins', sans-serif"
+        }
+      },
+      "our-mission": {
+        "type": "our-mission",
+        "settings": {
+          "section_height": 450,
+          "section_height_mob": 350,
+          "overlay_color": "#000000",
+          "overlay_opacity": 40,
+          "text_alignment": "left",
+          "heading": "Our Mission",
+          "heading_font": "'Oswald', sans-serif",
+          "heading_color": "#ffffff",
+          "heading_size": 48,
+          "heading_size_mob": 32,
+          "heading_mb": 20,
+          "description": "To provide fresh, halal, and responsibly prepared meat while maintaining the highest standards of quality.",
+          "desc_font": "'Poppins', sans-serif",
+          "text_color": "#ffffff",
+          "desc_size": 18,
+          "desc_size_mob": 16,
+          "animation_type": "fade-up",
+          "show_features": false,
+          "feat_bg_color": "#ffffff",
+          "feat_title_color": "#1a1a1a",
+          "feat_text_color": "#666666",
+          "icon_color": "#e21e1e",
+          "icon_hover_color": "#000000",
+          "enable_hover_anim": true
+        }
+      },
+      "our-values": {
+        "type": "our-values",
+        "settings": {
+          "heading": "Our Values",
+          "subheading": "Every cut of meat is carefully selected, hygienically processed.",
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 42,
+          "heading_size_mob": 28,
+          "body_font_family": "'Poppins', sans-serif",
+          "card_title_size": 20,
+          "body_size": 14,
+          "bg_color": "#ffffff",
+          "card_bg_color": "#fff0f0",
+          "card_hover_bg_color": "#ffffff",
+          "icon_color": "#d32f2f",
+          "icon_hover_color": "#d32f2f",
+          "heading_color": "#111111",
+          "text_color": "#555555",
+          "animation_type": "fade-up",
+          "enable_hover_effect": true,
           "padding_top": 60,
           "padding_bottom": 80
         }
