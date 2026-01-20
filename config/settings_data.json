@@ -830,6 +830,7 @@
       "our-mission": {
         "type": "our-mission",
         "settings": {
+          "bg_image": "shopify://shop_images/21cc343e1157c6014e4356cdbbc93f43ad029c03.png",
           "section_height": 450,
           "section_height_mob": 350,
           "overlay_color": "#000000",
@@ -858,9 +859,53 @@
       },
       "our-values": {
         "type": "our-values",
+        "blocks": {
+          "feature_iqbQN8": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_1.svg",
+              "title": "Freshness First",
+              "text": "Meat is cut fresh on order and never pre-frozen."
+            }
+          },
+          "feature_LVRn4M": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_2.svg",
+              "title": "Halal Commitment",
+              "text": "Strict adherence to approved halal practices at every step."
+            }
+          },
+          "feature_qCfMd6": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_3.svg",
+              "title": "Hygiene & Safety",
+              "text": "Clean processing, secure packaging, controlled delivery."
+            }
+          },
+          "feature_kP33fK": {
+            "type": "feature",
+            "settings": {
+              "icon_select": "steak",
+              "custom_icon": "shopify://shop_images/Group_4.svg",
+              "title": "Customer Trust",
+              "text": "Honest weights, consistent quality, and reliable service."
+            }
+          }
+        },
+        "block_order": [
+          "feature_iqbQN8",
+          "feature_LVRn4M",
+          "feature_qCfMd6",
+          "feature_kP33fK"
+        ],
         "settings": {
           "heading": "Our Values",
-          "subheading": "Every cut of meat is carefully selected, hygienically processed.",
+          "subheading": "",
           "heading_font_family": "'Oswald', sans-serif",
           "heading_size": 42,
           "heading_size_mob": 28,
