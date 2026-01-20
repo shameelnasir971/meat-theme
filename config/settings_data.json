@@ -1053,6 +1053,71 @@
           "animation_type": "fade-up",
           "enable_zoom": false
         }
+      },
+      "tag-bar": {
+        "type": "tag-bar",
+        "blocks": {
+          "feature_pkpYen": {
+            "type": "feature",
+            "settings": {
+              "icon_class": "fa-regular fa-certificate",
+              "custom_image": "shopify://shop_images/Frame_2.svg",
+              "title": "100% Halal Certified",
+              "subtext": "Verified by UAE authorities"
+            }
+          },
+          "feature_HcciwM": {
+            "type": "feature",
+            "settings": {
+              "icon_class": "fa-regular fa-certificate",
+              "custom_image": "shopify://shop_images/Frame_3.svg",
+              "title": "Always Fresh",
+              "subtext": "Cut and delivered same day"
+            }
+          },
+          "feature_HEfiyh": {
+            "type": "feature",
+            "settings": {
+              "icon_class": "fa-regular fa-certificate",
+              "custom_image": "shopify://shop_images/Frame_4.svg",
+              "title": "Free UAE Delivery",
+              "subtext": "On orders above $150"
+            }
+          }
+        },
+        "block_order": [
+          "feature_pkpYen",
+          "feature_HcciwM",
+          "feature_HEfiyh"
+        ],
+        "settings": {
+          "container_width": 1400,
+          "content_alignment": "space-around",
+          "padding_top": 40,
+          "padding_bottom": 40,
+          "items_gap": 80,
+          "row_gap": 40,
+          "icon_text_gap": 25,
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 20,
+          "heading_size_mob": 18,
+          "heading_font_weight": 700,
+          "heading_transform": "none",
+          "heading_letter_spacing": 0.5,
+          "heading_margin_bottom": 4,
+          "body_font_family": "'Poppins', sans-serif",
+          "text_size": 14,
+          "text_size_mob": 13,
+          "text_opacity": 0.9,
+          "background_color": "#a10c0e",
+          "icon_color": "#ffffff",
+          "heading_color": "#ffffff",
+          "text_color": "#ffffff",
+          "icon_size": 45,
+          "enable_hover": true,
+          "hover_lift": 8,
+          "animation_type": "fade-up"
+        }
       }
     },
     "content_for_index": []
