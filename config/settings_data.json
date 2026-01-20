@@ -813,6 +813,7 @@
           "top_font_size": 42,
           "heading_font": "'Oswald', sans-serif",
           "heading_gap": 60,
+          "story_img": "shopify://shop_images/fa0d8ce38c1608e0f20d7621a10842f7af115438.png",
           "img_radius": 15,
           "enable_zoom": true,
           "shadow_opacity": 10,
@@ -820,9 +821,9 @@
           "accent_color": "#be1622",
           "sub_font_size": 32,
           "sub_heading_font": "'Oswald', sans-serif",
-          "story_text": "<p>We are a UAE-based halal meat store committed to delivering fresh, high-quality meat you can trust.</p>",
+          "story_text": "<p>We are a UAE-based halal meat store committed to delivering fresh, high-quality meat you can trust. Our goal is simple: to make premium halal meat easily accessible to every household through clean processing, honest practices, and reliable service.</p><p>From sourcing to delivery, we focus on freshness, hygiene, and consistency. All our meat is carefully selected from trusted suppliers and processed according to strict halal guidelines and UAE food safety standards. Each order is freshly cut by experienced butchers and packed hygienically to preserve natural taste and texture.</p><p>We believe quality starts with responsibility. That is why we maintain proper temperature control, clean handling, and transparent weight practices at every stage. Whether you are shopping for daily meals or special occasions, we ensure every cut meets our quality promise.</p>",
           "text_color": "#555555",
-          "body_font_size": 15,
+          "body_font_size": 13,
           "body_font": "'Poppins', sans-serif"
         }
       },
