@@ -924,6 +924,71 @@
           "padding_top": 60,
           "padding_bottom": 80
         }
+      },
+      "main-cart": {
+        "type": "main-cart",
+        "settings": {}
+      },
+      "contact-hero": {
+        "type": "contact-hero",
+        "settings": {
+          "hero_img": "shopify://shop_images/955f04766e0e9065a11cbfdc90d7de88821d16de.png",
+          "hero_title": "Contact",
+          "hero_height": 350,
+          "hero_height_mobile": 250,
+          "text_alignment": "flex-start",
+          "font_family": "'Oswald', sans-serif",
+          "hero_font_size": 60,
+          "hero_font_size_mobile": 40,
+          "text_color": "#ffffff",
+          "font_weight": "700",
+          "text_transform": "uppercase",
+          "letter_spacing": 0,
+          "overlay_color": "#000000",
+          "overlay_opacity": 40,
+          "animation_type": "fade-up",
+          "enable_zoom": false
+        }
+      },
+      "main-contact-pro": {
+        "type": "main-contact-pro",
+        "settings": {
+          "heading_font_family": "'Oswald', sans-serif",
+          "heading_size": 32,
+          "heading_size_mob": 26,
+          "body_font_family": "'Poppins', sans-serif",
+          "body_size": 16,
+          "body_size_mob": 14,
+          "bg_color": "#ffffff",
+          "card_bg": "#fdfdfd",
+          "heading_color": "#1a1a1a",
+          "text_color": "#555555",
+          "accent_color": "#d32f2f",
+          "accent_hover_color": "#b71c1c",
+          "icon_color": "#d32f2f",
+          "icon_bg_color": "#ffffff",
+          "enable_hover": true,
+          "input_bg_color": "#ffffff",
+          "input_border_color": "#dddddd",
+          "animation_type": "fade-up",
+          "padding_top": 60,
+          "padding_bottom": 60,
+          "heading": "Get In Touch",
+          "description": "Have questions about our meat cuts or delivery? Feel free to reach out to us.",
+          "show_address": true,
+          "label_address": "Location",
+          "text_address": "Dubai and Abu Dhabi, UAE",
+          "icon_address": "fa-solid fa-location-dot",
+          "show_phone": true,
+          "label_phone": "Phone",
+          "text_phone": "+92 300000000",
+          "icon_phone": "fa-solid fa-phone",
+          "show_email": true,
+          "label_email": "Email",
+          "text_email": "meetshop@gmail.com",
+          "icon_email": "fa-solid fa-envelope",
+          "btn_text": "Send Message"
+        }
       }
     },
     "content_for_index": []
