@@ -1,142 +1,176 @@
 {% comment %}
-MS Pro Categories - Collection Based Dynamic Mode
-
-User selects a Collection from Theme Settings.
-
-Products in that collection become Category Cards.
-
-Product Image = Card Image.
-
-Product Title = Category Name & Filter Keyword.
-
-UI Matches Screenshot Exactly.
+  MS Pro Categories - Fully Dynamic Version
 {% endcomment %}
 
 {% style %}
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap');
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-.section-{{ section.id }}-padding {
-padding-top: {{ section.settings.padding_top }}px;
-padding-bottom: {{ section.settings.padding_bottom }}px;
-background-color: {{ section.settings.bg_color }};
-}
+  .section-{{ section.id }}-padding {
+    /* --- Dynamic Variables --- */
+    --bg-color: {{ section.settings.bg_color }};
+    --heading-color: {{ section.settings.heading_color }};
+    --card-text-color: {{ section.settings.card_text_color }};
+    --overlay-color: {{ section.settings.overlay_color }};
+    --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    
+    --h-font: {{ section.settings.heading_font_family }};
+    --card-font: {{ section.settings.card_font_family }};
+    
+    --h-size: {{ section.settings.heading_size }}px;
+    --h-size-mob: {{ section.settings.heading_size_mob }}px;
+    --card-size: {{ section.settings.card_title_size }}px;
+    --card-size-mob: {{ section.settings.card_title_size_mob }}px;
+    
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: var(--bg-color);
+  }
 
-.ms-cat-container {
-max-width: {{ section.settings.container_width }}px;
-margin: 0 auto;
-padding: 0 20px;
-}
+  .ms-cat-container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-/* Section Heading */
-.ms-section-heading {
-text-align: center;
-font-family: 'Oswald', sans-serif;
-font-size: clamp(30px, 4vw, 42px);
-font-weight: 700;
-color: {{ section.settings.heading_color }};
-margin-bottom: 45px;
-text-transform: capitalize;
-letter-spacing: 0.5px;
-}
+  /* Section Heading */
+  .ms-section-heading {
+    text-align: center;
+    font-family: var(--h-font);
+    font-size: var(--h-size);
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 45px;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    
+    /* Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+    {% endif %}
+  }
 
-/* Grid Layout */
-.ms-cat-grid {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 25px;
-}
+  /* Grid Layout */
+  .ms-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
 
-/* Rectangular Card Style */
-.ms-cat-card {
-position: relative;
-height: 300px; /* Fixed Height matching screenshot feel */
-border-radius: 12px;
-overflow: hidden;
-cursor: pointer;
-box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-background-color: #f0f0f0;
-display: block;
-}
+  /* Rectangular Card Style */
+  .ms-cat-card {
+    position: relative;
+    height: {{ section.settings.card_height }}px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    background-color: #f0f0f0;
+    display: block;
+    
+    /* Staggered Animation */
+    {% if section.settings.animation_type != 'none' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.2s;
+    {% endif %}
+  }
 
-.ms-cat-card:hover {
-transform: translateY(-6px);
-box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-}
+  /* Hover Effect */
+  {% if section.settings.enable_hover %}
+  .ms-cat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+  {% endif %}
 
-/* Image Style */
-.ms-cat-img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-transition: transform 0.6s ease;
-display: block;
-}
+  /* Image Style */
+  .ms-cat-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    display: block;
+  }
 
-.ms-cat-card:hover .ms-cat-img {
-transform: scale(1.08);
-}
+  {% if section.settings.enable_hover %}
+  .ms-cat-card:hover .ms-cat-img {
+    transform: scale(1.08);
+  }
+  {% endif %}
 
-/* SVG Placeholder */
-.ms-cat-card svg {
-width: 100%;
-height: 100%;
-background: #e0e0e0;
-object-fit: cover;
-transition: transform 0.6s ease;
-}
-.ms-cat-card:hover svg { transform: scale(1.08); }
+  /* SVG Placeholder */
+  .ms-cat-card svg {
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .ms-cat-card:hover svg { transform: scale(1.08); }
 
-/* Dark Gradient Overlay */
-.ms-cat-overlay {
-position: absolute;
-bottom: 0;
-left: 0;
-width: 100%;
-height: 60%;
-background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
-pointer-events: none;
-z-index: 1;
-}
+  /* Dark Gradient Overlay */
+  .ms-cat-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, var(--overlay-color) 0%, rgba(0,0,0,0) 100%);
+    opacity: var(--overlay-opacity);
+    pointer-events: none;
+    z-index: 1;
+  }
 
-/* Text Style - Bottom Left */
-.ms-cat-title {
-position: absolute;
-bottom: 25px;
-left: 25px;
-font-family: 'Oswald', sans-serif;
-color: #ffffff;
-font-size: 30px;
-font-weight: 700;
-text-transform: uppercase;
-margin: 0;
-text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-z-index: 2;
-line-height: 1;
-letter-spacing: 1px;
-}
+  /* Text Style - Bottom Left */
+  .ms-cat-title {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    font-family: var(--card-font);
+    color: var(--card-text-color);
+    font-size: var(--card-size);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    z-index: 2;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-.ms-cat-grid {
-grid-template-columns: repeat(2, 1fr);
-}
-.ms-cat-card {
-height: 260px;
-}
-}
+  /* Keyframes */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-@media (max-width: 600px) {
-.ms-cat-grid {
-grid-template-columns: 1fr;
-}
-.ms-cat-card {
-height: 240px;
-}
-.ms-section-heading {
-margin-bottom: 30px;
-}
-}
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .ms-cat-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ms-cat-card {
+      height: 260px;
+    }
+    .ms-section-heading { font-size: var(--h-size-mob); }
+  }
+
+  @media (max-width: 600px) {
+    .ms-cat-grid {
+      grid-template-columns: 1fr;
+    }
+    .ms-cat-card {
+      height: 240px;
+    }
+    .ms-section-heading {
+      margin-bottom: 30px;
+    }
+    .ms-cat-title { font-size: var(--card-size-mob); }
+  }
 {% endstyle %}
 
 <div class="section-{{ section.id }}-padding">
@@ -152,8 +186,8 @@ margin-bottom: 30px;
 
       {%- if selected_collection != blank and selected_collection.products_count > 0 -%}
         
-        <!-- DYNAMIC LOOP: Collection ke products ko Card bana diya -->
-        {%- for product in selected_collection.products limit: section.settings.limit -%}
+        <!-- DYNAMIC LOOP: Collection ke products ko Card bana diya (Unlimited) -->
+        {%- for product in selected_collection.products -%}
           <!-- 
              ONCLICK UPDATE: Ab ye dusre page (collections/all) par bhejega ?category parameter ke sath
           -->
@@ -198,88 +232,80 @@ margin-bottom: 30px;
 
 {% schema %}
 {
-"name": "Shop By Category",
-"settings": [
-{
-"type": "text",
-"id": "heading",
-"label": "Heading",
-"default": "Shop By Category"
-},
-{
-"type": "header",
-"content": "Data Source"
-},
-{
-"type": "collection",
-"id": "collection",
-"label": "Select Collection",
-"info": "Products inside this collection will display as Category Cards."
-},
-{
-"type": "range",
-"id": "limit",
-"min": 4,
-"max": 12,
-"step": 1,
-"label": "Limit Cards",
-"default": 4
-},
-{
-"type": "header",
-"content": "Layout Settings"
-},
-{
-"type": "range",
-"id": "container_width",
-"min": 1000,
-"max": 1600,
-"step": 10,
-"unit": "px",
-"label": "Container Width",
-"default": 1400
-},
-{
-"type": "range",
-"id": "padding_top",
-"min": 0,
-"max": 100,
-"step": 5,
-"unit": "px",
-"label": "Padding Top",
-"default": 60
-},
-{
-"type": "range",
-"id": "padding_bottom",
-"min": 0,
-"max": 100,
-"step": 5,
-"unit": "px",
-"label": "Padding Bottom",
-"default": 60
-},
-{
-"type": "header",
-"content": "Colors"
-},
-{
-"type": "color",
-"id": "bg_color",
-"label": "Background Color",
-"default": "#ffffff"
-},
-{
-"type": "color",
-"id": "heading_color",
-"label": "Heading Color",
-"default": "#1a1a1a"
-}
-],
-"presets": [
-{
-"name": "Shop By Category"
-}
-]
+  "name": "Shop By Category Pro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop By Category"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection",
+      "info": "Products inside this collection will display as Category Cards."
+    },
+
+    {
+      "type": "header",
+      "content": "Typography Settings"
+    },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+      { "value": "serif", "label": "System Serif" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 24, "max": 80, "step": 1, "default": 42, "unit": "px" },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 50, "step": 1, "default": 30, "unit": "px" },
+    
+    { "type": "select", "id": "card_font_family", "label": "Card Font", "options": [
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "sans-serif", "label": "System Sans" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "card_title_size", "label": "Card Title Size", "min": 16, "max": 40, "default": 30, "unit": "px" },
+    { "type": "range", "id": "card_title_size_mob", "label": "Card Title Mobile", "min": 14, "max": 30, "default": 24, "unit": "px" },
+
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    { "type": "range", "id": "container_width", "min": 1000, "max": 1600, "step": 10, "unit": "px", "label": "Container Width", "default": 1400 },
+    { "type": "range", "id": "card_height", "label": "Card Height", "min": 200, "max": 500, "step": 10, "default": 300, "unit": "px" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 5, "unit": "px", "label": "Padding Top", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 5, "unit": "px", "label": "Padding Bottom", "default": 60 },
+
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "card_text_color", "label": "Card Title Color", "default": "#ffffff" },
+    { "type": "color", "id": "overlay_color", "label": "Overlay Gradient Color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay Opacity", "min": 0, "max": 100, "step": 5, "default": 85, "unit": "%" },
+
+    {
+      "type": "header",
+      "content": "Animations & Hover"
+    },
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" },
+    { "type": "checkbox", "id": "enable_hover", "label": "Enable Hover Zoom", "default": true }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Category Pro"
+    }
+  ]
 }
 {% endschema %}

@@ -1,399 +1,271 @@
 {%- style -%}
-  /* Import Requested Fonts */
-  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap');
+/* Import Requested Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;700&family=Poppins:wght@300;400;500;600&family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
-  .section-{{ section.id }} {
-    /* --- Dynamic Variables --- */
-    --bg-color: {{ section.settings.bg_color }};
-    --card-bg: {{ section.settings.card_bg_color }};
-    --card-shadow: {{ section.settings.card_shadow_color | color_modify: 'alpha', 0.05 }};
-    
-    --accent-color: {{ section.settings.accent_color }};
-    --heading-color: {{ section.settings.text_color_heading }};
-    --subheading-color: {{ section.settings.text_color_sub }};
-    --quote-color: {{ section.settings.text_color_quote }};
-    --author-color: {{ section.settings.text_color_author }};
-    
-    --nav-btn-color: {{ section.settings.nav_btn_color }};
-    --nav-btn-bg: {{ section.settings.nav_btn_bg }};
-    --nav-hover-color: {{ section.settings.nav_hover_color }};
-    --nav-hover-bg: {{ section.settings.nav_hover_bg }};
+.section-{{ section.id }} {
+  --bg-color: {{ section.settings.bg_color }};
+  --card-bg: {{ section.settings.card_bg_color }};
+  --accent-color: {{ section.settings.accent_color }};
+  --heading-color: {{ section.settings.text_color_heading }};
+  --sub-color: {{ section.settings.text_color_sub }};
+  --quote-color: {{ section.settings.text_color_quote }};
+  --author-color: {{ section.settings.text_color_author }};
+  
+  --h-font: {{ section.settings.heading_font_family }};
+  --b-font: {{ section.settings.body_font_family }};
+  --h-size: {{ section.settings.heading_size }}px;
+  --h-size-mob: {{ section.settings.heading_size_mob }}px;
+  --quote-size: {{ section.settings.quote_size }}px;
 
-    /* Typography */
-    --h-font: {{ section.settings.heading_font_family }};
-    --b-font: {{ section.settings.body_font_family }};
-    
-    --h-size: {{ section.settings.heading_size }}px;
-    --h-size-mob: {{ section.settings.heading_size_mob }}px;
-    --quote-size: {{ section.settings.quote_size }}px;
-    
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    background-color: var(--bg-color);
-    font-family: var(--b-font);
-    overflow: hidden;
-  }
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  background-color: var(--bg-color);
+  font-family: var(--b-font);
+  overflow: hidden;
+}
 
-  .container-testimonial {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+.container-testimonial {
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-  .testimonial-header { 
-    text-align: center;
-    margin-bottom: 50px; 
-    
-    /* Animation */
-    {% if section.settings.animation_type != 'none' %}
-      animation: fadeInUp 1s ease-out forwards;
-      opacity: 0;
-    {% endif %}
-  }
-
-  .testimonial-title {
-    font-family: var(--h-font);
-    font-size: var(--h-size);
-    font-weight: 700;
-    color: var(--heading-color);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 1.2;
-  }
-
-  .testimonial-subtitle {
-    font-family: var(--b-font);
-    font-size: 16px;
-    color: var(--subheading-color);
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .testimonial-slider-outer {
-    position: relative;
-    margin: 0 -10px;
-    min-height: 250px; 
-  }
-
-  .testimonial-slider-wrapper {
-    overflow: hidden;
-    cursor: grab;
-    padding: 20px 0; /* Extra padding for shadow/hover space */
-  }
-
-  .testimonial-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
-  }
-
-  .testimonial-card {
-    flex: 0 0 33.333%;
-    padding: 0 10px;
-    box-sizing: border-box;
-    display: flex;
-    
-    /* Card Animation */
-    {% if section.settings.animation_type == 'fade-up' %}
-      animation: fadeInUp 1s ease-out forwards;
-      opacity: 0;
-      animation-delay: 0.2s;
-    {% elsif section.settings.animation_type == 'zoom-in' %}
-      animation: zoomIn 0.8s ease-out forwards;
-      opacity: 0;
-      animation-delay: 0.2s;
-    {% endif %}
-  }
-
-  .card-inner {
-    background-color: var(--card-bg);
-    padding: 35px 25px;
-    border-radius: 15px;
-    text-align: left;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 4px 15px var(--card-shadow);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.03);
-  }
-
-  /* Hover Lift Effect */
-  {% if section.settings.enable_card_hover %}
-  .testimonial-card:hover .card-inner {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px var(--card-shadow);
-  }
+.testimonial-header { 
+  text-align: center; margin-bottom: 50px; 
+  {% if section.settings.animation_type != 'none' %}
+    animation: {{ section.settings.animation_type }} 1s ease-out forwards;
+    opacity: 0;
   {% endif %}
+}
 
-  .quote-text {
-    font-family: var(--b-font);
-    font-size: var(--quote-size);
-    line-height: 1.7;
-    color: var(--quote-color);
-    margin-bottom: 25px;
-    font-style: italic;
-  }
+.testimonial-title {
+  font-family: var(--h-font);
+  font-size: var(--h-size);
+  color: var(--heading-color);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
 
-  .author-box { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    margin-top: auto;
-  }
+.testimonial-slider-wrapper { overflow: hidden; position: relative; padding: 10px 0; }
 
-  .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #f0f0f0;
-    border: 2px solid var(--accent-color);
-  }
+.testimonial-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  gap: 20px;
+}
 
-  .author-info h4 {
-    font-family: var(--h-font);
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--author-color);
-    margin: 0;
-  }
+.testimonial-card {
+  flex: 0 0 calc(33.333% - 14px);
+  min-width: 300px;
+  {% if section.settings.animation_type != 'none' %}
+    animation: {{ section.settings.animation_type }} 1s ease-out forwards;
+    opacity: 0;
+  {% endif %}
+}
 
-  .author-info p {
-    font-family: var(--b-font);
-    font-size: 13px;
-    color: var(--subheading-color);
-    margin: 0;
-    opacity: 0.8;
-  }
+.card-inner {
+  background: var(--card-bg);
+  padding: 40px 30px;
+  border-radius: {{ section.settings.card_radius }}px;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: 0.4s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
 
-  .slider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin: 25px 0;
-    min-height: 10px;
-  }
+{% if section.settings.enable_card_hover %}
+.card-inner:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  border-color: var(--accent-color);
+}
+{% endif %}
 
-  .dot {
-    width: 10px;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+/* OFF TAG / DYNAMIC BADGE */
+.card-badge {
+  position: absolute;
+  top: 15px; right: 15px;
+  padding: 5px 15px;
+  background: {{ section.settings.badge_bg }};
+  color: {{ section.settings.badge_text_color }};
+  font-size: 12px; font-weight: 700;
+  border-radius: 50px; text-transform: uppercase;
+  font-family: var(--h-font);
+}
 
-  .dot.active { 
-    background-color: var(--accent-color); 
-    width: 30px; 
-    border-radius: 10px; 
-  }
+.quote-icon { width: 35px; margin-bottom: 20px; color: var(--accent-color); }
+.quote-text {
+  font-size: var(--quote-size);
+  color: var(--quote-color);
+  line-height: 1.8;
+  margin-bottom: 30px;
+  font-style: italic;
+}
 
-  .slider-nav {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 10px;
-  }
+.author-box { display: flex; align-items: center; gap: 15px; margin-top: auto; }
+.avatar {
+  width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+  border: 2px solid var(--accent-color);
+}
 
-  .nav-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--nav-btn-bg);
-    border: 1px solid var(--nav-btn-color);
-    color: var(--nav-btn-color);
-    transition: 0.3s ease;
-  }
+.author-info h4 { font-family: var(--h-font); font-size: 18px; margin: 0; color: var(--author-color); }
+.author-info p { margin: 0; font-size: 14px; color: var(--sub-color); }
 
-  .nav-btn:hover {
-    background-color: var(--nav-hover-bg);
-    border-color: var(--nav-hover-bg);
-    color: var(--nav-hover-color);
-    transform: scale(1.05);
-  }
+/* SLIDER NAVIGATION (SCREENSHOT STYLE: THIN RED CIRCLE) */
+.slider-controls {
+  display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 50px;
+}
 
-  .nav-btn svg { width: 22px; height: 22px; }
+.nav-btn {
+  width: 65px; height: 65px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent-color); /* Thin Circle border */
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: 0.4s ease;
+  padding: 0;
+}
 
-  /* Keyframes */
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+.nav-btn i, .nav-btn svg {
+  color: var(--accent-color); /* Red Arrow icon */
+  font-size: 26px;
+  transition: 0.3s;
+}
 
-  @media (max-width: 1024px) {
-    .testimonial-card { flex: 0 0 50%; }
-    .testimonial-title { font-size: 32px; }
-  }
+.nav-btn:hover { background: var(--accent-color); }
+.nav-btn:hover i, .nav-btn:hover svg { color: #ffffff; }
+.nav-btn img { width: 30px; height: 30px; object-fit: contain; }
 
-  @media (max-width: 767px) {
-    .testimonial-card { flex: 0 0 100%; }
-    .testimonial-title { font-size: var(--h-size-mob); }
-    .card-inner { padding: 25px 20px; }
-    .nav-btn { width: 40px; height: 40px; }
-  }
+.slider-dots { display: flex; gap: 10px; }
+.dot { width: 10px; height: 10px; background: #ddd; border-radius: 50%; cursor: pointer; transition: 0.4s; }
+.dot.active { background: var(--accent-color); width: 30px; border-radius: 10px; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zoom-in { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 1024px) { .testimonial-card { flex: 0 0 calc(50% - 10px); } }
+@media (max-width: 767px) { 
+  .testimonial-card { flex: 0 0 100%; }
+  .testimonial-title { font-size: var(--h-size-mob); }
+  .nav-btn { width: 55px; height: 55px; }
+}
 {%- endstyle -%}
 
-<section class="section-{{ section.id }} testimonial-section-root" data-section-id="{{ section.id }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<section class="section-{{ section.id }}">
   <div class="container-testimonial">
-    
     <div class="testimonial-header">
       <h2 class="testimonial-title">{{ section.settings.heading }}</h2>
       <div class="testimonial-subtitle">{{ section.settings.subheading }}</div>
     </div>
 
-    <div class="testimonial-slider-outer">
-      <div class="testimonial-slider-wrapper" id="sliderWrapper-{{ section.id }}">
-        <div class="testimonial-track" id="testimonialTrack-{{ section.id }}">
-          
-          {%- if section.blocks.size > 0 -%}
-            {%- for block in section.blocks -%}
-              <div class="testimonial-card" {{ block.shopify_attributes }}>
-                <div class="card-inner">
-                  <p class="quote-text">"{{ block.settings.quote }}"</p>
-                  <div class="author-box">
-                    {%- if block.settings.image != blank -%}
-                      <img 
-                        src="{{ block.settings.image | image_url: width: 100, height: 100 }}" 
-                        alt="{{ block.settings.name }}" 
-                        class="avatar" 
-                        width="48" 
-                        height="48" 
-                        loading="lazy"
-                      >
-                    {%- else -%}
-                      <img 
-                        src="https://i.pravatar.cc/100?u={{ forloop.index }}" 
-                        alt="User" 
-                        class="avatar" 
-                        width="48" 
-                        height="48" 
-                        loading="lazy"
-                      >
-                    {%- endif -%}
-                    <div class="author-info">
-                      <h4>{{ block.settings.name }}</h4>
-                      <p>{{ block.settings.location }}</p>
-                    </div>
-                  </div>
-                </div>
+    <div class="testimonial-slider-wrapper">
+      <div class="testimonial-track" id="track-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          <div class="testimonial-card" {{ block.shopify_attributes }}>
+            <div class="card-inner">
+              {% if block.settings.badge_text != blank %}
+                <span class="card-badge">{{ block.settings.badge_text }}</span>
+              {% endif %}
+              
+              <div class="quote-icon">
+                {% if section.settings.custom_quote_icon != blank %}
+                  <img src="{{ section.settings.custom_quote_icon | image_url: width: 50 }}">
+                {% else %}
+                  <i class="fas fa-quote-left"></i>
+                {% endif %}
               </div>
-            {%- endfor -%}
-          {%- else -%}
-            {%- for i in (1..3) -%}
-              <div class="testimonial-card">
-                <div class="card-inner">
-                  <p class="quote-text">"Please add testimonials from your Shopify theme editor to see them here. This is a placeholder text demonstrating the layout."</p>
-                  <div class="author-box">
-                    <img 
-                      src="https://i.pravatar.cc/100?u={{ i }}" 
-                      alt="Placeholder User" 
-                      class="avatar" 
-                      width="48" 
-                      height="48" 
-                      loading="lazy"
-                    >
-                    <div class="author-info"><h4>John Doe</h4><p>Happy Customer</p></div>
-                  </div>
-                </div>
-              </div>
-            {%- endfor -%}
-          {%- endif -%}
 
-        </div>
+              <p class="quote-text">{{ block.settings.quote }}</p>
+              
+              <div class="author-box">
+                {% if block.settings.image != blank %}
+                  <img src="{{ block.settings.image | image_url: width: 150 }}" class="avatar">
+                {% else %}
+                  <img src="https://i.pravatar.cc/150?u={{ block.id }}" class="avatar">
+                {% endif %}
+                <div class="author-info">
+                  <h4>{{ block.settings.name }}</h4>
+                  <p>{{ block.settings.location }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
       </div>
     </div>
 
-    <div class="slider-dots" id="sliderDots-{{ section.id }}"></div>
-
-    <div class="slider-nav">
-      <button class="nav-btn prev" onclick="window.slider_{{ section.id | replace: '-', '_' }}.move(-1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <div class="slider-controls">
+      <button class="nav-btn prev-{{ section.id | replace: '-', '' }}" onclick="slider{{ section.id | replace: '-', '' }}.move(-1)">
+        {% if section.settings.custom_icon_left != blank %}
+          <img src="{{ section.settings.custom_icon_left | image_url: width: 44 }}">
+        {% else %}
+          <i class="fas fa-chevron-left"></i>
+        {% endif %}
       </button>
-      <button class="nav-btn next" onclick="window.slider_{{ section.id | replace: '-', '_' }}.move(1)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+
+      <div class="slider-dots" id="dots-{{ section.id }}"></div>
+
+      <button class="nav-btn next-{{ section.id | replace: '-', '' }}" onclick="slider{{ section.id | replace: '-', '' }}.move(1)">
+        {% if section.settings.custom_icon_right != blank %}
+          <img src="{{ section.settings.custom_icon_right | image_url: width: 44 }}">
+        {% else %}
+          <i class="fas fa-chevron-right"></i>
+        {% endif %}
       </button>
     </div>
-
   </div>
 </section>
 
 <script>
-class TestimonialSlider {
-  constructor(sectionId) {
-    this.sectionId = sectionId;
-    this.container = document.getElementById(`testimonialTrack-${sectionId}`);
-    this.dotsContainer = document.getElementById(`sliderDots-${sectionId}`);
-    this.currentIndex = 0;
+class TestiSlider{{ section.id | replace: '-', '' }} {
+  constructor() {
+    this.track = document.getElementById('track-{{ section.id }}');
+    this.dotsBox = document.getElementById('dots-{{ section.id }}');
+    this.index = 0;
     this.init();
   }
-
-  init() {
-    if (!this.container) return;
-    this.setupDots();
-    this.update();
-    window.addEventListener('resize', () => { this.currentIndex = 0; this.setupDots(); this.update(); });
-  }
-
-  getVisibleCards() {
+  getVisible() {
     if (window.innerWidth <= 767) return 1;
     if (window.innerWidth <= 1024) return 2;
     return 3;
   }
-
-  setupDots() {
-    if (!this.dotsContainer) return;
-    const cards = this.container.querySelectorAll('.testimonial-card');
-    const visible = this.getVisibleCards();
-    const dotCount = Math.max(0, cards.length - visible + 1);
-    
-    this.dotsContainer.innerHTML = '';
-    for (let i = 0; i < dotCount; i++) {
-      const dot = document.createElement('span');
-      dot.className = `dot ${i === this.currentIndex ? 'active' : ''}`;
-      dot.onclick = () => { this.currentIndex = i; this.update(); };
-      this.dotsContainer.appendChild(dot);
+  init() {
+    this.renderDots();
+    window.addEventListener('resize', () => { this.index = 0; this.renderDots(); this.update(); });
+  }
+  renderDots() {
+    const cards = this.track.querySelectorAll('.testimonial-card');
+    const count = Math.max(0, cards.length - this.getVisible() + 1);
+    this.dotsBox.innerHTML = '';
+    for(let i=0; i<count; i++) {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i===this.index ? 'active' : ''}`;
+      dot.onclick = () => { this.index = i; this.update(); };
+      this.dotsBox.appendChild(dot);
     }
   }
-
   move(dir) {
-    const cards = this.container.querySelectorAll('.testimonial-card');
-    const visible = this.getVisibleCards();
-    const max = Math.max(0, cards.length - visible);
-    this.currentIndex += dir;
-    if (this.currentIndex < 0) this.currentIndex = max;
-    else if (this.currentIndex > max) this.currentIndex = 0;
+    const cards = this.track.querySelectorAll('.testimonial-card');
+    const max = Math.max(0, cards.length - this.getVisible());
+    this.index += dir;
+    if(this.index < 0) this.index = max;
+    else if(this.index > max) this.index = 0;
     this.update();
   }
-
   update() {
-    const cards = this.container.querySelectorAll('.testimonial-card');
-    if (cards.length === 0) return;
-    const width = cards[0].offsetWidth;
-    this.container.style.transform = `translateX(-${this.currentIndex * width}px)`;
-    
-    const dots = this.dotsContainer.querySelectorAll('.dot');
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === this.currentIndex));
+    const w = this.track.querySelector('.testimonial-card').offsetWidth + 20;
+    this.track.style.transform = `translateX(-${this.index * w}px)`;
+    const dots = this.dotsBox.querySelectorAll('.dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === this.index));
   }
 }
-
-// Initialize Slider
-document.addEventListener('DOMContentLoaded', () => {
-  window.slider_{{ section.id | replace: '-', '_' }} = new TestimonialSlider('{{ section.id }}');
-});
-
-// Shopify Design Mode Support
-document.addEventListener('shopify:section:load', (e) => {
-  if (e.detail.sectionId === '{{ section.id }}') {
-    window.slider_{{ section.id | replace: '-', '_' }} = new TestimonialSlider('{{ section.id }}');
-  }
-});
+const slider{{ section.id | replace: '-', '' }} = new TestiSlider{{ section.id | replace: '-', '' }}();
 </script>
 
 {% schema %}
@@ -401,74 +273,72 @@ document.addEventListener('shopify:section:load', (e) => {
   "name": "Testimonials Slider Pro",
   "settings": [
     { "type": "header", "content": "Text Content" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "What Our Customer Say" },
-    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Real feedback from our valued customers.</p>" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Customer Feedback" },
+    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Read what our happy clients have to say.</p>" },
 
-    { "type": "header", "content": "Typography Settings" },
+    { "type": "header", "content": "Typography (Advanced Fonts)" },
     { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
       { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
       { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
-      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
-      { "value": "serif", "label": "System Serif" }
-    ], "default": "'Oswald', sans-serif" },
-    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 24, "max": 60, "step": 1, "unit": "px", "default": 40 },
-    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 40, "step": 1, "unit": "px", "default": 28 },
-    
-    { "type": "select", "id": "body_font_family", "label": "Body/Quote Font", "options": [
       { "value": "'Poppins', sans-serif", "label": "Poppins" },
-      { "value": "'Questrial', sans-serif", "label": "Questrial" },
-      { "value": "sans-serif", "label": "System Sans" }
+      { "value": "'Montserrat', sans-serif", "label": "Montserrat" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "'Roboto', sans-serif", "label": "Roboto" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial" }
     ], "default": "'Poppins', sans-serif" },
-    { "type": "range", "id": "quote_size", "label": "Quote Text Size", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 15 },
+    { "type": "range", "id": "heading_size", "label": "Heading Size", "min": 20, "max": 80, "step": 1, "default": 42 },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size Mobile", "min": 18, "max": 40, "step": 1, "default": 28 },
+    { "type": "range", "id": "quote_size", "label": "Quote Text Size", "min": 12, "max": 24, "step": 1, "default": 16 },
 
-    { "type": "header", "content": "Color Settings" },
+    { "type": "header", "content": "Colors & Badges" },
     { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg_color", "label": "Card Background", "default": "#fdf0f0" },
-    { "type": "color", "id": "card_shadow_color", "label": "Card Shadow Color", "default": "#000000" },
-    { "type": "color", "id": "accent_color", "label": "Accent Color (Dots/Border)", "default": "#d32f2f" },
-    { "type": "color", "id": "text_color_heading", "label": "Heading Text", "default": "#1a1a1a" },
-    { "type": "color", "id": "text_color_sub", "label": "Sub-heading Text", "default": "#555555" },
-    { "type": "color", "id": "text_color_quote", "label": "Quote Text", "default": "#333333" },
-    { "type": "color", "id": "text_color_author", "label": "Author Name", "default": "#d32f2f" },
-    
-    { "type": "header", "content": "Navigation Colors" },
-    { "type": "color", "id": "nav_btn_color", "label": "Arrow Color", "default": "#d32f2f" },
-    { "type": "color", "id": "nav_btn_bg", "label": "Arrow Background", "default": "#ffffff" },
-    { "type": "color", "id": "nav_hover_color", "label": "Arrow Hover Color", "default": "#ffffff" },
-    { "type": "color", "id": "nav_hover_bg", "label": "Arrow Hover Background", "default": "#d32f2f" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color (Arrows/Dots)", "default": "#d32f2f" },
+    { "type": "color", "id": "text_color_heading", "label": "Heading Color", "default": "#1a1a1a" },
+    { "type": "color", "id": "text_color_sub", "label": "Sub-heading Color", "default": "#555555" },
+    { "type": "color", "id": "text_color_quote", "label": "Quote Color", "default": "#333333" },
+    { "type": "color", "id": "text_color_author", "label": "Author Name Color", "default": "#d32f2f" },
+    { "type": "color", "id": "badge_bg", "label": "Tag/Badge Background", "default": "#d32f2f" },
+    { "type": "color", "id": "badge_text_color", "label": "Tag/Badge Text", "default": "#ffffff" },
 
-    { "type": "header", "content": "Animations & Interactions" },
+    { "type": "header", "content": "Custom Device Icons" },
+    { "type": "image_picker", "id": "custom_quote_icon", "label": "Custom Quote Icon" },
+    { "type": "image_picker", "id": "custom_icon_left", "label": "Custom Left Arrow" },
+    { "type": "image_picker", "id": "custom_icon_right", "label": "Custom Right Arrow" },
+
+    { "type": "header", "content": "Animations & Hover" },
     { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
       { "value": "none", "label": "None" },
       { "value": "fade-up", "label": "Fade Up" },
       { "value": "zoom-in", "label": "Zoom In" }
     ], "default": "fade-up" },
-    { "type": "checkbox", "id": "enable_card_hover", "label": "Enable Card Hover Lift", "default": true },
+    { "type": "checkbox", "id": "enable_card_hover", "label": "Enable Card Lift on Hover", "default": true },
 
-    { "type": "header", "content": "Spacing" },
-    { "type": "range", "id": "padding_top", "label": "Top Padding", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 60 },
-    { "type": "range", "id": "padding_bottom", "label": "Bottom Padding", "min": 0, "max": 100, "step": 5, "unit": "px", "default": 80 }
+    { "type": "header", "content": "Layout Spacing" },
+    { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1240 },
+    { "type": "range", "id": "card_radius", "label": "Card Corner Radius", "min": 0, "max": 50, "step": 1, "default": 20 },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 150, "step": 2, "default": 80 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 150, "step": 2, "default": 80 }
   ],
   "blocks": [
     {
       "type": "testimonial",
       "name": "Testimonial",
       "settings": [
-        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The quality of meat is unmatched! Absolutely fresh and delicious." },
-        { "type": "image_picker", "id": "image", "label": "Author Image" },
-        { "type": "text", "id": "name", "label": "Author Name", "default": "John Carter" },
-        { "type": "text", "id": "location", "label": "Location", "default": "Dubai, UAE" }
+        { "type": "text", "id": "badge_text", "label": "Card Tag (e.g. 20% OFF / NEW)", "default": "Verified" },
+        { "type": "textarea", "id": "quote", "label": "Quote Text", "default": "Absolutely fantastic quality! Highly recommended." },
+        { "type": "image_picker", "id": "image", "label": "Author Photo" },
+        { "type": "text", "id": "name", "label": "Author Name", "default": "Zeeshan Ahmed" },
+        { "type": "text", "id": "location", "label": "Designation/Location", "default": "Customer" }
       ]
     }
   ],
   "presets": [
     {
       "name": "Testimonials Slider Pro",
-      "blocks": [
-        { "type": "testimonial" },
-        { "type": "testimonial" },
-        { "type": "testimonial" }
-      ]
+      "blocks": [ { "type": "testimonial" }, { "type": "testimonial" }, { "type": "testimonial" } ]
     }
   ]
 }

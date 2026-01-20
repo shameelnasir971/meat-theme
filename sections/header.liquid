@@ -2,31 +2,68 @@
 {
   "name": "Custom Header Pro",
   "settings": [
+    { "type": "header", "content": "Global Font Settings" },
+    {
+      "type": "select",
+      "id": "font_family_main",
+      "label": "Main Nav Font Family",
+      "options": [
+        { "value": "'Poppins', sans-serif", "label": "Poppins" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial" },
+        { "value": "'Oswald', sans-serif", "label": "Oswald" },
+        { "value": "sans-serif", "label": "System Sans-Serif" }
+      ],
+      "default": "'Poppins', sans-serif"
+    },
+    {
+      "type": "select",
+      "id": "font_family_headings",
+      "label": "Logo & Headings Font Family",
+      "options": [
+        { "value": "'Oswald', sans-serif", "label": "Oswald" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial" },
+        { "value": "'Poppins', sans-serif", "label": "Poppins" }
+      ],
+      "default": "'Oswald', sans-serif"
+    },
     { "type": "header", "content": "Main Layout Settings" },
     { "type": "link_list", "id": "main_menu", "label": "Select Menu" },
-    { "type": "range", "id": "nav_font_size", "label": "Nav Font Size", "default": 15, "min": 12, "max": 20, "step": 1, "unit": "px" },
+    { "type": "range", "id": "nav_font_size", "label": "Nav Font Size", "default": 15, "min": 12, "max": 25, "step": 1, "unit": "px" },
+    { "type": "range", "id": "nav_font_weight", "label": "Nav Font Weight", "default": 500, "min": 300, "max": 800, "step": 100 },
+    { "type": "range", "id": "header_padding_top", "label": "Header Padding (Desktop)", "default": 25, "min": 10, "max": 50, "step": 1, "unit": "px" },
+
     { "type": "header", "content": "Logo Settings" },
     { "type": "image_picker", "id": "logo_image", "label": "Logo Image" },
     { "type": "text", "id": "logo_text", "label": "Logo Text", "default": "MEAT SHOP" },
-    { "type": "range", "id": "logo_size", "label": "Logo Width (Top)", "default": 60, "min": 30, "max": 200, "step": 5, "unit": "px" },
-    { "type": "range", "id": "logo_size_scrolled", "label": "Logo Width (Scrolled)", "default": 50, "min": 20, "max": 150, "step": 5, "unit": "px" },
-    { "type": "header", "content": "Color Settings (Top/Static State)" },
+    { "type": "range", "id": "logo_text_size", "label": "Logo Text Size", "default": 24, "min": 16, "max": 40, "step": 1, "unit": "px" },
+    { "type": "range", "id": "logo_size", "label": "Logo Width (Top)", "default": 60, "min": 30, "max": 300, "step": 5, "unit": "px" },
+    { "type": "range", "id": "logo_size_scrolled", "label": "Logo Width (Scrolled)", "default": 50, "min": 20, "max": 200, "step": 5, "unit": "px" },
+
+    { "type": "header", "content": "Color Settings (Top State)" },
     { "type": "color", "id": "text_color", "label": "Nav Link Color", "default": "#ffffff" },
     { "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#ffffff" },
     { "type": "color", "id": "hover_color", "label": "Global Hover Color", "default": "#e21e1e" },
+    
     { "type": "header", "content": "Color Settings (Scrolled State)" },
     { "type": "color", "id": "scrolled_bg", "label": "Scrolled Background", "default": "#ffffff" },
     { "type": "color", "id": "scrolled_text", "label": "Scrolled Nav Color", "default": "#1a1a1a" },
     { "type": "color", "id": "scrolled_icon_color", "label": "Scrolled Icon Color", "default": "#1a1a1a" },
     { "type": "range", "id": "scrolled_padding", "label": "Scrolled Vertical Padding", "default": 12, "min": 5, "max": 30, "step": 1, "unit": "px" },
+
     { "type": "header", "content": "Dropdown Customization" },
     { "type": "color", "id": "drop_bg", "label": "Dropdown Background", "default": "#ffffff" },
     { "type": "color", "id": "drop_text", "label": "Dropdown Link Color", "default": "#333333" },
     { "type": "color", "id": "drop_hover_bg", "label": "Dropdown Link Hover BG", "default": "#f8f8f8" },
     { "type": "range", "id": "drop_radius", "label": "Dropdown Corner Radius", "default": 8, "min": 0, "max": 20, "step": 2, "unit": "px" },
-    { "type": "header", "content": "Icon Settings" },
-    { "type": "range", "id": "icon_size", "label": "Icon Size", "default": 20, "min": 14, "max": 30, "step": 1, "unit": "px" },
+
+    { "type": "header", "content": "Icon Settings (Upload Custom Icons)" },
+    { "type": "paragraph", "content": "Leave blank to use default Font-Awesome icons" },
+    { "type": "image_picker", "id": "custom_search_icon", "label": "Custom Search Icon" },
+    { "type": "image_picker", "id": "custom_user_icon", "label": "Custom User Icon" },
+    { "type": "image_picker", "id": "custom_cart_icon", "label": "Custom Cart Icon" },
+    { "type": "range", "id": "icon_size", "label": "Icon Size", "default": 20, "min": 14, "max": 40, "step": 1, "unit": "px" },
     { "type": "checkbox", "id": "enable_hover_anim", "label": "Enable Icon Hover Animation", "default": true },
+    { "type": "text", "id": "anim_speed", "label": "Animation Speed (e.g. 0.4s)", "default": "0.4s" },
     
     { "type": "header", "content": "Mobile Sidebar Styling" },
     { "type": "color", "id": "mob_bg_color", "label": "Drawer Background", "default": "#ffffff" },
@@ -39,26 +76,34 @@
 }
 {% endschema %}
 
+<!-- Resources -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@400;500;600;700&family=Questrial&display=swap');
+</style>
 
 <!-- SEARCH OVERLAY -->
 <div class="search-overlay-pro" id="searchOverlay">
   <div class="search-container-pro">
     <button class="search-close-btn" id="searchCloseBtn"><i class="fa-solid fa-xmark"></i></button>
     <h3 class="search-title">Search Our Store</h3>
-    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form-pro">
+    <form action="/search" method="get" role="search" class="search-form-pro">
       <div class="input-group-pro">
         <input type="text" name="q" id="SearchInputPro" placeholder="What are you looking for?" class="search-input-field" autocomplete="off">
-        <input type="hidden" name="type" value="product">
-        <input type="hidden" name="options[prefix]" value="last">
-        <button type="submit" class="search-submit-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button type="submit" class="search-submit-btn">
+           {% if section.settings.custom_search_icon != blank %}
+             <img src="{{ section.settings.custom_search_icon | image_url: width: 50 }}" style="width:{{ section.settings.icon_size }}px">
+           {% else %}
+             <i class="fa-solid fa-magnifying-glass"></i>
+           {% endif %}
+        </button>
       </div>
     </form>
   </div>
 </div>
 
 <div class="header-wrapper-pro {% unless template.name == 'index' %}header-static-white{% endunless %}">
-  <header class="header-main-pro {% unless template.name == 'index' %}is-scrolled{% endunless %}" id="headerSticky">
+  <header class="header-main-pro {% unless template.name == 'index' %}is-transparent{% else %}is-transparent{% endunless %}" id="headerSticky">
     <div class="header-inner-wrap container-pro">
       
       <!-- LOGO -->
@@ -105,21 +150,38 @@
                 <li><a href="/collections"> Collections</a></li>
               </ul>
             </li>
-      <li class="menu-item-pro"><a href="/pages/contact" class="main-link-pro">Contact</a></li>          {% endif %}
+            <li class="menu-item-pro"><a href="/pages/contact" class="main-link-pro">Contact</a></li>
+          {% endif %}
         </ul>
       </nav>
 
       <!-- ICONS -->
       <div class="icons-section-pro">
-        <a href="{{ routes.search_url }}" class="icon-link-pro" id="searchTriggerBtn"><i class="fa-solid fa-magnifying-glass"></i></a>
+        <a href="#" class="icon-link-pro" id="searchTriggerBtn">
+          {% if section.settings.custom_search_icon != blank %}
+            <img src="{{ section.settings.custom_search_icon | image_url: width: 100 }}" class="custom-icon-img">
+          {% else %}
+            <i class="fa-solid fa-magnifying-glass"></i>
+          {% endif %}
+        </a>
         
         {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}" class="icon-link-pro hide-mob"><i class="fa-regular fa-user"></i></a>
+          <a href="{{ routes.account_url }}" class="icon-link-pro hide-mob">
+            {% if section.settings.custom_user_icon != blank %}
+               <img src="{{ section.settings.custom_user_icon | image_url: width: 100 }}" class="custom-icon-img">
+            {% else %}
+               <i class="fa-regular fa-user"></i>
+            {% endif %}
+          </a>
         {% endif %}
         
         <!-- CART ICON -->
         <a href="{{ routes.cart_url }}" class="icon-link-pro cart-btn-pro">
-          <i class="fa-solid fa-bag-shopping"></i>
+          {% if section.settings.custom_cart_icon != blank %}
+             <img src="{{ section.settings.custom_cart_icon | image_url: width: 100 }}" class="custom-icon-img">
+          {% else %}
+             <i class="fa-solid fa-bag-shopping"></i>
+          {% endif %}
           <span class="cart-count-pro" style="{% if cart.item_count == 0 %}display:none;{% else %}display:flex;{% endif %}">
             {{ cart.item_count }}
           </span>
@@ -130,7 +192,7 @@
   </header>
 </div>
 
-<!-- Mobile Drawer (Sidebar) -->
+<!-- Mobile Drawer -->
 <div class="mob-overlay-pro" id="mobOverlay"></div>
 <aside class="mob-drawer-pro" id="mobDrawer">
   <div class="mob-drawer-head">
@@ -166,83 +228,108 @@
             {% endif %}
           </li>
         {% endfor %}
-      {% else %}
-        <li class="mob-item-pro"><a href="/" class="mob-main-link">Home</a></li>
-        <li class="menu-item-pro"><a href="/pages/about" class="mob-main-link">About Us</a></li>
-        <li class="mob-item-pro"><a href="/collections" class="mob-main-link">Shop</a></li>
-        <li class="mob-item-pro">
-          <div class="mob-link-row">
-            <span class="mob-main-link">Category</span>
-            <span class="mob-drop-trigger"><i class="fa-solid fa-chevron-down"></i></span>
-          </div>
-          <ul class="mob-sub-list">
-            <li><a href="/collections">Collections</a></li>
-          </ul>
-        </li>
-      <li class="menu-item-pro"><a href="/pages/contact" class="mob-main-link">Contact</a></li>
       {% endif %}
     </ul>
   </div>
-  <!-- Footer Removed as requested -->
 </aside>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;500;600&display=swap');
-
   :root {
+    --main-font: {{ section.settings.font_family_main }};
+    --heading-font: {{ section.settings.font_family_headings }};
     --text-color: {{ section.settings.text_color }};
     --icon-color: {{ section.settings.icon_color }};
     --hover-red: {{ section.settings.hover_color }};
     --scrolled-bg: {{ section.settings.scrolled_bg }};
     --scrolled-text: {{ section.settings.scrolled_text }};
     --scrolled-icon: {{ section.settings.scrolled_icon_color }};
-    
     --drop-bg: {{ section.settings.drop_bg }};
     --drop-text: {{ section.settings.drop_text }};
     --drop-hover-bg: {{ section.settings.drop_hover_bg }};
     --drop-radius: {{ section.settings.drop_radius }}px;
-    
     --nav-size: {{ section.settings.nav_font_size }}px;
+    --nav-weight: {{ section.settings.nav_font_weight }};
     --logo-top: {{ section.settings.logo_size }}px;
     --logo-scrolled: {{ section.settings.logo_size_scrolled }}px;
+    --logo-text-size: {{ section.settings.logo_text_size }}px;
     --icon-size: {{ section.settings.icon_size }}px;
+    --header-pad: {{ section.settings.header_padding_top }}px;
     --scroll-pad: {{ section.settings.scrolled_padding }}px;
-
-    /* MOBILE DRAWER VARIABLES */
     --mob-bg: {{ section.settings.mob_bg_color }};
     --mob-text: {{ section.settings.mob_text_color }};
     --mob-border: {{ section.settings.mob_border_color }};
     --mob-icon: {{ section.settings.mob_icon_color }};
+    --anim-speed: {{ section.settings.anim_speed }};
   }
 
   .header-wrapper-pro { width: 100%; position: relative; z-index: 1000; }
-  .header-static-white { background: var(--scrolled-bg); border-bottom: 1px solid #f0f0f0; }
   
   .header-main-pro { 
     width: 100%; 
-    padding: 25px 0; 
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-    font-family: 'Poppins', sans-serif;
+    padding: var(--header-pad) 0; 
+    transition: all var(--anim-speed) cubic-bezier(0.4, 0, 0.2, 1); 
+    font-family: var(--main-font);
     position: relative; 
-    background-color: var(--scrolled-bg);
+    background-color: transparent; 
   }
 
-  .header-main-pro.is-scrolled {
-    position: fixed; top: 0; left: 0;
-    padding: var(--scroll-pad) 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  }
-
+  /* Transparent State Colors */
   .header-main-pro .logo-text-pro,
   .header-main-pro .main-link-pro,
   .header-main-pro .drop-icon,
-  .header-main-pro .mobile-menu-trigger,
+  .header-main-pro .mobile-menu-trigger {
+    color: var(--text-color) !important;
+  }
   .header-main-pro .icon-link-pro {
-    color: var(--scrolled-text) !important; 
+    color: var(--icon-color) !important;
+  }
+
+  /* Fix for Announcement Bar Overlap */
+  {% if template.name == 'index' %}
+    .header-main-pro:not(.is-scrolled) { 
+      position: absolute; 
+      top: auto;
+      left: 0; 
+    }
+  {% endif %}
+
+  /* NEW: White header on other pages without overlap */
+  .header-static-white .header-main-pro:not(.is-scrolled) {
+    background-color: var(--scrolled-bg) !important;
+    position: relative;
+  }
+  .header-static-white .header-main-pro:not(.is-scrolled) .logo-text-pro,
+  .header-static-white .header-main-pro:not(.is-scrolled) .main-link-pro,
+  .header-static-white .header-main-pro:not(.is-scrolled) .drop-icon,
+  .header-static-white .header-main-pro:not(.is-scrolled) .mobile-menu-trigger {
+    color: var(--scrolled-text) !important;
+  }
+  .header-static-white .header-main-pro:not(.is-scrolled) .icon-link-pro {
+    color: var(--scrolled-icon) !important;
+  }
+
+  /* Scrolled State */
+  .header-main-pro.is-scrolled {
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    padding: var(--scroll-pad) 0;
+    background-color: var(--scrolled-bg) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  .header-main-pro.is-scrolled .logo-text-pro,
+  .header-main-pro.is-scrolled .main-link-pro,
+  .header-main-pro.is-scrolled .drop-icon,
+  .header-main-pro.is-scrolled .mobile-menu-trigger {
+    color: var(--scrolled-text) !important;
+  }
+  .header-main-pro.is-scrolled .icon-link-pro {
+    color: var(--scrolled-icon) !important;
   }
   
+  /* Desktop Layout */
   .container-pro { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-
   .header-inner-wrap { 
     display: grid; 
     grid-template-columns: 280px 1fr 280px; 
@@ -254,25 +341,23 @@
   .icons-section-pro { display: flex; justify-content: flex-end; gap: 25px; align-items: center; }
 
   .logo-box-pro { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .logo-img-pro { width: var(--logo-top); transition: 0.4s; height: auto; object-fit: contain; }
+  .logo-img-pro { width: var(--logo-top); transition: var(--anim-speed); height: auto; object-fit: contain; }
   .header-main-pro.is-scrolled .logo-img-pro { width: var(--logo-scrolled) !important; }
 
   .logo-text-pro { 
-    font-family: 'Oswald', sans-serif; 
-    color: var(--text-color); 
-    font-size: 24px; 
+    font-family: var(--heading-font); 
+    font-size: var(--logo-text-size); 
     text-transform: uppercase; 
     font-weight: 700;
     letter-spacing: 0.5px;
   }
 
-  /* Nav Links Desktop */
+  /* Navigation Links */
   .menu-list-pro { display: flex; list-style: none; gap: 30px; margin: 0; padding: 0; }
   .main-link-pro { 
-    color: var(--text-color); 
     text-decoration: none; 
     font-size: var(--nav-size); 
-    font-weight: 500; 
+    font-weight: var(--nav-weight); 
     transition: 0.3s; 
     display: flex; 
     align-items: center; 
@@ -286,34 +371,32 @@
   }
   .main-link-pro:hover::after { width: 100%; }
 
+  /* Dropdown Menu */
   .has-dropdown-pro { position: relative; }
   .dropdown-menu-pro {
     position: absolute; top: 120%; left: 50%; transform: translateX(-50%) translateY(10px);
     background: var(--drop-bg); min-width: 220px; list-style: none; padding: 15px 0;
     border-radius: var(--drop-radius); box-shadow: 0 12px 35px rgba(0,0,0,0.1);
-    opacity: 0; visibility: hidden; transition: 0.3s;
-    z-index: 1002;
+    opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1002;
   }
   .has-dropdown-pro:hover .dropdown-menu-pro { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
   .dropdown-menu-pro a { 
     display: block; padding: 12px 25px; color: var(--drop-text); 
     text-decoration: none; font-size: 14px; transition: 0.2s; 
+    font-family: var(--main-font);
   }
-  .dropdown-menu-pro a:hover { 
-    background: var(--drop-hover-bg); 
-    color: var(--hover-red); 
-    padding-left: 32px; 
-  }
+  .dropdown-menu-pro a:hover { background: var(--drop-hover-bg); color: var(--hover-red); padding-left: 32px; }
 
+  /* Icons */
   .icon-link-pro { 
-    color: var(--icon-color); 
-    font-size: var(--icon-size); 
     text-decoration: none; 
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
     position: relative;
     display: inline-flex;
     cursor: pointer;
+    font-size: var(--icon-size);
   }
+  .custom-icon-img { width: var(--icon-size); height: var(--icon-size); object-fit: contain; }
   .icon-link-pro:hover { 
     color: var(--hover-red) !important; 
     {% if section.settings.enable_hover_anim %} transform: scale(1.15) translateY(-2px); {% endif %}
@@ -327,7 +410,8 @@
     font-weight: 600;
   }
 
-  .mobile-menu-trigger { display: none !important; font-size: 24px; color: var(--text-color); cursor: pointer; }
+  /* Mobile Responsive */
+  .mobile-menu-trigger { display: none !important; font-size: 24px; cursor: pointer; }
 
   @media (max-width: 1100px) {
     .menu-list-pro { display: none !important; }
@@ -340,113 +424,46 @@
     .container-pro { padding: 0 20px; }
   }
 
-  /* --- STYLED MOBILE DRAWER --- */
+  /* Mobile Drawer */
   .mob-drawer-pro { 
     position: fixed; top: 0; left: -100%; width: 320px; height: 100vh; 
-    background: var(--mob-bg); z-index: 1001; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+    background: var(--mob-bg); z-index: 1005; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
     box-shadow: 10px 0 30px rgba(0,0,0,0.1); display: flex; flex-direction: column;
+    font-family: var(--main-font);
   }
   .mob-drawer-pro.active { left: 0; }
-  .mob-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: none; backdrop-filter: blur(3px); }
+  .mob-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1004; display: none; backdrop-filter: blur(3px); }
   
-  .mob-drawer-head { 
-    padding: 20px 25px; border-bottom: 1px solid var(--mob-border); 
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .mob-close-btn { 
-    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; 
-    border-radius: 50%; background: rgba(0,0,0,0.03); cursor: pointer; transition: 0.3s;
-  }
-  .mob-close-btn i { font-size: 20px; color: var(--mob-text); }
-  .mob-close-btn:hover { background: var(--hover-red); }
-  .mob-close-btn:hover i { color: #fff; }
-
+  .mob-drawer-head { padding: 20px 25px; border-bottom: 1px solid var(--mob-border); display: flex; justify-content: space-between; align-items: center; }
+  .mob-close-btn { font-size: 20px; cursor: pointer; color: var(--mob-text); }
+  
   .mob-drawer-body { flex: 1; overflow-y: auto; padding: 10px 0; }
-  
   .mob-nav-list { list-style: none; padding: 0; margin: 0; }
   .mob-item-pro { border-bottom: 1px solid var(--mob-border); }
+  .mob-link-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; }
   
-  /* CENTER ALIGNED MENU ITEMS */
-  .mob-link-row { 
-    display: flex; justify-content: center; align-items: center; padding: 0 25px; 
-    transition: 0.2s; position: relative;
-  }
-  .mob-link-row:hover { background: rgba(0,0,0,0.02); }
-  
-  .mob-main-link { 
-    display: block; padding: 18px 0; color: var(--mob-text); 
-    text-decoration: none; font-weight: 600; font-size: 16px; flex: 1;
-    text-align: center; /* CENTER TEXT */
-    font-family: 'Oswald', sans-serif; letter-spacing: 0.5px;
-    transition: 0.2s;
-  }
-  .mob-main-link:hover { color: var(--hover-red); }
+  .mob-main-link { color: var(--mob-text); text-decoration: none; font-weight: 600; font-size: 16px; font-family: var(--heading-font); text-transform: uppercase; }
+  .mob-drop-trigger { cursor: pointer; color: var(--mob-icon); transition: 0.3s; }
+  .mob-drop-trigger.is-open { transform: rotate(180deg); }
+  .mob-sub-list { list-style: none; padding: 0; background: rgba(0,0,0,0.03); max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .mob-sub-list.show { max-height: 1000px; }
+  .mob-sub-list a { display: block; padding: 12px 40px; color: var(--mob-text); text-decoration: none; font-size: 15px; }
 
-  .mob-drop-trigger { 
-    position: absolute; right: 15px; top: 0; bottom: 0; display: flex; align-items: center;
-    padding: 0 10px; cursor: pointer; color: var(--mob-icon); transition: 0.3s; 
-  }
-  .mob-drop-trigger.is-open { transform: rotate(180deg); color: var(--hover-red); }
-
-  .mob-sub-list { 
-    list-style: none; padding: 0; margin: 0; background: rgba(0,0,0,0.03); 
-    max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
-  }
-  .mob-sub-list.show { max-height: 500px; } /* Expand smoothly */
-  
-  .mob-sub-list a { 
-    display: block; padding: 14px 25px; color: var(--mob-text); opacity: 0.8;
-    text-decoration: none; font-size: 15px; border-bottom: 1px solid rgba(0,0,0,0.05);
-    font-weight: 500; transition: 0.2s; text-align: center; /* CENTER SUB-ITEMS */
-  }
-  .mob-sub-list a:hover { color: var(--hover-red); opacity: 1; }
-
-  /* SEARCH OVERLAY CSS */
-  .search-overlay-pro {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 2000;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden;
-    transition: all 0.3s ease;
-  }
+  /* Search Overlay */
+  .search-overlay-pro { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.98); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; }
   .search-overlay-pro.active { opacity: 1; visibility: visible; }
-  
-  .search-container-pro {
-    width: 100%; max-width: 800px; padding: 0 20px; text-align: center; position: relative;
-    transform: translateY(20px); transition: 0.4s ease;
-  }
-  .search-overlay-pro.active .search-container-pro { transform: translateY(0); }
-  
-  .search-title { font-family: 'Oswald', sans-serif; font-size: 32px; color: #1a1a1a; margin-bottom: 30px; text-transform: uppercase; }
-  
-  .input-group-pro {
-    display: flex; border-bottom: 2px solid #1a1a1a; padding-bottom: 10px;
-  }
-  .search-input-field {
-    width: 100%; border: none; background: transparent; font-size: 24px; color: #1a1a1a; font-family: 'Poppins', sans-serif;
-    outline: none; padding: 10px;
-  }
-  .search-input-field::placeholder { color: #999; }
-  
-  .search-submit-btn {
-    background: none; border: none; font-size: 24px; color: #1a1a1a; cursor: pointer; transition: 0.3s;
-  }
-  .search-submit-btn:hover { color: var(--hover-red); }
-  
-  .search-close-btn {
-    position: absolute; top: -80px; right: 0;
-    background: none; border: none; font-size: 30px; cursor: pointer; color: #1a1a1a;
-  }
-  .search-close-btn:hover { color: var(--hover-red); }
+  .search-container-pro { width: 100%; max-width: 800px; padding: 0 20px; text-align: center; }
+  .search-title { font-family: var(--heading-font); font-size: 32px; margin-bottom: 30px; text-transform: uppercase; }
+  .input-group-pro { display: flex; border-bottom: 2px solid #1a1a1a; padding-bottom: 10px; }
+  .search-input-field { width: 100%; border: none; background: transparent; font-size: 24px; outline: none; font-family: var(--main-font); }
+  .search-submit-btn { background: none; border: none; font-size: 24px; cursor: pointer; }
 </style>
 
 <script>
   (function() {
     const header = document.getElementById('headerSticky');
-    const isHome = "{{ template.name }}" === "index";
 
-    // Scroll Sticky Logic
+    // Handle Scroll
     window.addEventListener('scroll', () => {
       if(window.scrollY > 60) {
         if(header) header.classList.add('is-scrolled');
@@ -455,38 +472,36 @@
       }
     });
 
-    // Sidebar Open/Close
+    // Mobile Menu
     const openBtn = document.getElementById('openMobileMenu');
     const closeBtn = document.getElementById('closeMobileMenu');
     const drawer = document.getElementById('mobDrawer');
     const overlay = document.getElementById('mobOverlay');
 
-    if(openBtn && drawer && overlay) {
+    if(openBtn) {
       openBtn.onclick = () => {
         drawer.classList.add('active');
         overlay.style.display = 'block';
       }
     }
-    
-    if(closeBtn && drawer && overlay) {
+    if(closeBtn) {
       closeBtn.onclick = () => {
         drawer.classList.remove('active');
         overlay.style.display = 'none';
       }
     }
-    
-    if(overlay && drawer) {
+    if(overlay) {
       overlay.onclick = () => { 
         drawer.classList.remove('active');
         overlay.style.display = 'none';
       }
     }
 
-    // Sidebar Dropdown Accordion Logic
+    // Mobile Dropdowns
     const dropTriggers = document.querySelectorAll('.mob-drop-trigger');
     dropTriggers.forEach(trigger => {
       trigger.onclick = function() {
-        const subList = this.parentElement.nextElementSibling;
+        const subList = this.closest('.mob-item-pro').querySelector('.mob-sub-list');
         if(subList) {
           this.classList.toggle('is-open');
           subList.classList.toggle('show');
@@ -494,29 +509,15 @@
       }
     });
 
-    // SEARCH OVERLAY LOGIC
+    // Search Overlay
     const searchTrigger = document.getElementById('searchTriggerBtn');
     const searchOverlay = document.getElementById('searchOverlay');
     const searchClose = document.getElementById('searchCloseBtn');
-    const searchInput = document.getElementById('SearchInputPro');
-
-    if(searchTrigger && searchOverlay && searchClose) {
-      searchTrigger.onclick = function(e) {
-        e.preventDefault(); 
-        searchOverlay.classList.add('active');
-        setTimeout(() => { searchInput.focus(); }, 100); 
-      };
-
-      searchClose.onclick = function() {
-        searchOverlay.classList.remove('active');
-      };
-
-      document.addEventListener('keydown', function(e) {
-        if(e.key === "Escape" && searchOverlay.classList.contains('active')) {
-          searchOverlay.classList.remove('active');
-        }
-      });
+    if(searchTrigger) {
+      searchTrigger.onclick = (e) => { e.preventDefault(); searchOverlay.classList.add('active'); };
     }
-
+    if(searchClose) {
+      searchClose.onclick = () => searchOverlay.classList.remove('active');
+    }
   })();
 </script>

@@ -1,6 +1,6 @@
 {%- style -%}
-  /* Font Import for Exact Match */
-  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
+  /* Font Import */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
   /* Section Wrapper */
   .about-meat-{{ section.id }} {
@@ -9,7 +9,7 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
     width: 100%;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: {{ section.settings.body_font_family }};
   }
 
   .about-meat-container {
@@ -23,7 +23,7 @@
   .about-meat-grid {
     display: grid;
     grid-template-columns: 1fr 1fr; 
-    gap: 50px; /* Gap kam kiya taake width/height compact rahe */
+    gap: {{ section.settings.grid_gap }}px;
     align-items: center; 
   }
 
@@ -33,45 +33,76 @@
     position: relative;
     display: flex;
     justify-content: center;
+    {% if section.settings.enable_animation %}
+      animation: {{ section.settings.animation_style }} 1s ease-out forwards;
+    {% endif %}
   }
 
   .about-meat-image-col img {
     width: 100%;
     height: 100%;
-    aspect-ratio: 1 / 1; /* Square shape maintained */
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 24px;
+    border-radius: {{ section.settings.img_radius }}px;
     display: block;
     box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    max-height: 500px; /* Height control taake image zyada lambi na ho */
+    max-height: 550px;
+    transition: transform 0.5s ease;
   }
+  
+  {% if section.settings.enable_img_hover %}
+    .about-meat-image-col img:hover {
+      transform: scale(1.03);
+    }
+  {% endif %}
 
   /* Text Column */
   .about-meat-text-col {
-    text-align: left;
-    padding-right: 10px;
+    text-align: {{ section.settings.text_align }};
+    {% if section.settings.enable_animation %}
+      animation: {{ section.settings.animation_style }} 1.2s ease-out forwards;
+    {% endif %}
   }
 
   .about-meat-text-col h2 {
-    font-family: 'Oswald', sans-serif;
+    font-family: {{ section.settings.heading_font_family }};
     font-size: {{ section.settings.title_size }}px;
-    font-weight: 700;
-    color: {{ section.settings.text_color }};
+    font-weight: {{ section.settings.heading_weight }};
+    color: {{ section.settings.heading_color }};
     margin: 0 0 20px 0;
     line-height: 1.2;
-    letter-spacing: 0.5px;
-    text-transform: capitalize;
+    letter-spacing: {{ section.settings.heading_spacing }}px;
+    text-transform: {{ section.settings.heading_transform }};
   }
 
   .about-meat-text-col .description {
     font-size: {{ section.settings.desc_size }}px;
-    color: {{ section.settings.text_color | color_modify: 'alpha', 0.8 }};
-    line-height: 1.6; /* Line height thoda tight kiya */
+    color: {{ section.settings.desc_color }};
+    line-height: 1.7;
     margin-bottom: 30px;
   }
 
-  .about-meat-text-col .description p {
-    margin-bottom: 12px;
+  /* Dynamic Features List */
+  .about-features-list {
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .feature-icon-img {
+    width: {{ section.settings.icon_width }}px;
+    height: {{ section.settings.icon_width }}px;
+    object-fit: contain;
   }
 
   /* Button Style */
@@ -79,59 +110,42 @@
     display: inline-block;
     background-color: {{ section.settings.btn_color }};
     color: {{ section.settings.btn_text_color }};
-    padding: 14px 35px; /* Padding thodi adjust ki */
-    border-radius: 8px; 
+    padding: {{ section.settings.btn_padding_v }}px {{ section.settings.btn_padding_h }}px;
+    border-radius: {{ section.settings.btn_radius }}px; 
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(198, 40, 40, 0.25);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    font-family: {{ section.settings.heading_font_family }};
+    text-transform: uppercase;
   }
 
   .btn-meat-shop:hover {
-    background-color: {{ section.settings.btn_color | color_darken: 10 }};
+    background-color: {{ section.settings.btn_hover_color }};
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(198, 40, 40, 0.35);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   }
 
-  /* RESPONSIVE MEDIA QUERIES */
+  /* Animations Keyframes */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-  /* Tablet */
+  /* Responsive */
   @media (max-width: 1024px) {
     .about-meat-grid { gap: 30px; }
     .about-meat-text-col h2 { font-size: 34px; }
   }
 
-  /* Mobile */
   @media (max-width: 767px) {
-    .about-meat-{{ section.id }} {
-      padding-top: 40px;
-      padding-bottom: 40px;
-    }
-    .about-meat-grid {
-      grid-template-columns: 1fr; 
-      gap: 30px;
-    }
-    .about-meat-image-col {
-      max-width: 100%;
-    }
-    .about-meat-image-col img {
-      aspect-ratio: 1.2 / 1;
-      max-height: 350px; /* Mobile par height control */
-    }
-    .about-meat-text-col {
-      padding-left: 0;
-      padding-right: 0;
-      text-align: left;
-    }
-    .about-meat-text-col h2 {
-      font-size: 28px;
-    }
-    .btn-meat-shop {
-      width: auto;
-    }
+    .about-meat-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-meat-image-col img { aspect-ratio: 1.2 / 1; max-height: 380px; }
+    .about-meat-text-col { text-align: center; }
+    .about-features-list { align-items: center; }
+    .about-meat-text-col h2 { font-size: 30px; }
   }
 {%- endstyle -%}
 
@@ -144,7 +158,6 @@
         {%- if section.settings.image != blank -%}
           {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: section.settings.title }}
         {%- else -%}
-          <!-- Placeholder Image matching the red meat theme -->
           <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1000&auto=format&fit=crop" alt="Fresh Steak Meat" loading="lazy" width="800" height="800">
         {%- endif -%}
       </div>
@@ -154,13 +167,24 @@
         <h2>{{ section.settings.title }}</h2>
 
         <div class="description">
-          {%- if section.settings.content != blank -%}
-            {{ section.settings.content }}
-          {%- else -%}
-            <p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction.</p>
-            <p>Every cut of meat is carefully selected, hygienically processed, and prepared by skilled butchers who understand quality and precision. We follow strict halal standards and maintain proper temperature control from sourcing to delivery. Whether you are shopping for daily meals, family gatherings, or special occasions, we ensure that every order meets the highest standards of taste and freshness. With reliable delivery.</p>
-          {%- endif -%}
+          {{ section.settings.content }}
         </div>
+
+        <!-- Dynamic Features List via Blocks -->
+        {% if section.blocks.size > 0 %}
+          <div class="about-features-list">
+            {% for block in section.blocks %}
+              <div class="feature-item" {{ block.shopify_attributes }}>
+                {% if block.settings.feature_icon != blank %}
+                  <img src="{{ block.settings.feature_icon | image_url: width: 50 }}" class="feature-icon-img" alt="icon">
+                {% else %}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{ section.settings.btn_color }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                {% endif %}
+                <span>{{ block.settings.feature_text }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
         {%- if section.settings.btn_label != blank -%}
           <a href="{{ section.settings.btn_link | default: '#' }}" class="btn-meat-shop">
@@ -175,16 +199,77 @@
 
 {% schema %}
 {
-  "name": "Meat Shop About Us",
+  "name": "Meat Shop About Pro",
   "settings": [
     {
       "type": "header",
-      "content": "🥩 Image Settings"
+      "content": "🖼️ Image Settings"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Section Image (Left)"
+      "label": "Section Image"
+    },
+    {
+      "type": "range",
+      "id": "img_radius",
+      "label": "Image Corner Radius",
+      "min": 0,
+      "max": 50,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_img_hover",
+      "label": "Enable Hover Zoom Effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "✒️ Typography (Oswald/Questrial)"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_family",
+      "label": "Heading Font",
+      "options": [
+        { "value": "'Oswald', sans-serif", "label": "Oswald (Bold/Premium)" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+        { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" }
+      ],
+      "default": "'Oswald', sans-serif"
+    },
+    {
+      "type": "select",
+      "id": "body_font_family",
+      "label": "Body/Description Font",
+      "options": [
+        { "value": "'Poppins', sans-serif", "label": "Poppins" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial" },
+        { "value": "-apple-system, sans-serif", "label": "System Sans" }
+      ],
+      "default": "'Poppins', sans-serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "min": 400,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "select",
+      "id": "heading_transform",
+      "label": "Heading Transform",
+      "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "uppercase", "label": "Uppercase" }
+      ],
+      "default": "capitalize"
     },
     {
       "type": "header",
@@ -200,7 +285,61 @@
       "type": "richtext",
       "id": "content",
       "label": "Description",
-      "default": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country. Our focus is on trust, freshness, and customer satisfaction.</p>"
+      "default": "<p>We are a premium online meat store based in the UAE, dedicated to delivering fresh, high-quality halal meat to homes across the country.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "🎨 Colors & Style"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF0F0"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description Color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Button Background",
+      "default": "#C62828"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_color",
+      "label": "Button Hover Color",
+      "default": "#8E0000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "🔗 Button Styling"
     },
     {
       "type": "text",
@@ -214,73 +353,149 @@
       "label": "Button Link"
     },
     {
-      "type": "header",
-      "content": "🎨 Colors (From Screenshot)"
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button Corner Radius",
+      "min": 0,
+      "max": 50,
+      "default": 8,
+      "unit": "px"
     },
     {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#FFF0F0",
-      "info": "Light Pinkish Background"
+      "type": "range",
+      "id": "btn_padding_v",
+      "label": "Button Padding (Top/Bottom)",
+      "min": 10,
+      "max": 30,
+      "default": 14
     },
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#111111"
-    },
-    {
-      "type": "color",
-      "id": "btn_color",
-      "label": "Button Background",
-      "default": "#C62828",
-      "info": "Dark Red"                        
-    },
-    {
-      "type": "color",
-      "id": "btn_text_color",
-      "label": "Button Text Color",
-      "default": "#ffffff"
+      "type": "range",
+      "id": "btn_padding_h",
+      "label": "Button Padding (Left/Right)",
+      "min": 20,
+      "max": 60,
+      "default": 35
     },
     {
       "type": "header",
-      "content": "📏 Layout Settings"
+      "content": "✨ Advanced & Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Entrance Animation",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "animation_style",
+      "label": "Animation Style",
+      "options": [
+        { "value": "fadeUp", "label": "Fade Up" },
+        { "value": "slideIn", "label": "Slide In" },
+        { "value": "zoomIn", "label": "Zoom In" }
+      ],
+      "default": "fadeUp"
     },
     {
       "type": "range",
       "id": "container_width",
-      "label": "Container Width",
-      "min": 1000, "max": 1600, "step": 50, "unit": "px", "default": 1200
+      "label": "Container Max Width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "default": 1200,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap Between Image & Text",
+      "min": 20,
+      "max": 100,
+      "default": 60,
+      "unit": "px"
     },
     {
       "type": "range",
       "id": "title_size",
-      "label": "Heading Size",
-      "min": 24, "max": 60, "step": 1, "unit": "px", "default": 42
+      "label": "Heading Font Size",
+      "min": 20,
+      "max": 80,
+      "default": 42
     },
     {
       "type": "range",
       "id": "desc_size",
-      "label": "Text Size",
-      "min": 14, "max": 20, "step": 1, "unit": "px", "default": 15
+      "label": "Description Font Size",
+      "min": 12,
+      "max": 24,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "icon_width",
+      "label": "Features Icon Width",
+      "min": 15,
+      "max": 50,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading Letter Spacing",
+      "min": -2,
+      "max": 5,
+      "default": 0,
+      "step": 0.5
     },
     {
       "type": "range",
       "id": "padding_top",
       "label": "Padding Top",
-      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 50
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "default": 80
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "label": "Padding Bottom",
-      "min": 0, "max": 120, "step": 5, "unit": "px", "default": 50
+      "min": 0,
+      "max": 150,
+      "step": 2,
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "feature_icon",
+          "label": "Custom Icon (Upload Image)"
+        },
+        {
+          "type": "text",
+          "id": "feature_text",
+          "label": "Feature Text",
+          "default": "100% Halal Certified"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Meat Shop About Us"
+      "name": "Meat Shop About Pro",
+      "blocks": [
+        { "type": "feature", "settings": { "feature_text": "100% Halal Certified" } },
+        { "type": "feature", "settings": { "feature_text": "Farm Fresh Daily" } },
+        { "type": "feature", "settings": { "feature_text": "Expertly Cut by Butchers" } }
+      ]
     }
   ]
 }

@@ -1,27 +1,70 @@
+{% comment %}
+  FAQ Pro Accordion - Fully Dynamic Version
+{% endcomment %}
+
 {%- style -%}
-  /* Fonts setup */
-  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+  /* Import Requested Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
   .section-{{ section.id }} {
-    padding: 80px 0;
-    background-color: {{ section.settings.bg_color }};
-    font-family: 'Inter', sans-serif;
+    /* --- Dynamic Variables --- */
+    --bg-color: {{ section.settings.bg_color }};
+    
+    --active-bg: {{ section.settings.active_bg }};
+    --active-text: {{ section.settings.active_text }};
+    
+    --inactive-bg: {{ section.settings.inactive_bg }};
+    --inactive-text: {{ section.settings.inactive_text }};
+    
+    --hover-bg: {{ section.settings.hover_bg }};
+    --hover-text: {{ section.settings.hover_text }};
+    
+    --heading-color: {{ section.settings.text_color_heading }};
+    --sub-color: {{ section.settings.text_color_sub }};
+    
+    --icon-bg: {{ section.settings.icon_bg }};
+    --icon-color: {{ section.settings.icon_color }};
+    
+    --h-font: {{ section.settings.heading_font_family }};
+    --b-font: {{ section.settings.body_font_family }};
+    
+    --h-size: {{ section.settings.heading_size }}px;
+    --h-size-mob: {{ section.settings.heading_size_mob }}px;
+    --q-size: {{ section.settings.question_size }}px;
+    --q-size-mob: {{ section.settings.question_size_mob }}px;
+    
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: var(--bg-color);
+    font-family: var(--b-font);
   }
 
   .container-{{ section.id }} {
-    max-width: 850px;
+    max-width: {{ section.settings.container_width }}px;
     margin: 0 auto;
     padding: 0 20px;
   }
 
   /* Header Styles */
-  .faq-header-{{ section.id }} { text-align: center; margin-bottom: 50px; }
+  .faq-header-{{ section.id }} { 
+    text-align: {{ section.settings.header_alignment }}; 
+    margin-bottom: 50px; 
+    
+    /* Animation */
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+    {% endif %}
+  }
 
   .faq-title-{{ section.id }} {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(32px, 5vw, 52px);
+    font-family: var(--h-font);
+    font-size: var(--h-size);
     font-weight: 700;
-    color: {{ section.settings.text_color_heading }};
+    color: var(--heading-color);
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -30,10 +73,14 @@
 
   .faq-subtitle-{{ section.id }} {
     font-size: 16px;
-    color: {{ section.settings.text_color_sub }};
+    color: var(--sub-color);
     line-height: 1.6;
     max-width: 650px;
-    margin: 0 auto;
+    {% if section.settings.header_alignment == 'center' %}
+      margin: 0 auto;
+    {% else %}
+      margin: 0;
+    {% endif %}
   }
 
   /* FAQ List Wrapper  */
@@ -44,38 +91,58 @@
   }
 
   .faq-item-{{ section.id }} {
-    background-color: {{ section.settings.inactive_bg }};
+    background-color: var(--inactive-bg);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.03);
+    
+    /* Staggered Animation */
+    {% if section.settings.animation_type != 'none' %}
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+      animation-delay: 0.2s;
+    {% endif %}
   }
+  
+  /* Hover Effect */
+  {% if section.settings.enable_hover %}
+  .faq-item-{{ section.id }}:hover:not(.is-active) {
+    background-color: var(--hover-bg);
+    transform: translateX(5px);
+  }
+  .faq-item-{{ section.id }}:hover:not(.is-active) .faq-question-{{ section.id }} {
+    color: var(--hover-text);
+  }
+  {% endif %}
 
   .faq-question-{{ section.id }} {
     padding: 24px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 18px;
+    font-family: var(--h-font);
+    font-size: var(--q-size);
     font-weight: 600;
-    color: {{ section.settings.inactive_text }};
+    color: var(--inactive-text);
     transition: 0.3s;
   }
 
   .faq-icon-box-{{ section.id }} {
     width: 34px;
     height: 34px;
-    background-color: #ffffff;
+    background-color: var(--icon-bg);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: {{ section.settings.active_bg }};
+    color: var(--icon-color);
     font-size: 24px;
     font-weight: 400;
     flex-shrink: 0;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: 0.3s;
   }
 
   .faq-answer-{{ section.id }} {
@@ -89,30 +156,42 @@
     padding-bottom: 25px; 
     font-size: 15px; 
     line-height: 1.7; 
+    font-family: var(--b-font);
   }
 
   /* ACTIVE STATE  */
   .faq-item-{{ section.id }}.is-active {
-    background-color: {{ section.settings.active_bg }};
-    box-shadow: 0 10px 25px rgba(211, 47, 47, 0.15);
+    background-color: var(--active-bg);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border-color: var(--active-bg);
   }
 
   .faq-item-{{ section.id }}.is-active .faq-question-{{ section.id }} { 
-    color: {{ section.settings.active_text }}; 
+    color: var(--active-text); 
+  }
+  
+  .faq-item-{{ section.id }}.is-active .faq-icon-box-{{ section.id }} {
+    background-color: rgba(255,255,255,0.2);
+    color: var(--active-text);
+    transform: rotate(45deg);
   }
 
   .faq-item-{{ section.id }}.is-active .faq-answer-{{ section.id }} { 
-    max-height: 1000px; /* Bada height takay lambi list bhi fit ho sakay */
+    max-height: 1000px; 
   }
 
   .faq-item-{{ section.id }}.is-active .answer-inner-{{ section.id }} { 
-    color: {{ section.settings.active_text }}; 
+    color: var(--active-text); 
     opacity: 0.95; 
   }
 
+  /* Animations */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
   @media (max-width: 768px) {
-    .section-{{ section.id }} { padding: 50px 0; }
-    .faq-question-{{ section.id }} { padding: 18px 20px; font-size: 16px; }
+    .faq-title-{{ section.id }} { font-size: var(--h-size-mob); }
+    .faq-question-{{ section.id }} { padding: 18px 20px; font-size: var(--q-size-mob); }
     .faq-icon-box-{{ section.id }} { width: 30px; height: 30px; font-size: 20px; }
   }
 {%- endstyle -%}
@@ -131,11 +210,11 @@
       
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks -%}
-          <div class="faq-item-{{ section.id }} {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+          <div class="faq-item-{{ section.id }} {% if forloop.first and section.settings.open_first %}is-active{% endif %}" {{ block.shopify_attributes }}>
             <div class="faq-question-{{ section.id }}">
               <span>{{ block.settings.question }}</span>
               <div class="faq-icon-box-{{ section.id }}">
-                <span class="icon-toggle">{% if forloop.first %}×{% else %}+{% endif %}</span>
+                <span class="icon-toggle">+</span>
               </div>
             </div>
             <div class="faq-answer-{{ section.id }}">
@@ -146,13 +225,13 @@
           </div>
         {%- endfor -%}
       {%- else -%}
-        {%- for i in (1..4) -%}
-          <div class="faq-item-{{ section.id }} {% if forloop.first %}is-active{% endif %}">
+        {%- for i in (1..3) -%}
+          <div class="faq-item-{{ section.id }}">
             <div class="faq-question-{{ section.id }}">
-              <span>Demo Question {{ i }}: Please click "Add Question" block to start adding your content.</span>
-              <div class="faq-icon-box-{{ section.id }}"><span class="icon-toggle">{% if forloop.first %}×{% else %}+{% endif %}</span></div>
+              <span>Sample Question {{ i }}</span>
+              <div class="faq-icon-box-{{ section.id }}"><span class="icon-toggle">+</span></div>
             </div>
-            <div class="faq-answer-{{ section.id }}"><div class="answer-inner-{{ section.id }}">This is placeholder text. Go to your Shopify Theme Customize editor to add real questions and answers.</div></div>
+            <div class="faq-answer-{{ section.id }}"><div class="answer-inner-{{ section.id }}">Add questions from the theme editor.</div></div>
           </div>
         {%- endfor -%}
       {%- endif -%}
@@ -167,21 +246,34 @@
     const mainContainer = document.getElementById('faqMainContainer-{{ section.id }}');
     if (!mainContainer) return;
 
-    mainContainer.onclick = function(e) {
-      const item = e.target.closest('.faq-item-{{ section.id }}');
-      if (!item) return;
+    // Check if first item is active by default to set icon
+    const firstItem = mainContainer.querySelector('.faq-item-{{ section.id }}.is-active');
+    if(firstItem) {
+        // No text change needed as CSS rotation handles the plus to cross, 
+        // but if using text content:
+        // firstItem.querySelector('.icon-toggle').textContent = '×';
+    }
 
+    mainContainer.onclick = function(e) {
+      const header = e.target.closest('.faq-question-{{ section.id }}');
+      if (!header) return;
+      
+      const item = header.parentElement;
       const isActive = item.classList.contains('is-active');
       const allItems = mainContainer.querySelectorAll('.faq-item-{{ section.id }}');
 
+      // Close all other items (Accordion behavior)
       allItems.forEach(el => {
-        el.classList.remove('is-active');
-        el.querySelector('.icon-toggle').textContent = '+';
+        if (el !== item) {
+            el.classList.remove('is-active');
+        }
       });
 
-      if (!isActive) {
+      // Toggle current
+      if (isActive) {
+        item.classList.remove('is-active');
+      } else {
         item.classList.add('is-active');
-        item.querySelector('.icon-toggle').textContent = '×';
       }
     };
   };
@@ -190,27 +282,72 @@
   document.addEventListener('shopify:section:load', (e) => {
     if (e.detail.sectionId === '{{ section.id }}') initFaqSection();
   });
-  
-  if (window.Shopify && window.Shopify.designMode) {
-    initFaqSection();
-  }
 })();
 </script>
 
 {% schema %}
 {
-  "name": "FAQ Pro Accordion",
+  "name": "FAQ Pro Dynamic",
   "settings": [
+    { "type": "header", "content": "Text Content" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
-    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Everything you need to know about our premium meat cuts, delivery process, and quality standards.</p>" },
-    { "type": "header", "content": "Colors" },
+    { "type": "richtext", "id": "subheading", "label": "Sub-heading", "default": "<p>Common questions about our products and delivery.</p>" },
+    { "type": "select", "id": "header_alignment", "label": "Alignment", "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ], "default": "center" 
+    },
+    { "type": "checkbox", "id": "open_first", "label": "Open first question by default", "default": true },
+
+    { "type": "header", "content": "Typography Settings" },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
+      { "value": "serif", "label": "System Serif" }
+    ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 24, "max": 80, "step": 1, "default": 48, "unit": "px" },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 50, "step": 1, "default": 32, "unit": "px" },
+    
+    { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+      { "value": "'Poppins', sans-serif", "label": "Poppins" },
+      { "value": "'Questrial', sans-serif", "label": "Questrial" },
+      { "value": "sans-serif", "label": "System Sans" }
+    ], "default": "'Poppins', sans-serif" },
+    { "type": "range", "id": "question_size", "label": "Question Size (Desktop)", "min": 14, "max": 24, "default": 18, "unit": "px" },
+    { "type": "range", "id": "question_size_mob", "label": "Question Size (Mobile)", "min": 14, "max": 20, "default": 16, "unit": "px" },
+
+    { "type": "header", "content": "Active Card Colors" },
+    { "type": "color", "id": "active_bg", "label": "Background (Active)", "default": "#d32f2f" },
+    { "type": "color", "id": "active_text", "label": "Text (Active)", "default": "#ffffff" },
+    
+    { "type": "header", "content": "Inactive Card Colors" },
+    { "type": "color", "id": "inactive_bg", "label": "Background (Inactive)", "default": "#fdf2f2" },
+    { "type": "color", "id": "inactive_text", "label": "Text (Inactive)", "default": "#1a1a1a" },
+    
+    { "type": "header", "content": "Hover Settings" },
+    { "type": "checkbox", "id": "enable_hover", "label": "Enable Hover Effect", "default": true },
+    { "type": "color", "id": "hover_bg", "label": "Hover Background", "default": "#fde8e8" },
+    { "type": "color", "id": "hover_text", "label": "Hover Text Color", "default": "#d32f2f" },
+
+    { "type": "header", "content": "General Colors" },
     { "type": "color", "id": "bg_color", "label": "Section Background", "default": "#ffffff" },
-    { "type": "color", "id": "active_bg", "label": "Active Background (Red)", "default": "#d32f2f" },
-    { "type": "color", "id": "active_text", "label": "Active Text Color", "default": "#ffffff" },
-    { "type": "color", "id": "inactive_bg", "label": "Inactive Background (Pink)", "default": "#fdf2f2" },
-    { "type": "color", "id": "inactive_text", "label": "Inactive Text Color", "default": "#1a1a1a" },
     { "type": "color", "id": "text_color_heading", "label": "Main Heading Color", "default": "#1a1a1a" },
-    { "type": "color", "id": "text_color_sub", "label": "Sub-heading Color", "default": "#666666" }
+    { "type": "color", "id": "text_color_sub", "label": "Sub-heading Color", "default": "#666666" },
+    { "type": "color", "id": "icon_bg", "label": "Icon Circle BG", "default": "#ffffff" },
+    { "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#d32f2f" },
+
+    { "type": "header", "content": "Animations & Layout" },
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" },
+    
+    { "type": "range", "id": "container_width", "label": "Container Width", "min": 600, "max": 1200, "step": 50, "default": 850, "unit": "px" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "default": 80, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "default": 80, "unit": "px" }
   ],
   "blocks": [
     {
@@ -224,7 +361,7 @@
   ],
   "presets": [
     {
-      "name": "FAQ Pro Accordion",
+      "name": "FAQ Pro Dynamic",
       "blocks": [
         { "type": "faq", "settings": { "question": "Is this product halal certified?" } },
         { "type": "faq", "settings": { "question": "Can I choose the cube size?" } },

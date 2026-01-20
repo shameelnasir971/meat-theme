@@ -1,172 +1,295 @@
 {%- style -%}
-  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;500;600;700&display=swap');
+/* Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-  .hero-section-{{ section.id }} {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 140px 0 80px;
-    {% if section.settings.background_image != blank %}
-      background-image: url('{{ section.settings.background_image | img_url: "2000x" }}');
-    {% else %}
-      background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-    {% endif %}
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    overflow: hidden;
-  }
+.hero-section-{{ section.id }} {
+  position: relative;
+  min-height: {{ section.settings.hero_height }}vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  {% if section.settings.background_image != blank %}
+    background-image: url('{{ section.settings.background_image | img_url: "2000x" }}');
+  {% else %}
+    background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+  {% endif %}
+  background-size: cover;
+  background-position: {{ section.settings.bg_position }};
+  background-attachment: {{ section.settings.bg_behavior }};
+  overflow: hidden;
+}
 
-  .hero-section-{{ section.id }}::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.3);
-    z-index: 1;
-  }
+/* Overlay Fix */
+.hero-section-{{ section.id }}::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: {{ section.settings.overlay_color }};
+  opacity: {{ section.settings.overlay_opacity }};
+  z-index: 1;
+}
 
-  .hero-container-{{ section.id }} {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 40px;
-    width: 100%;
-    position: relative;
-    z-index: 2;
-  }
+.hero-container-{{ section.id }} {
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+  padding: 0 40px;
+  width: 100%;
+  position: relative;
+  z-index: 10; /* Higher than overlay */
+}
 
-  .hero-grid {
-    display: flex;
-    justify-content: flex-end; /* Content ko right side lane ke liye */
-  }
+.hero-grid-{{ section.id }} {
+  display: flex;
+  justify-content: {{ section.settings.content_alignment_flex }};
+}
 
-  .hero-content-wrap {
-    max-width: 650px; /* Right side par content ki width control karne ke liye */
-    text-align: left; /* Text alignment left hi rakhi hai readability ke liye */
-  }
+.hero-content-wrap-{{ section.id }} {
+  max-width: {{ section.settings.content_max_width }}px;
+  text-align: {{ section.settings.text_align }};
+  color: {{ section.settings.text_color }};
+  {% if section.settings.enable_animation %}
+    animation: {{ section.settings.animation_style }} 1s ease-out forwards;
+  {% endif %}
+}
 
-  .hero-main-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(40px, 6vw, 85px);
-    line-height: 1.1;
-    margin-bottom: 25px;
-    text-transform: capitalize;
-    font-weight: 700;
-  }
+/* Heading Fix */
+.hero-main-title-{{ section.id }} {
+  display: block !important;
+  visibility: visible !important;
+  font-family: {{ section.settings.heading_font_family }};
+  font-size: {{ section.settings.title_size }}px;
+  line-height: {{ section.settings.heading_line_height }};
+  margin: 0 0 25px 0;
+  text-transform: {{ section.settings.heading_transform }};
+  font-weight: {{ section.settings.heading_weight }};
+  color: {{ section.settings.heading_color }} !important;
+  letter-spacing: {{ section.settings.heading_spacing }}px;
+}
 
-  .hero-subtext {
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-    max-width: 550px;
-    opacity: 0.95;
-  }
+.hero-icon-img {
+  width: {{ section.settings.icon_size }}px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
 
-  .hero-action-btns {
-    display: flex;
-    gap: 20px;
-  }
+/* Subtext Fix */
+.hero-subtext-{{ section.id }} {
+  display: block !important;
+  visibility: visible !important;
+  font-family: {{ section.settings.body_font_family }};
+  font-size: {{ section.settings.subtext_size }}px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  color: {{ section.settings.text_color }} !important;
+  opacity: 1;
+}
 
-  .btn-primary-hero, .btn-secondary-hero {
-    padding: 18px 45px;
-    border-radius: 8px;
-    font-weight: 700;
-    text-decoration: none;
-    text-transform: capitalize;
-    transition: 0.3s;
-    font-size: 16px;
-    display: inline-block;
-  }
+.hero-action-btns {
+  display: flex;
+  gap: 20px;
+  justify-content: {% if section.settings.text_align == 'center' %}center{% elsif section.settings.text_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+}
 
-  .btn-primary-hero { background-color: #d32f2f; color: #fff; }
-  .btn-secondary-hero { background-color: #fff; color: #d32f2f; }
-  .btn-primary-hero:hover { background-color: #b71c1c; transform: translateY(-3px); }
+.btn-hero-{{ section.id }} {
+  padding: {{ section.settings.btn_padding_v }}px {{ section.settings.btn_padding_h }}px;
+  border-radius: {{ section.settings.btn_radius }}px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.3s ease;
+  font-size: 16px;
+  display: inline-block;
+  font-family: {{ section.settings.heading_font_family }};
+}
 
-  /* Responsive Design */
-  @media (max-width: 991px) {
-    .hero-grid { justify-content: center; }
-    .hero-content-wrap { text-align: center; }
-    .hero-subtext { margin: 0 auto 40px; }
-    .hero-action-btns { justify-content: center; }
-  }
+.btn-primary-hero-{{ section.id }} { 
+  background-color: {{ section.settings.btn1_bg }}; 
+  color: {{ section.settings.btn1_text_color }}; 
+  border: 1px solid {{ section.settings.btn1_bg }};
+}
+.btn-primary-hero-{{ section.id }}:hover { 
+  background-color: {{ section.settings.btn1_hover_bg }}; 
+  color: {{ section.settings.btn1_hover_text }};
+  transform: translateY(-3px);
+}
 
-  @media (max-width: 600px) {
-    .hero-action-btns { flex-direction: column; }
-    .btn-primary-hero, .btn-secondary-hero { width: 100%; }
-  }
+.btn-secondary-hero-{{ section.id }} { 
+  background-color: {{ section.settings.btn2_bg }}; 
+  color: {{ section.settings.btn2_text_color }};
+  border: 2px solid {{ section.settings.btn2_border }};
+}
+.btn-secondary-hero-{{ section.id }}:hover { 
+  background-color: {{ section.settings.btn2_hover_bg }}; 
+  color: {{ section.settings.btn2_hover_text }};
+  transform: translateY(-3px);
+}
+
+/* Keyframes */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 991px) {
+  .hero-grid-{{ section.id }} { justify-content: center; }
+  .hero-content-wrap-{{ section.id }} { text-align: center; max-width: 100%; }
+  .hero-main-title-{{ section.id }} { font-size: clamp(35px, 8vw, 55px); }
+  .hero-action-btns { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .hero-action-btns { flex-direction: column; gap: 15px; }
+  .btn-hero-{{ section.id }} { width: 100%; text-align: center; }
+  .hero-section-{{ section.id }} { min-height: 70vh; }
+}
 {%- endstyle -%}
 
 <section class="hero-section-{{ section.id }}">
   <div class="hero-container-{{ section.id }}">
-    <div class="hero-grid">
-      
-      <!-- Content Right side shifted -->
-      <div class="hero-content-wrap">
-        <h1 class="hero-main-title">{{ section.settings.main_title }}</h1>
-        <p class="hero-subtext">{{ section.settings.sub_text }}</p>
+    <div class="hero-grid-{{ section.id }}">
+      <div class="hero-content-wrap-{{ section.id }}">
+        
+        {% if section.settings.title_icon != blank %}
+          <img src="{{ section.settings.title_icon | img_url: '300x' }}" alt="Icon" class="hero-icon-img">
+        {% endif %}
+
+        {% if section.settings.main_title != blank %}
+          <h1 class="hero-main-title-{{ section.id }}">{{ section.settings.main_title }}</h1>
+        {% endif %}
+
+        {% if section.settings.sub_text != blank %}
+          <p class="hero-subtext-{{ section.id }}">{{ section.settings.sub_text }}</p>
+        {% endif %}
+        
         <div class="hero-action-btns">
           {% if section.settings.btn1_text != blank %}
-            <a href="{{ section.settings.btn1_link }}" class="btn-primary-hero">{{ section.settings.btn1_text }}</a>
+            <a href="{{ section.settings.btn1_link }}" class="btn-hero-{{ section.id }} btn-primary-hero-{{ section.id }}">{{ section.settings.btn1_text }}</a>
           {% endif %}
           {% if section.settings.btn2_text != blank %}
-            <a href="{{ section.settings.btn2_link }}" class="btn-secondary-hero">{{ section.settings.btn2_text }}</a>
+            <a href="{{ section.settings.btn2_link }}" class="btn-hero-{{ section.id }} btn-secondary-hero-{{ section.id }}">{{ section.settings.btn2_text }}</a>
           {% endif %}
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Custom Hero Banner",
+  "name": "Custom Hero Banner Pro",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Image"
+      "type": "header",
+      "content": "Background Settings"
     },
+    { "type": "image_picker", "id": "background_image", "label": "Background Image" },
+    { "type": "select", "id": "bg_position", "label": "Image Position", "options": [
+        { "value": "top center", "label": "Top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "bottom center", "label": "Bottom" }
+      ], "default": "center center" },
+    { "type": "select", "id": "bg_behavior", "label": "Scroll Behavior", "options": [
+        { "value": "scroll", "label": "Normal" },
+        { "value": "fixed", "label": "Parallax (Fixed)" }
+      ], "default": "fixed" },
+    { "type": "range", "id": "hero_height", "label": "Hero Height (Screen %)", "min": 50, "max": 100, "step": 5, "default": 100 },
+    { "type": "color", "id": "overlay_color", "label": "Overlay Color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay Opacity", "min": 0, "max": 1, "step": 0.1, "default": 0.3 },
+
     {
-      "type": "text",
-      "id": "main_title",
-      "label": "Main Title",
-      "default": "Fresh Halal Meat, Cut to Perfection"
+      "type": "header",
+      "content": "Heading Settings"
     },
+    { "type": "text", "id": "main_title", "label": "Heading Text", "default": "Fresh Halal Meat, Cut to Perfection" },
+    { "type": "image_picker", "id": "title_icon", "label": "Upload Title Icon (Optional)" },
+    { "type": "range", "id": "icon_size", "label": "Icon Width", "min": 20, "max": 150, "step": 5, "default": 60 },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
+        { "value": "'Oswald', sans-serif", "label": "Oswald (Premium Bold)" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
+        { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" }
+      ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "title_size", "label": "Heading Font Size", "min": 20, "max": 120, "step": 2, "default": 80 },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#ffffff" },
+    { "type": "range", "id": "heading_weight", "label": "Font Weight", "min": 400, "max": 900, "step": 100, "default": 700 },
+    { "type": "select", "id": "heading_transform", "label": "Text Transform", "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ], "default": "capitalize" },
+    { "type": "range", "id": "heading_line_height", "label": "Line Height", "min": 0.8, "max": 1.5, "step": 0.1, "default": 1.1 },
+    { "type": "range", "id": "heading_spacing", "label": "Letter Spacing", "min": -5, "max": 10, "step": 1, "default": 0 },
+
     {
-      "type": "textarea",
-      "id": "sub_text",
-      "label": "Sub Text",
-      "default": "Sourced from trusted farms, expertly cut, and delivered fresh to your doorstep."
+      "type": "header",
+      "content": "Subtext Settings"
     },
+    { "type": "textarea", "id": "sub_text", "label": "Sub Text", "default": "Sourced from trusted farms, expertly cut, and delivered fresh to your doorstep." },
+    { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
+        { "value": "'Poppins', sans-serif", "label": "Poppins" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial" },
+        { "value": "'Inter', sans-serif", "label": "Inter" }
+      ], "default": "'Inter', sans-serif" },
+    { "type": "range", "id": "subtext_size", "label": "Subtext Font Size", "min": 12, "max": 30, "step": 1, "default": 18 },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" },
+
     {
-      "type": "text",
-      "id": "btn1_text",
-      "label": "Button 1 Text",
-      "default": "Shop Now"
+      "type": "header",
+      "content": "Layout & Alignment"
     },
+    { "type": "select", "id": "content_alignment_flex", "label": "Content Position", "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ], "default": "flex-end" },
+    { "type": "select", "id": "text_align", "label": "Text Alignment", "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ], "default": "left" },
+    { "type": "range", "id": "content_max_width", "label": "Content Max Width", "min": 400, "max": 1000, "step": 20, "default": 640 },
+    { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 20, "default": 1300 },
+
     {
-      "type": "url",
-      "id": "btn1_link",
-      "label": "Button 1 Link"
+      "type": "header",
+      "content": "Primary Button"
     },
+    { "type": "text", "id": "btn1_text", "label": "Button 1 Text", "default": "Shop Now" },
+    { "type": "url", "id": "btn1_link", "label": "Link" },
+    { "type": "color", "id": "btn1_bg", "label": "Background", "default": "#d32f2f" },
+    { "type": "color", "id": "btn1_text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "btn1_hover_bg", "label": "Hover Background", "default": "#b71c1c" },
+    { "type": "color", "id": "btn1_hover_text", "label": "Hover Text", "default": "#ffffff" },
+
     {
-      "type": "text",
-      "id": "btn2_text",
-      "label": "Button 2 Text",
-      "default": "Today's Deals"
+      "type": "header",
+      "content": "Secondary Button"
     },
+    { "type": "text", "id": "btn2_text", "label": "Button 2 Text", "default": "Today's Deals" },
+    { "type": "url", "id": "btn2_link", "label": "Link" },
+    { "type": "color", "id": "btn2_bg", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "btn2_text_color", "label": "Text", "default": "#d32f2f" },
+    { "type": "color", "id": "btn2_border", "label": "Border Color", "default": "#ffffff" },
+    { "type": "color", "id": "btn2_hover_bg", "label": "Hover Background", "default": "#f1f1f1" },
+    { "type": "color", "id": "btn2_hover_text", "label": "Hover Text", "default": "#b71c1c" },
+
     {
-      "type": "url",
-      "id": "btn2_link",
-      "label": "Button 2 Link"
-    }
+      "type": "header",
+      "content": "Animations & Padding"
+    },
+    { "type": "checkbox", "id": "enable_animation", "label": "Enable Entrance Animation", "default": true },
+    { "type": "select", "id": "animation_style", "label": "Animation Style", "options": [
+        { "value": "fadeInUp", "label": "Fade Up" },
+        { "value": "slideInLeft", "label": "Slide in Left" },
+        { "value": "zoomIn", "label": "Zoom In" }
+      ], "default": "fadeInUp" },
+    { "type": "range", "id": "btn_radius", "label": "Button Radius", "min": 0, "max": 50, "step": 2, "default": 8 },
+    { "type": "range", "id": "btn_padding_v", "label": "Button Padding Vertical", "min": 5, "max": 30, "step": 1, "default": 18 },
+    { "type": "range", "id": "btn_padding_h", "label": "Button Padding Horizontal", "min": 10, "max": 80, "step": 2, "default": 44 },
+    { "type": "range", "id": "padding_top", "label": "Section Padding Top", "min": 0, "max": 200, "step": 10, "default": 140 },
+    { "type": "range", "id": "padding_bottom", "label": "Section Padding Bottom", "min": 0, "max": 200, "step": 10, "default": 80 }
   ],
   "presets": [
     {
-      "name": "Custom Hero Banner"
+      "name": "Custom Hero Banner Pro"
     }
   ]
 }

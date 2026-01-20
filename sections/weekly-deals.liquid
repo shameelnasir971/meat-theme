@@ -1,217 +1,173 @@
 {% comment %}
   Weekly Fresh Deals Section - Fully Dynamic Pro Version
+  Designed to match the provided screenshot UI.
 {% endcomment %}
 
 {%- style -%}
-  /* Import Requested Fonts */
-  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+/* Import Requested Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-  .section-{{ section.id }} {
-    /* --- Dynamic Variables --- */
-    --heading-font: {{ section.settings.heading_font_family }};
-    --body-font: {{ section.settings.body_font_family }};
-    
-    --heading-color: {{ section.settings.text_color }};
-    --body-color: {{ section.settings.text_color }};
-    
-    --heading-size: {{ section.settings.heading_size }}px;
-    --heading-size-mob: {{ section.settings.heading_size_mob }}px;
-    --body-size: {{ section.settings.body_size }}px;
-    --body-size-mob: {{ section.settings.body_size_mob }}px;
-    
-    --btn-bg: {{ section.settings.btn_bg_color }};
-    --btn-text: {{ section.settings.btn_text_color }};
-    --btn-hover-bg: {{ section.settings.btn_hover_bg_color }};
-    --btn-hover-text: {{ section.settings.btn_hover_text_color }};
-    
-    --overlay-color: {{ section.settings.overlay_color }};
-    --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-  }
+.section-{{ section.id }} {
+  /* --- Dynamic Variables --- */
+  --heading-font: {{ section.settings.heading_font_family }};
+  --body-font: {{ section.settings.body_font_family }};
+  
+  --heading-color: {{ section.settings.heading_color }};
+  --body-color: {{ section.settings.body_color }};
+  
+  --heading-size: {{ section.settings.heading_size }}px;
+  --heading-size-mob: {{ section.settings.heading_size_mob }}px;
+  --body-size: {{ section.settings.body_size }}px;
+  --body-size-mob: {{ section.settings.body_size_mob }}px;
+  
+  --btn-bg: {{ section.settings.btn_bg_color }};
+  --btn-text: {{ section.settings.btn_text_color }};
+  --btn-hover-bg: {{ section.settings.btn_hover_bg_color }};
+  --btn-hover-text: {{ section.settings.btn_hover_text_color }};
 
-  #shopify-section-{{ section.id }} .weekly-deals-section {
-    position: relative;
-    width: 100%;
-    min-height: {{ section.settings.section_height }}px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-  }
+  --overlay-color: {{ section.settings.overlay_color }};
+  --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+}
 
+#shopify-section-{{ section.id }} .weekly-deals-section {
+  position: relative;
+  width: 100%;
+  min-height: {{ section.settings.section_height }}px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+#shopify-section-{{ section.id }} .deals-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Dynamic Gradient Overlay for Text Readability */
+  background: linear-gradient(to right, 
+    rgba(0,0,0,0) 0%, 
+    {{ section.settings.overlay_color | color_modify: 'alpha', 0.4 }} 40%, 
+    {{ section.settings.overlay_color | color_modify: 'alpha', 0.85 }} 100%);
+  display: flex;
+  align-items: center;
+}
+
+.container-deals {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+  z-index: 2;
+}
+
+.deals-content-wrapper {
+  display: flex;
+  justify-content: flex-end; /* Text on Right Side as per screenshot */
+  align-items: center;
+  width: 100%;
+}
+
+.deals-text-side {
+  flex: 0 1 500px;
+  text-align: left;
+  padding: 20px;
+  
+  /* Entrance Animations */
+  {% if section.settings.animation_type == 'fade-right' %}
+    animation: fadeInRight 1.2s ease-out forwards;
+  {% elsif section.settings.animation_type == 'fade-up' %}
+    animation: fadeInUp 1.2s ease-out forwards;
+  {% elsif section.settings.animation_type == 'zoom-in' %}
+    animation: zoomIn 1s ease-out forwards;
+  {% endif %}
+  opacity: 0; 
+}
+
+#shopify-section-{{ section.id }} .deals-title {
+  font-family: var(--heading-font);
+  font-size: var(--heading-size);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+  color: var(--heading-color);
+  margin-top: 0;
+}
+
+#shopify-section-{{ section.id }} .deals-description {
+  font-family: var(--body-font);
+  font-size: var(--body-size);
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 30px;
+  max-width: 450px;
+  color: var(--body-color);
+}
+
+#shopify-section-{{ section.id }} .deals-btn {
+  display: inline-block;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  text-decoration: none;
+  font-family: var(--body-font);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px 38px;
+  border-radius: 6px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border: 2px solid var(--btn-bg);
+  cursor: pointer;
+}
+
+#shopify-section-{{ section.id }} .deals-btn:hover {
+  background-color: var(--btn-hover-bg);
+  border-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Keyframes */
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .deals-text-side { flex: 0 1 60%; }
+  #shopify-section-{{ section.id }} .deals-title { font-size: calc(var(--heading-size) * 0.8); }
+}
+
+@media (max-width: 768px) {
+  #shopify-section-{{ section.id }} .weekly-deals-section { min-height: 450px; }
   #shopify-section-{{ section.id }} .deals-overlay {
-    width: 100%;
-    height: 100%;
-    min-height: {{ section.settings.section_height }}px;
-    display: flex;
-    align-items: center;
-    padding: 60px 0;
-    
-    /* Dynamic Gradient Overlay */
-    background: linear-gradient(to right, 
-      rgba(0,0,0,0) 0%, 
-      {{ section.settings.overlay_color | color_modify: 'alpha', 0.5 }} 50%, 
-      {{ section.settings.overlay_color | color_modify: 'alpha', 0.95 }} 100%);
+    background: rgba(0,0,0,0.5); /* Solid overlay for mobile readability */
+    justify-content: center;
   }
-
-  .container-deals {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 5%;
+  .deals-content-wrapper { justify-content: center; text-align: center; }
+  .deals-text-side { 
+    text-align: center; 
+    flex: 0 1 100%; 
+    padding: 30px;
   }
-
-  .deals-content-wrapper {
-    display: flex;
-    justify-content: flex-end; /* Text on Right */
-    align-items: center;
-    width: 100%;
-  }
-
-  .deals-image-side {
-    flex: 1;
-    display: block;
-  }
-
-  .deals-text-side {
-    flex: 1;
-    max-width: 550px;
-    padding-left: 30px;
-    
-    /* Dynamic Animation */
-    {% if section.settings.animation_type == 'fade-right' %}
-      animation: fadeInRight 1s ease-out forwards;
-    {% elsif section.settings.animation_type == 'fade-up' %}
-      animation: fadeInUp 1s ease-out forwards;
-    {% elsif section.settings.animation_type == 'zoom-in' %}
-      animation: zoomIn 0.8s ease-out forwards;
-    {% endif %}
-    opacity: 0; /* Hidden initially for animation */
-  }
-
-  #shopify-section-{{ section.id }} .deals-title {
-    font-family: var(--heading-font); 
-    font-size: var(--heading-size);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--heading-color);
-  }
-
-  #shopify-section-{{ section.id }} .deals-description {
-    font-family: var(--body-font);
-    font-size: var(--body-size);
-    font-weight: 300;
-    line-height: 1.6;
-    margin-bottom: 35px;
-    opacity: 0.95;
-    max-width: 480px;
-    color: var(--body-color);
-  }
-
-  #shopify-section-{{ section.id }} .deals-btn {
-    display: inline-block;
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
-    text-decoration: none;
-    font-family: var(--heading-font);
-    font-size: 16px;
-    font-weight: 600;
-    padding: 15px 40px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    border: 2px solid var(--btn-bg);
-  }
-
-  #shopify-section-{{ section.id }} .deals-btn:hover {
-    background-color: var(--btn-hover-bg);
-    border-color: var(--btn-hover-bg);
-    color: var(--btn-hover-text); 
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  }
-
-  /* Keyframes */
-  @keyframes fadeInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-
-  /* Tablet Responsiveness */
-  @media (max-width: 1024px) {
-    #shopify-section-{{ section.id }} .deals-overlay {
-      background: linear-gradient(to right, 
-        rgba(0,0,0,0) 0%, 
-        {{ section.settings.overlay_color | color_modify: 'alpha', 0.6 }} 100%);
-    }
-    .deals-text-side {
-      max-width: 60%;
-    }
-  }
-
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    #shopify-section-{{ section.id }} .weekly-deals-section {
-      min-height: 400px;
-      background-position: center;
-    }
-    #shopify-section-{{ section.id }} .deals-overlay {
-      background: rgba(0,0,0,0.6); /* Flat overlay on mobile for readability */
-      padding: 50px 0;
-      justify-content: center;
-    }
-    .deals-content-wrapper {
-      justify-content: center;
-      text-align: center;
-    }
-    .deals-image-side {
-      display: none;
-    }
-    .deals-text-side {
-      padding-left: 0;
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .deals-description {
-      margin-left: auto;
-      margin-right: auto;
-      font-size: var(--body-size-mob);
-    }
-    .deals-title {
-        font-size: var(--heading-size-mob);
-        margin-bottom: 15px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .container-deals {
-      padding: 0 20px;
-    }
-    #shopify-section-{{ section.id }} .deals-btn {
-      width: 100%;
-      text-align: center;
-      padding: 14px 20px;
-    }
-  }
+  #shopify-section-{{ section.id }} .deals-title { font-size: var(--heading-size-mob); }
+  #shopify-section-{{ section.id }} .deals-description { font-size: var(--body-size-mob); margin-left: auto; margin-right: auto; }
+}
 {%- endstyle -%}
 
 {%- assign bg_image_url = 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' -%}
 {%- if section.settings.bg_image != blank -%}
-  {%- assign bg_image_url = section.settings.bg_image | image_url: width: 1600 -%}
+  {%- assign bg_image_url = section.settings.bg_image | image_url: width: 2000 -%}
 {%- endif -%}
 
 <section class="weekly-deals-section section-{{ section.id }}" style="background-image: url('{{ bg_image_url }}');">
   <div class="deals-overlay">
     <div class="container-deals">
       <div class="deals-content-wrapper">
-        
-        <div class="deals-image-side"></div>
-
         <!-- Text Content on the Right -->
         <div class="deals-text-side">
           {%- if section.settings.title != blank -%}
@@ -232,7 +188,6 @@
             </div>
           {%- endif -%}
         </div>
-
       </div>
     </div>
   </div>
@@ -244,62 +199,74 @@
   "settings": [
     {
       "type": "header",
-      "content": "Background Settings"
+      "content": "Background & Layout"
     },
     { "type": "image_picker", "id": "bg_image", "label": "Background Image" },
-    { "type": "range", "id": "section_height", "label": "Section Minimum Height", "min": 400, "max": 800, "step": 10, "default": 500, "unit": "px" },
+    { "type": "range", "id": "section_height", "label": "Section Height", "min": 300, "max": 800, "step": 10, "default": 500, "unit": "px" },
     { "type": "color", "id": "overlay_color", "label": "Overlay Shadow Color", "default": "#000000" },
-    { "type": "range", "id": "overlay_opacity", "label": "Overlay Opacity", "min": 0, "max": 100, "step": 5, "default": 60, "unit": "%" },
-
+    { "type": "range", "id": "overlay_opacity", "label": "Right Shadow Intensity", "min": 0, "max": 100, "step": 5, "default": 70, "unit": "%" },
     {
       "type": "header",
-      "content": "Typography Settings"
+      "content": "Typography (Fonts & Sizes)"
     },
-    { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
-      { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
-      { "value": "'Questrial', sans-serif", "label": "Questrial (Clean)" },
-      { "value": "'Poppins', sans-serif", "label": "Poppins (Modern)" },
-      { "value": "serif", "label": "System Serif" }
-    ], "default": "'Oswald', sans-serif" },
-    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 30, "max": 100, "default": 64, "unit": "px" },
-    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 24, "max": 50, "default": 32, "unit": "px" },
-    
-    { "type": "select", "id": "body_font_family", "label": "Body Font", "options": [
-      { "value": "'Poppins', sans-serif", "label": "Poppins" },
-      { "value": "'Questrial', sans-serif", "label": "Questrial" },
-      { "value": "sans-serif", "label": "System Sans" }
-    ], "default": "'Poppins', sans-serif" },
-    { "type": "range", "id": "body_size", "label": "Body Size (Desktop)", "min": 14, "max": 24, "default": 18, "unit": "px" },
+    { 
+      "type": "select", 
+      "id": "heading_font_family", 
+      "label": "Heading Font", 
+      "options": [
+        { "value": "'Oswald', sans-serif", "label": "Oswald (Bold/Impact)" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial (Modern/Clean)" },
+        { "value": "'Poppins', sans-serif", "label": "Poppins (Geometric)" }
+      ], 
+      "default": "'Oswald', sans-serif" 
+    },
+    { "type": "range", "id": "heading_size", "label": "Heading Size (Desktop)", "min": 20, "max": 100, "default": 64, "unit": "px" },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Size (Mobile)", "min": 20, "max": 50, "default": 36, "unit": "px" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#ffffff" },
+    { 
+      "type": "select", 
+      "id": "body_font_family", 
+      "label": "Body Font", 
+      "options": [
+        { "value": "'Poppins', sans-serif", "label": "Poppins" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial" }
+      ], 
+      "default": "'Poppins', sans-serif" 
+    },
+    { "type": "range", "id": "body_size", "label": "Body Size (Desktop)", "min": 12, "max": 24, "default": 18, "unit": "px" },
     { "type": "range", "id": "body_size_mob", "label": "Body Size (Mobile)", "min": 12, "max": 20, "default": 16, "unit": "px" },
-    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#ffffff" },
-
+    { "type": "color", "id": "body_color", "label": "Body Color", "default": "#ffffff" },
     {
       "type": "header",
       "content": "Content Settings"
     },
     { "type": "text", "id": "title", "label": "Heading", "default": "Weekly Fresh Deals" },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "Enjoy exclusive discounts on selected meat cuts every week." },
-    
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Enjoy exclusive discounts on selected meat cuts every week. Quality meat at prices you will love." },
     {
       "type": "header",
-      "content": "Button Settings"
+      "content": "Button Customization"
     },
     { "type": "text", "id": "btn_label", "label": "Button Label", "default": "View Offers" },
     { "type": "url", "id": "btn_link", "label": "Button Link" },
-    { "type": "color", "id": "btn_bg_color", "label": "Button Background", "default": "#d32f2f" },
+    { "type": "color", "id": "btn_bg_color", "label": "Button Background", "default": "#e32c2b" },
     { "type": "color", "id": "btn_text_color", "label": "Button Text", "default": "#ffffff" },
     { "type": "color", "id": "btn_hover_bg_color", "label": "Button Hover Background", "default": "#ffffff" },
-    { "type": "color", "id": "btn_hover_text_color", "label": "Button Hover Text", "default": "#d32f2f" },
-
+    { "type": "color", "id": "btn_hover_text_color", "label": "Button Hover Text", "default": "#e32c2b" },
     {
       "type": "header",
-      "content": "Animation Settings"
+      "content": "Visual Effects"
     },
-    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
-      { "value": "fade-right", "label": "Fade from Right" },
-      { "value": "fade-up", "label": "Fade Up" },
-      { "value": "zoom-in", "label": "Zoom In" }
-    ], "default": "fade-right" }
+    { 
+      "type": "select", 
+      "id": "animation_type", 
+      "label": "Entrance Animation", 
+      "options": [
+        { "value": "fade-right", "label": "Fade from Right" },
+        { "value": "fade-up", "label": "Fade Up" },
+        { "value": "zoom-in", "label": "Zoom In" }
+      ], 
+      "default": "fade-right" 
+    }
   ],
   "presets": [
     {
