@@ -1,0 +1,275 @@
+{%- style -%}
+  /* Google Fonts Import */
+  @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Oswald:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+  .features-bar-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .fb-container-{{ section.id }} {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  
+  .fb-flex {
+    display: flex;
+    justify-content: {{ section.settings.content_alignment }};
+    align-items: center;
+    flex-wrap: wrap;
+    gap: {{ section.settings.row_gap }}px {{ section.settings.items_gap }}px; 
+  }
+  
+  .fb-item {
+    display: flex;
+    flex-direction: row; /* Icon left, Text right (As per screenshot) */
+    align-items: center;
+    text-align: left;
+    flex: 0 1 auto;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    {% if section.settings.animation_type == 'fade-up' %}
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
+    {% elsif section.settings.animation_type == 'zoom-in' %}
+      animation: zoomIn 0.8s ease-out forwards;
+      opacity: 0;
+    {% endif %}
+  }
+
+  /* Stagger Delays */
+  .fb-item:nth-child(1) { animation-delay: 0.1s; }
+  .fb-item:nth-child(2) { animation-delay: 0.2s; }
+  .fb-item:nth-child(3) { animation-delay: 0.3s; }
+  .fb-item:nth-child(4) { animation-delay: 0.4s; }
+
+  /* Hover Behavior from your example code */
+  {% if section.settings.enable_hover %}
+  .fb-item:hover {
+    transform: translateY(-{{ section.settings.hover_lift }}px);
+  }
+  .fb-item:hover .fb-icon {
+    transform: scale(1.1);
+  }
+  {% endif %}
+
+  .fb-icon {
+    flex-shrink: 0;
+    margin-right: {{ section.settings.icon_text_gap }}px; 
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ section.settings.icon_color }};
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .fb-icon i {
+    font-size: {{ section.settings.icon_size }}px;
+    display: block;
+  }
+
+  .fb-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .fb-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .fb-info h4 {
+    margin: 0 0 {{ section.settings.heading_margin_bottom }}px 0;
+    font-size: {{ section.settings.heading_size }}px;
+    font-family: {{ section.settings.heading_font_family }};
+    font-weight: {{ section.settings.heading_font_weight }};
+    color: {{ section.settings.heading_color }};
+    line-height: 1.1;
+    text-transform: {{ section.settings.heading_transform }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}px;
+  }
+  
+  .fb-info p {
+    margin: 0;
+    font-size: {{ section.settings.text_size }}px;
+    font-family: {{ section.settings.body_font_family }};
+    color: {{ section.settings.text_color }};
+    line-height: 1.3;
+    font-weight: 400;
+    opacity: {{ section.settings.text_opacity }};
+  }
+
+  /* Animation Keyframes from your example */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+  /* MOBILE RESPONSIVE */
+  @media (max-width: 990px) {
+    .fb-flex { justify-content: center; gap: 30px 40px; }
+  }
+
+  @media (max-width: 768px) {
+    .fb-flex {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 25px;
+      padding-left: 10px;
+    }
+    .fb-container-{{ section.id }} { padding: 0 20px; }
+    .fb-info h4 { font-size: {{ section.settings.heading_size_mob }}px; }
+    .fb-info p { font-size: {{ section.settings.text_size_mob }}px; }
+    .fb-icon { margin-right: 15px; }
+  }
+{%- endstyle -%}
+
+<!-- FontAwesome link for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<section class="features-bar-{{ section.id }}">
+  <div class="fb-container-{{ section.id }}">
+    <div class="fb-flex">
+      
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="fb-item" {{ block.shopify_attributes }}>
+            <div class="fb-icon">
+              {%- if block.settings.custom_image != blank -%}
+                <img src="{{ block.settings.custom_image | image_url: width: 200 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {%- else -%}
+                <i class="{{ block.settings.icon_class }}"></i>
+              {%- endif -%}
+            </div>
+            <div class="fb-info">
+              <h4>{{ block.settings.title }}</h4>
+              <p>{{ block.settings.subtext }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Fallback Content based on screenshot -->
+        <div class="fb-item">
+            <div class="fb-icon"><i class="fa-regular fa-certificate"></i></div>
+            <div class="fb-info"><h4>100% Halal Certified</h4><p>Verified by UAE authorities</p></div>
+        </div>
+        <div class="fb-item">
+            <div class="fb-icon"><i class="fa-solid fa-leaf"></i></div>
+            <div class="fb-info"><h4>Always Fresh</h4><p>Cut and delivered same day</p></div>
+        </div>
+        <div class="fb-item">
+            <div class="fb-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="fb-info"><h4>Free UAE Delivery</h4><p>On orders above $150</p></div>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icon Features Bar Pro",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout & Spacing"
+    },
+    { "type": "range", "id": "container_width", "label": "Max Container Width", "min": 1000, "max": 1600, "step": 50, "default": 1400, "unit": "px" },
+    { "type": "select", "id": "content_alignment", "label": "Desktop Alignment", "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "space-around", "label": "Space Around" },
+        { "value": "space-between", "label": "Space Between" }
+      ], "default": "space-around" },
+    { "type": "range", "id": "padding_top", "label": "Padding Top", "min": 0, "max": 100, "step": 5, "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding Bottom", "min": 0, "max": 100, "step": 5, "default": 40 },
+    { "type": "range", "id": "items_gap", "label": "Gap Between Items (Horizontal)", "min": 10, "max": 150, "step": 5, "default": 80 },
+    { "type": "range", "id": "row_gap", "label": "Row Gap (Mobile/Wrap)", "min": 10, "max": 100, "step": 5, "default": 40 },
+    { "type": "range", "id": "icon_text_gap", "label": "Gap Between Icon & Text", "min": 5, "max": 50, "step": 1, "default": 25 },
+    
+    {
+      "type": "header",
+      "content": "Typography: Heading"
+    },
+    { "type": "select", "id": "heading_font_family", "label": "Heading Font Family", "options": [
+        { "value": "'Oswald', sans-serif", "label": "Oswald" },
+        { "value": "'Questrial', sans-serif", "label": "Questrial" },
+        { "value": "'Poppins', sans-serif", "label": "Poppins" }
+      ], "default": "'Oswald', sans-serif" },
+    { "type": "range", "id": "heading_size", "label": "Heading Font Size (Desktop)", "min": 12, "max": 40, "step": 1, "default": 20 },
+    { "type": "range", "id": "heading_size_mob", "label": "Heading Font Size (Mobile)", "min": 12, "max": 30, "step": 1, "default": 18 },
+    { "type": "range", "id": "heading_font_weight", "label": "Heading Font Weight", "min": 300, "max": 800, "step": 100, "default": 700 },
+    { "type": "select", "id": "heading_transform", "label": "Text Transform", "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ], "default": "none" },
+    { "type": "range", "id": "heading_letter_spacing", "label": "Letter Spacing", "min": 0, "max": 5, "step": 0.1, "default": 0.5 },
+    { "type": "range", "id": "heading_margin_bottom", "label": "Margin Below Heading", "min": 0, "max": 20, "step": 1, "default": 4 },
+
+    {
+      "type": "header",
+      "content": "Typography: Subtext"
+    },
+    { "type": "select", "id": "body_font_family", "label": "Subtext Font Family", "options": [
+        { "value": "'Questrial', sans-serif", "label": "Questrial" },
+        { "value": "'Poppins', sans-serif", "label": "Poppins" },
+        { "value": "sans-serif", "label": "System Sans" }
+      ], "default": "'Poppins', sans-serif" },
+    { "type": "range", "id": "text_size", "label": "Subtext Font Size (Desktop)", "min": 10, "max": 24, "step": 1, "default": 14 },
+    { "type": "range", "id": "text_size_mob", "label": "Subtext Font Size (Mobile)", "min": 10, "max": 20, "step": 1, "default": 13 },
+    { "type": "range", "id": "text_opacity", "label": "Text Opacity", "min": 0.1, "max": 1.0, "step": 0.1, "default": 0.9 },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    { "type": "color", "id": "background_color", "label": "Background Color", "default": "#A10C0E" },
+    { "type": "color", "id": "icon_color", "label": "Icon Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "heading_color", "label": "Heading Color", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Subtext Color", "default": "#FFFFFF" },
+    
+    {
+      "type": "header",
+      "content": "Animations & Effects"
+    },
+    { "type": "range", "id": "icon_size", "label": "Icon Size", "min": 15, "max": 100, "step": 1, "default": 45 },
+    { "type": "checkbox", "id": "enable_hover", "label": "Enable Hover Effect", "default": true },
+    { "type": "range", "id": "hover_lift", "label": "Hover Lift Height (px)", "min": 0, "max": 20, "default": 8 },
+    { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
+      { "value": "none", "label": "None" },
+      { "value": "fade-up", "label": "Fade Up" },
+      { "value": "zoom-in", "label": "Zoom In" }
+    ], "default": "fade-up" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        { "type": "text", "id": "icon_class", "label": "Icon Class (Font Awesome)", "default": "fa-regular fa-certificate" },
+        { "type": "image_picker", "id": "custom_image", "label": "Custom Icon Image" },
+        { "type": "text", "id": "title", "label": "Heading", "default": "100% Halal Certified" },
+        { "type": "text", "id": "subtext", "label": "Description", "default": "Verified by UAE authorities" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon Features Bar Pro",
+      "blocks": [
+        { "type": "feature", "settings": { "icon_class": "fa-regular fa-certificate", "title": "100% Halal Certified", "subtext": "Verified by UAE authorities" } },
+        { "type": "feature", "settings": { "icon_class": "fa-solid fa-leaf", "title": "Always Fresh", "subtext": "Cut and delivered same day" } },
+        { "type": "feature", "settings": { "icon_class": "fa-solid fa-truck-fast", "title": "Free UAE Delivery", "subtext": "On orders above $150" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
