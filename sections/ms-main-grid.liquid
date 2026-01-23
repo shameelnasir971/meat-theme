@@ -284,6 +284,7 @@
              {%- assign main_coll = collections.all -%}
           {%- endif -%}
 
+          {% comment %} Remove Limit loop or set high limit {% endcomment %}
           {% for product in main_coll.products %}
             <!-- Added Data Attributes for Filtering -->
             <div class="ms-card product-item-card" 
@@ -352,8 +353,12 @@
   }
 
   // --- FILTER LOGIC START ---
+  
+  // 1. Function called by Circle Nav & Sidebar Tags & URL Search
   window.filterMeatProducts = function(categoryName) {
-    if (!categoryName) return; 
+    if (!categoryName) return; // safety check
+    
+    // Convert to lowercase for matching
     const filterValue = categoryName.toLowerCase();
     
     // Scroll smoothly to the product grid
@@ -370,8 +375,11 @@
     const cards = document.querySelectorAll('.product-item-card');
     let hasVisible = false;
 
+    // Loop through cards and Show/Hide based on match
     cards.forEach(card => {
       const productData = card.getAttribute('data-meat-type');
+      
+      // Check if product title/type/tags contains the category name
       if (productData.includes(filterValue)) {
         card.style.display = 'block';
         hasVisible = true;
@@ -380,13 +388,14 @@
       }
     });
 
+    // Handle "No Results" message
     const noResultMsg = document.getElementById('ms-no-results');
     if(noResultMsg) {
       noResultMsg.style.display = hasVisible ? 'none' : 'block';
     }
   };
 
-  // Reset Filter Function
+  // 2. Reset Filter Function
   window.resetMeatFilter = function() {
     const cards = document.querySelectorAll('.product-item-card');
     cards.forEach(card => card.style.display = 'block');
@@ -397,27 +406,35 @@
     const noResultMsg = document.getElementById('ms-no-results');
     if(noResultMsg) noResultMsg.style.display = 'none';
     
+    // Remove query param from URL without refresh (optional clean up)
     const url = new URL(window.location);
     url.searchParams.delete('category');
+    url.searchParams.delete('filter.p.title'); // also remove search param
+    url.searchParams.delete('q');
     window.history.pushState({}, '', url);
   };
 
-  // AUTO FILTER ON PAGE LOAD
+  // 3. AUTO FILTER ON PAGE LOAD (Handles Redirect from Search)
   document.addEventListener("DOMContentLoaded", function() {
     const params = new URLSearchParams(window.location.search);
-    const categoryParam = params.get('category');
+    
+    // Check both standard 'category' param and search param 'q' or 'filter.p.title'
+    let categoryParam = params.get('category') || params.get('q') || params.get('filter.p.title');
     
     if (categoryParam) {
+      // Decode URI component handle spaces/special chars
       const decodedCat = decodeURIComponent(categoryParam);
+      
+      // Slight delay to ensure DOM is ready
       setTimeout(() => {
         filterMeatProducts(decodedCat);
       }, 100);
     }
   });
 
-  // AJAX ADD TO CART LOGIC
+  // 4. AJAX ADD TO CART LOGIC
   function addToCartGridAjax(e, form) {
-    e.preventDefault(); 
+    e.preventDefault(); // Stop redirection
 
     const btn = form.querySelector('button');
     const originalText = btn.innerText;
@@ -427,18 +444,26 @@
 
     const formData = new FormData(form);
 
-    fetch('/cart/add.js', { method: 'POST', body: formData })
+    // Add item to cart
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
     .then(response => response.json())
     .then(data => {
+      // Fetch updated cart count
       return fetch('/cart.js');
     })
     .then(res => res.json())
     .then(cart => {
+      // Update Header Cart Count
       const countBadges = document.querySelectorAll('.cart-count-pro');
       countBadges.forEach(badge => {
         badge.innerText = cart.item_count;
         badge.style.display = cart.item_count > 0 ? 'flex' : 'none';
       });
+
+      // Reset Button
       btn.innerText = "Added!";
       setTimeout(() => {
         btn.innerText = originalText;
@@ -457,18 +482,21 @@
   
 </script>
 
+
 {% schema %}
 {
 "name": "MS Main Products Grid",
 "settings": [
 { "type": "header", "content": "Data Settings" },
 { "type": "collection", "id": "collection", "label": "Select Collection" },
+
 { "type": "header", "content": "Layout Settings" },
 { "type": "text", "id": "title", "label": "Section Title", "default": "Products" },
 { "type": "range", "id": "container_width", "label": "Container Width", "min": 1000, "max": 1600, "step": 10, "default": 1400, "unit": "px" },
 { "type": "range", "id": "side_padding", "label": "Side Padding", "min": 0, "max": 100, "step": 5, "default": 60, "unit": "px" },
 { "type": "range", "id": "grid_desktop", "label": "Products per row (Desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
 { "type": "range", "id": "card_height", "label": "Image Height", "min": 200, "max": 500, "step": 10, "default": 320, "unit": "px" },
+
 { "type": "header", "content": "Typography Settings" },
 { "type": "select", "id": "heading_font_family", "label": "Heading Font", "options": [
   { "value": "'Oswald', sans-serif", "label": "Oswald (Bold)" },
@@ -484,27 +512,32 @@
 ], "default": "'Poppins', sans-serif" },
 { "type": "range", "id": "card_title_size", "label": "Product Title Size", "min": 16, "max": 24, "default": 22, "unit": "px" },
 { "type": "range", "id": "price_size", "label": "Price Size", "min": 16, "max": 24, "default": 20, "unit": "px" },
+
 { "type": "header", "content": "Colors & Style" },
 { "type": "color", "id": "primary_color", "label": "Primary Red", "default": "#d32f2f" },
 { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#ffffff" },
 { "type": "color", "id": "text_color", "label": "Text Color", "default": "#111111" },
 { "type": "color", "id": "star_color", "label": "Star Color", "default": "#ffb400" },
 { "type": "color", "id": "price_color", "label": "Price Color", "default": "#d32f2f" },
+
 { "type": "header", "content": "Button Style" },
 { "type": "color", "id": "btn_bg_color", "label": "Button Background", "default": "#d32f2f" },
 { "type": "color", "id": "btn_text_color", "label": "Button Text", "default": "#ffffff" },
 { "type": "color", "id": "btn_hover_bg_color", "label": "Button Hover BG", "default": "#b71c1c" },
 { "type": "range", "id": "btn_radius", "label": "Button Roundness", "min": 0, "max": 50, "step": 2, "default": 6, "unit": "px" },
+
 { "type": "header", "content": "Discount Badge" },
 { "type": "checkbox", "id": "show_badge", "label": "Show Badge", "default": true },
 { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "20% Off" },
 { "type": "color", "id": "badge_bg_color", "label": "Badge Background", "default": "#d32f2f" },
 { "type": "color", "id": "badge_text_color", "label": "Badge Text Color", "default": "#ffffff" },
+
 { "type": "header", "content": "Custom Icons (Upload)" },
 { "type": "image_picker", "id": "icon_filter", "label": "Filter Icon" },
 { "type": "image_picker", "id": "icon_reset", "label": "Reset Icon" },
 { "type": "image_picker", "id": "icon_view", "label": "Eye Icon" },
 { "type": "image_picker", "id": "icon_heart", "label": "Heart Icon" },
+
 { "type": "header", "content": "Animations & Hover" },
 { "type": "select", "id": "animation_type", "label": "Entrance Animation", "options": [
   { "value": "none", "label": "None" },
@@ -513,6 +546,7 @@
 ], "default": "fade-up" },
 { "type": "checkbox", "id": "enable_hover_lift", "label": "Enable Card Lift on Hover", "default": true },
 { "type": "checkbox", "id": "enable_img_zoom", "label": "Enable Image Zoom on Hover", "default": true }
+
 ],
 "presets": [
 { "name": "MS Main Products Grid" }

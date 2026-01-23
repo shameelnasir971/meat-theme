@@ -57,7 +57,6 @@
     { "type": "range", "id": "drop_radius", "label": "Dropdown Corner Radius", "default": 8, "min": 0, "max": 20, "step": 2, "unit": "px" },
 
     { "type": "header", "content": "Icon Settings (Upload Custom Icons)" },
-    { "type": "paragraph", "content": "Leave blank to use default Font-Awesome icons" },
     { "type": "image_picker", "id": "custom_search_icon", "label": "Custom Search Icon" },
     { "type": "image_picker", "id": "custom_user_icon", "label": "Custom User Icon" },
     { "type": "image_picker", "id": "custom_cart_icon", "label": "Custom Cart Icon" },
@@ -87,9 +86,11 @@
   <div class="search-container-pro">
     <button class="search-close-btn" id="searchCloseBtn"><i class="fa-solid fa-xmark"></i></button>
     <h3 class="search-title">Search Our Store</h3>
-    <form action="/search" method="get" role="search" class="search-form-pro">
+    
+    <!-- Updated Search Form with Smart Redirection -->
+    <form id="smartSearchForm" class="search-form-pro" onsubmit="handleSmartSearch(event)">
       <div class="input-group-pro">
-        <input type="text" name="q" id="SearchInputPro" placeholder="What are you looking for?" class="search-input-field" autocomplete="off">
+        <input type="text" name="q" id="SearchInputPro" placeholder="Search pages (Contact, About) or Products (Beef, Chicken)..." class="search-input-field" autocomplete="off">
         <button type="submit" class="search-submit-btn">
            {% if section.settings.custom_search_icon != blank %}
              <img src="{{ section.settings.custom_search_icon | image_url: width: 50 }}" style="width:{{ section.settings.icon_size }}px">
@@ -460,6 +461,38 @@
 </style>
 
 <script>
+  // SMART SEARCH LOGIC (Main functionality you asked for)
+  window.handleSmartSearch = function(e) {
+    e.preventDefault();
+    
+    const query = document.getElementById('SearchInputPro').value.trim().toLowerCase();
+    
+    if (!query) return;
+
+    // Define Pages Map (User Friendly Keywords -> URL)
+    const pagesMap = {
+      'contact': '/pages/contact',
+      'contact us': '/pages/contact',
+      'about': '/pages/about',
+      'about us': '/pages/about',
+      'shop': '/collections',
+      'home': '/',
+      'blog': '/blogs/news'
+    };
+
+    // 1. Check if user searched for a Page
+    if (pagesMap[query]) {
+      window.location.href = pagesMap[query];
+    } else {
+      // 2. Otherwise assume it's a Product Category (Meat, Beef, Chicken etc.)
+      // Redirect to Collection Page with Filter Query
+      window.location.href = '/collections?filter.p.title=' + encodeURIComponent(query) + '&q=' + encodeURIComponent(query);
+      
+      // Alternative: Use Shopify Search URL (Standard)
+      // window.location.href = '/search?type=product&q=' + encodeURIComponent(query);
+    }
+  };
+
   (function() {
     const header = document.getElementById('headerSticky');
 
@@ -509,12 +542,17 @@
       }
     });
 
-    // Search Overlay
+    // Search Overlay Open/Close
     const searchTrigger = document.getElementById('searchTriggerBtn');
     const searchOverlay = document.getElementById('searchOverlay');
     const searchClose = document.getElementById('searchCloseBtn');
+    
     if(searchTrigger) {
-      searchTrigger.onclick = (e) => { e.preventDefault(); searchOverlay.classList.add('active'); };
+      searchTrigger.onclick = (e) => { 
+        e.preventDefault(); 
+        searchOverlay.classList.add('active'); 
+        setTimeout(() => document.getElementById('SearchInputPro').focus(), 100);
+      };
     }
     if(searchClose) {
       searchClose.onclick = () => searchOverlay.classList.remove('active');

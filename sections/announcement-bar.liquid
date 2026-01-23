@@ -1,3 +1,9 @@
+{% comment %}
+  Announcement Bar Slider with Show/Hide Option
+{% endcomment %}
+
+{% if section.settings.show_announcement %}
+
 {%- style -%}
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Poppins:wght@400;500;600&family=Questrial&display=swap');
 
@@ -170,10 +176,22 @@
   })();
 </script>
 
+{% endif %}
+
 {% schema %}
 {
   "name": "Announcement Bar Slider",
   "settings": [
+    {
+      "type": "header",
+      "content": "Visibility Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
     { "type": "header", "content": "Typography & Fonts" },
     {
       "type": "select",
